@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Environment and secrets
+.env
+.env.local
+
+# Data (spec: data/ is gitignored, raw/ and processed/)
+data/raw/
+data/processed/
+data/
+!data/.gitkeep
+
+# Cache and testing
+.pytest_cache/
+.coverage
+htmlcov/
+.chroma/
+
+# OS
+.DS_Store
+Thumbs.db

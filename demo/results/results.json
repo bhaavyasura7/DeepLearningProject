@@ -1,0 +1,236 @@
+{
+  "metrics": {
+    "vector": {
+      "eval_count": 50,
+      "hit_rate_at_5": 0.76,
+      "hit_rate_at_10": 0.76,
+      "ndcg_at_5": 0.3904,
+      "ndcg_at_10": 0.3904,
+      "recall_at_50": 1.0,
+      "avg_llm_calls": 5.0,
+      "avg_seconds": 0.02
+    },
+    "hybrid": {
+      "eval_count": 50,
+      "hit_rate_at_5": 0.74,
+      "hit_rate_at_10": 0.74,
+      "ndcg_at_5": 0.3928,
+      "ndcg_at_10": 0.3928,
+      "recall_at_50": 1.0,
+      "avg_llm_calls": 4.0,
+      "avg_seconds": 0.02
+    },
+    "graph": {
+      "eval_count": 50,
+      "hit_rate_at_5": 0.8,
+      "hit_rate_at_10": 0.8,
+      "ndcg_at_5": 0.4203,
+      "ndcg_at_10": 0.4203,
+      "recall_at_50": 1.0,
+      "avg_llm_calls": 4.0,
+      "avg_seconds": 0.0
+    }
+  },
+  "error_analysis": [
+    {
+      "user_id": 2,
+      "ground_truth": "Past Lives",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Toy Story",
+        "Dune",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things"
+      ],
+      "hybrid_recommendations": [
+        "Toy Story",
+        "Dune",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things"
+      ]
+    },
+    {
+      "user_id": 3,
+      "ground_truth": "Challengers",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Toy Story",
+        "Interstellar",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things"
+      ],
+      "hybrid_recommendations": [
+        "Toy Story",
+        "Interstellar",
+        "Civil War",
+        "Oppenheimer",
+        "Dune: Part Two"
+      ]
+    },
+    {
+      "user_id": 4,
+      "ground_truth": "Past Lives",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Inception",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things",
+        "Avengers: Infinity War"
+      ],
+      "hybrid_recommendations": [
+        "Inception",
+        "Civil War",
+        "Oppenheimer",
+        "Fight Club",
+        "Dune: Part Two"
+      ]
+    },
+    {
+      "user_id": 9,
+      "ground_truth": "Civil War, Challengers",
+      "vector_hit": false,
+      "hybrid_hit": true,
+      "vector_recommendations": [
+        "Interstellar",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things",
+        "Gone Girl"
+      ],
+      "hybrid_recommendations": [
+        "Interstellar",
+        "Civil War",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things"
+      ]
+    },
+    {
+      "user_id": 15,
+      "ground_truth": "Challengers",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Inception",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things",
+        "Civil War"
+      ],
+      "hybrid_recommendations": [
+        "Inception",
+        "Oppenheimer",
+        "Civil War",
+        "Dune: Part Two",
+        "Poor Things"
+      ]
+    },
+    {
+      "user_id": 16,
+      "ground_truth": "Past Lives",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things",
+        "Civil War",
+        "Challengers"
+      ],
+      "hybrid_recommendations": [
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Civil War",
+        "Poor Things",
+        "Challengers"
+      ]
+    },
+    {
+      "user_id": 19,
+      "ground_truth": "Challengers",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "The Matrix",
+        "Arrival",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things"
+      ],
+      "hybrid_recommendations": [
+        "The Matrix",
+        "Oppenheimer",
+        "Arrival",
+        "Civil War",
+        "Dune: Part Two"
+      ]
+    },
+    {
+      "user_id": 22,
+      "ground_truth": "Civil War",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things",
+        "The Lord of the Rings: The Fellowship of the Ring",
+        "Gone Girl"
+      ],
+      "hybrid_recommendations": [
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Gone Girl",
+        "Poor Things",
+        "The Lord of the Rings: The Fellowship of the Ring"
+      ]
+    },
+    {
+      "user_id": 28,
+      "ground_truth": "Civil War, Poor Things",
+      "vector_hit": true,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "The Martian",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things",
+        "Avengers: Infinity War"
+      ],
+      "hybrid_recommendations": [
+        "The Martian",
+        "Oppenheimer",
+        "Shutter Island",
+        "Dune: Part Two",
+        "Star Wars"
+      ]
+    },
+    {
+      "user_id": 30,
+      "ground_truth": "Past Lives",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "The Martian",
+        "Oppenheimer",
+        "Dune: Part Two",
+        "Poor Things",
+        "Civil War"
+      ],
+      "hybrid_recommendations": [
+        "The Martian",
+        "Dune: Part Two",
+        "Oppenheimer",
+        "Challengers",
+        "Poor Things"
+      ]
+    }
+  ]
+}

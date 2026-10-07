@@ -1,0 +1,120 @@
+[
+  {
+    "id": "nolan_scifi",
+    "title": "Mind-Bending Sci-Fi & Time",
+    "mode": "query",
+    "blurb": "Finds cerebral sci-fi thrillers exploring time dilation, memory, and cosmic survival.",
+    "cold_start": false,
+    "query": "smart sci-fi like Inception and Interstellar with time dilation and deep philosophical themes",
+    "history": []
+  },
+  {
+    "id": "animated_family",
+    "title": "Heartwarming Animated Adventures",
+    "mode": "query",
+    "blurb": "Searches for delightful, emotionally resonant family animations with imaginative worlds.",
+    "cold_start": false,
+    "query": "heartwarming family friendly animated adventure with friendship and imagination",
+    "history": []
+  },
+  {
+    "id": "villeneuve_feed",
+    "title": "Atmospheric Mystery & Speculation",
+    "mode": "feed",
+    "blurb": "Recommends movies strictly from viewing history of atmospheric, cerebral sci-fi dramas.",
+    "cold_start": false,
+    "query": null,
+    "history": [
+      {
+        "movie_id": 164179,
+        "title": "Arrival",
+        "rating": 5.0,
+        "genres": ["Drama", "Sci-Fi", "Mystery"]
+      },
+      {
+        "movie_id": 174055,
+        "title": "Blade Runner 2049",
+        "rating": 5.0,
+        "genres": ["Sci-Fi", "Drama", "Mystery"]
+      },
+      {
+        "movie_id": 135133,
+        "title": "The Martian",
+        "rating": 4.5,
+        "genres": ["Drama", "Adventure", "Sci-Fi"]
+      }
+    ]
+  },
+  {
+    "id": "crime_noir_feed",
+    "title": "Gritty Crime & Psychological Suspense",
+    "mode": "feed",
+    "blurb": "Generates tailored recommendations based solely on high ratings for intense crime thrillers.",
+    "cold_start": false,
+    "query": null,
+    "history": [
+      {
+        "movie_id": 296,
+        "title": "Pulp Fiction",
+        "rating": 5.0,
+        "genres": ["Crime", "Drama", "Thriller"]
+      },
+      {
+        "movie_id": 318,
+        "title": "The Shawshank Redemption",
+        "rating": 5.0,
+        "genres": ["Drama", "Crime"]
+      },
+      {
+        "movie_id": 60069,
+        "title": "Shutter Island",
+        "rating": 4.5,
+        "genres": ["Drama", "Mystery", "Thriller"]
+      }
+    ]
+  },
+  {
+    "id": "dune_coldstart",
+    "title": "Desert Warfare & Prophecy (Cold-Start)",
+    "mode": "query",
+    "blurb": "Features newly released Dune: Part Two (0 train ratings) discovered seamlessly via hybrid graph relations.",
+    "cold_start": true,
+    "query": "epic desert planet sci-fi saga with sandworms, prophetic war, and holy rebellion",
+    "history": [
+      {
+        "movie_id": 201588,
+        "title": "Dune",
+        "rating": 5.0,
+        "genres": ["Sci-Fi", "Adventure"]
+      }
+    ]
+  },
+  {
+    "id": "oppenheimer_coldstart",
+    "title": "Nolan Directorial Legacy (Cold-Start)",
+    "mode": "feed",
+    "blurb": "Uncovers the brand-new biographical epic Oppenheimer through direct directorial graph paths from viewing history.",
+    "cold_start": true,
+    "query": null,
+    "history": [
+      {
+        "movie_id": 79132,
+        "title": "Inception",
+        "rating": 5.0,
+        "genres": ["Action", "Sci-Fi", "Adventure"]
+      },
+      {
+        "movie_id": 109487,
+        "title": "Interstellar",
+        "rating": 5.0,
+        "genres": ["Adventure", "Drama", "Sci-Fi"]
+      },
+      {
+        "movie_id": 58559,
+        "title": "The Dark Knight",
+        "rating": 5.0,
+        "genres": ["Action", "Crime", "Drama"]
+      }
+    ]
+  }
+]
