@@ -10,7 +10,8 @@ class SummarisingAgent:
         self,
         profile: Profile,
         verdicts: List[Verdict],
-        candidates: List[Candidate]
+        candidates: List[Candidate],
+        allow_fallback: bool = True
     ) -> Tuple[Brief, bool]:
         """
         Compresses judgements into a coherent Brief highlighting strong matches and key violations.
@@ -50,7 +51,9 @@ class SummarisingAgent:
         try:
             brief: Brief = await self.llm.generate(prompt, Brief)
             return brief, False
-        except Exception:
+        except Exception as e:
+            if not allow_fallback:
+                raise e
             # Deterministic fallback brief
             strong_titles = []
             for v in matched[:5]:

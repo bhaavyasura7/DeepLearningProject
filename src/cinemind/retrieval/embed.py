@@ -41,23 +41,36 @@ class EmbeddingService:
         self.model = model or settings.embedding_model
 
     def embed_text(self, text: str) -> List[float]:
-        try:
-            with httpx.Client(timeout=30.0) as client:
-                res = client.post(
-                    f"{self.base_url}/api/embeddings",
-                    json={"model": self.model, "prompt": text}
-                )
-                if res.status_code == 200:
-                    data = res.json()
-                    emb = data.get("embedding")
-                    if emb and len(emb) > 0:
-                        return emb
-        except Exception:
-            pass
+        res = self.embed_batch([text])
+        if res and len(res) > 0:
+            return res[0]
         return deterministic_fallback_embedding(text)
 
-    def embed_batch(self, texts: List[str]) -> List[List[float]]:
-        return [self.embed_text(t) for t in texts]
+    def embed_batch(self, texts: List[str], batch_size: int = 64) -> List[List[float]]:
+        all_embeddings: List[List[float]] = []
+        try:
+            with httpx.Client(timeout=60.0) as client:
+                for i in range(0, len(texts), batch_size):
+                    chunk = texts[i:i + batch_size]
+                    try:
+                        res = client.post(
+                            f"{self.base_url}/api/embed",
+                            json={"model": self.model, "input": chunk}
+                        )
+                        if res.status_code == 200:
+                            data = res.json()
+                            embs = data.get("embeddings")
+                            if embs and len(embs) == len(chunk):
+                                all_embeddings.extend(embs)
+                                continue
+                    except Exception:
+                        pass
+                    # Fallback to single calls or deterministic
+                    for t in chunk:
+                        all_embeddings.append(deterministic_fallback_embedding(t))
+            return all_embeddings
+        except Exception:
+            return [deterministic_fallback_embedding(t) for t in texts]
 
 def build_vector_index(
     catalog: Optional[List[Movie]] = None,
@@ -100,12 +113,15 @@ def build_vector_index(
     print(f"[Vector] Generating embeddings for {len(texts)} catalog movies...")
     embeddings = embedder.embed_batch(texts)
 
-    collection.add(
-        ids=ids,
-        documents=texts,
-        embeddings=embeddings,
-        metadatas=metadatas
-    )
+    # Insert in chunks of 2000 to respect Chroma's maximum batch size (5,461)
+    chunk_size = 2000
+    for i in range(0, len(ids), chunk_size):
+        collection.add(
+            ids=ids[i:i + chunk_size],
+            documents=texts[i:i + chunk_size],
+            embeddings=embeddings[i:i + chunk_size],
+            metadatas=metadatas[i:i + chunk_size]
+        )
 
     print(f"[Vector] Successfully indexed {collection.count()} movies into Chroma at {p_dir}")
     return collection

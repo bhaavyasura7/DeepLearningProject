@@ -26,22 +26,22 @@
     "query": null,
     "history": [
       {
-        "movie_id": 164179,
-        "title": "Arrival",
+        "movie_id": 541,
+        "title": "Blade Runner",
         "rating": 5.0,
-        "genres": ["Drama", "Sci-Fi", "Mystery"]
+        "genres": ["Science Fiction", "Drama", "Mystery"]
       },
       {
-        "movie_id": 174055,
-        "title": "Blade Runner 2049",
-        "rating": 5.0,
-        "genres": ["Sci-Fi", "Drama", "Mystery"]
-      },
-      {
-        "movie_id": 135133,
+        "movie_id": 134130,
         "title": "The Martian",
         "rating": 4.5,
-        "genres": ["Drama", "Adventure", "Sci-Fi"]
+        "genres": ["Drama", "Adventure", "Science Fiction"]
+      },
+      {
+        "movie_id": 79132,
+        "title": "Inception",
+        "rating": 5.0,
+        "genres": ["Action", "Science Fiction", "Adventure"]
       }
     ]
   },
@@ -66,7 +66,7 @@
         "genres": ["Drama", "Crime"]
       },
       {
-        "movie_id": 60069,
+        "movie_id": 74458,
         "title": "Shutter Island",
         "rating": 4.5,
         "genres": ["Drama", "Mystery", "Thriller"]
@@ -74,18 +74,18 @@
     ]
   },
   {
-    "id": "dune_coldstart",
-    "title": "Desert Warfare & Prophecy (Cold-Start)",
+    "id": "avatar_coldstart",
+    "title": "Alien Oceans & Marine Warfare (Cold-Start)",
     "mode": "query",
-    "blurb": "Features newly released Dune: Part Two (0 train ratings) discovered seamlessly via hybrid graph relations.",
+    "blurb": "Discovers Avatar: The Way of Water (0 train ratings) through direct directorial graph paths from viewing history.",
     "cold_start": true,
-    "query": "epic desert planet sci-fi saga with sandworms, prophetic war, and holy rebellion",
+    "query": "lush alien moon ocean creatures and high tech marine warfare",
     "history": [
       {
-        "movie_id": 201588,
-        "title": "Dune",
+        "movie_id": 72998,
+        "title": "Avatar",
         "rating": 5.0,
-        "genres": ["Sci-Fi", "Adventure"]
+        "genres": ["Action", "Adventure", "Fantasy", "Science Fiction"]
       }
     ]
   },
@@ -101,13 +101,13 @@
         "movie_id": 79132,
         "title": "Inception",
         "rating": 5.0,
-        "genres": ["Action", "Sci-Fi", "Adventure"]
+        "genres": ["Action", "Science Fiction", "Adventure"]
       },
       {
         "movie_id": 109487,
         "title": "Interstellar",
         "rating": 5.0,
-        "genres": ["Adventure", "Drama", "Sci-Fi"]
+        "genres": ["Adventure", "Drama", "Science Fiction"]
       },
       {
         "movie_id": 58559,

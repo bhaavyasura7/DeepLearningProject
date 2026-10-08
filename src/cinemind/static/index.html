@@ -1,250 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CineMind — Proactive Reasoning Movie Recommendation</title>
-  <meta name="description" content="ARAG reproduction + graph-retrieval candidate discovery for movies. Four-stage reasoning pipeline with transparent explainability.">
-  <link rel="stylesheet" href="/static/style.css">
+  <title>CineMind — Autonomous Neural &amp; Graph Film Recommendation</title>
+  <meta name="description" content="Production 4-stage ARAG reasoning pipeline with 2-hop Personalized PageRank knowledge graph candidate discovery over 12,000 real movies.">
+  <script>
+    (function() {
+      const saved = localStorage.getItem("cinemind-theme");
+      if (saved === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/style.css?v=5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Antic&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="app-container">
     <!-- Header -->
     <header class="app-header">
       <div class="brand-section">
-        <div class="brand-logo" aria-hidden="true">CM</div>
-        <div>
-          <h1 class="brand-title">CineMind</h1>
-          <p class="brand-tagline">ARAG Reasoning & Graph Discovery Engine</p>
+        <div class="brand-mark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
+        </div>
+        <div class="brand-title-wrap">
+          <h1 class="brand-title">CINEMIND</h1>
+          <span class="brand-tagline">Graph &amp; Neural Reasoning Engine</span>
         </div>
       </div>
 
       <nav class="nav-tabs" aria-label="Main Navigation">
-        <button class="nav-tab-btn active" id="tab-demo" onclick="switchTab('demo')" aria-label="Open Interactive Demo">Interactive Demo</button>
-        <button class="nav-tab-btn" id="tab-compare" onclick="switchTab('compare')" aria-label="Open Comparison View">Comparison View</button>
-        <button class="nav-tab-btn" id="tab-results" onclick="switchTab('results')" aria-label="Open Evaluation Results">Evaluation Results</button>
+        <button class="nav-tab-btn active" id="tab-demo" onclick="switchTab('demo')">Studio</button>
+        <button class="nav-tab-btn" id="tab-compare" onclick="switchTab('compare')">Discovery Matrix</button>
+        <button class="nav-tab-btn" id="tab-results" onclick="switchTab('results')">Benchmarks</button>
       </nav>
 
-      <div class="status-pill" id="health-pill" title="Checking model and catalog status">
-        <span class="status-dot"></span>
-        <span id="health-status-text">Checking server...</span>
+      <div class="header-actions">
+        <div class="status-pill" id="health-pill" title="Local Model and Graph Status">
+          <span class="status-dot"></span>
+          <span id="health-status-text">Checking server...</span>
+        </div>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle Light/Dark Theme">
+          <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
       </div>
     </header>
 
     <!-- Main Content Area -->
     <main>
-      <!-- TAB 1: INTERACTIVE DEMO -->
+      <!-- TAB 1: STUDIO (INTERACTIVE DEMO) -->
       <section id="view-demo" class="view-panel">
-        <!-- Preset Scenarios -->
-        <div class="section-header">
-          <h2 class="section-title">One-Click Preset Scenarios</h2>
-          <p class="section-desc">Click any scenario to immediately demonstrate query, feed, or cold-start reasoning in under 1 second.</p>
-        </div>
-        <div class="scenarios-grid" id="scenarios-container">
-          <!-- Dynamically populated -->
-        </div>
+        <!-- Command Search Bar -->
+        <div class="hero-console">
+          <div class="hero-header">
+            <h2 class="hero-headline">Film Discovery &amp; Grounded Reasoning</h2>
+            <p class="hero-subhead">Explore 12,000 catalog films via dense semantic embeddings, 2-hop Personalized PageRank knowledge graph walks, and verbatim evidence verification.</p>
+          </div>
 
-        <!-- Controls & Input Panel -->
-        <div class="control-panel">
-          <form id="recommend-form" onsubmit="handleFormSubmit(event)">
-            <div class="query-input-wrap">
+          <form id="recommend-form" class="search-form-wrap" onsubmit="handleFormSubmit(event)">
+            <div class="search-input-box">
+              <div class="search-icon-slot">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
               <input 
                 type="text" 
                 id="query-input" 
-                class="query-input" 
-                placeholder="Type your movie request (e.g., 'fun sci-fi like Inception with time travel but shorter')..."
+                class="search-input" 
+                placeholder="Search by narrative, themes, or director (e.g. 'smart sci-fi with time dilation and deep themes')..."
                 aria-label="Movie query or preferences input"
               />
-              <button type="submit" class="submit-btn" id="run-btn" aria-label="Execute recommendation pipeline">
-                <span id="run-btn-text">Run CineMind</span>
-                <span id="run-spinner" style="display:none;">⏳</span>
+              <button type="submit" class="btn-primary" id="run-btn" aria-label="Execute recommendation pipeline">
+                <span id="run-btn-text">Discover</span>
+                <span id="run-spinner" class="spinner-ring" style="display:none;"></span>
               </button>
             </div>
 
             <!-- Error Banner -->
             <div class="error-banner" id="error-banner" role="alert"></div>
 
-            <div class="control-options-row">
+            <!-- Controls Filter Bar -->
+            <div class="filter-controls-row">
               <!-- Mode Selection -->
-              <div class="option-group">
-                <span class="option-label">Mode:</span>
-                <div class="segmented-control">
-                  <button type="button" class="seg-btn active" id="mode-query-btn" onclick="setMode('query')">Query</button>
-                  <button type="button" class="seg-btn" id="mode-feed-btn" onclick="setMode('feed')">History Feed</button>
+              <div class="control-pill-group">
+                <span class="control-label">Mode:</span>
+                <div class="seg-button-bar">
+                  <button type="button" class="seg-bar-btn active" id="mode-query-btn" onclick="setMode('query')">Query</button>
+                  <button type="button" class="seg-bar-btn" id="mode-feed-btn" onclick="setMode('feed')">History Feed</button>
                 </div>
               </div>
 
               <!-- Retrieval Config Selection -->
-              <div class="option-group">
-                <span class="option-label">Candidate Discovery:</span>
-                <div class="segmented-control">
-                  <button type="button" class="seg-btn active" id="cfg-hybrid-btn" onclick="setRetrieval('hybrid')">Hybrid (Graph + Vector)</button>
-                  <button type="button" class="seg-btn" id="cfg-vector-btn" onclick="setRetrieval('vector')">Similarity-Only (ARAG)</button>
-                  <button type="button" class="seg-btn" id="cfg-graph-btn" onclick="setRetrieval('graph')">Graph-Only</button>
+              <div class="control-pill-group">
+                <span class="control-label">Engine:</span>
+                <div class="seg-button-bar">
+                  <button type="button" class="seg-bar-btn active" id="cfg-hybrid-btn" onclick="setRetrieval('hybrid')">Hybrid (Graph + Vector)</button>
+                  <button type="button" class="seg-bar-btn" id="cfg-vector-btn" onclick="setRetrieval('vector')">Similarity-Only</button>
+                  <button type="button" class="seg-bar-btn" id="cfg-graph-btn" onclick="setRetrieval('graph')">Graph-Only</button>
                 </div>
               </div>
 
               <!-- Replay Toggle -->
-              <div class="option-group">
-                <div class="toggle-wrap" onclick="toggleReplay()">
-                  <div class="toggle-switch checked" id="replay-switch">
-                    <div class="toggle-knob"></div>
-                  </div>
-                  <span class="option-label" style="text-transform:none; cursor:pointer;" title="Renders recorded traces instantly without LLM latency">Fast Replay Mode</span>
+              <div class="toggle-item" onclick="toggleReplay()" title="Sub-millisecond recorded replay vs live model stream">
+                <div class="toggle-track active" id="replay-switch">
+                  <div class="toggle-thumb"></div>
                 </div>
+                <span class="control-label toggle-text">Instant Replay</span>
+              </div>
+
+              <!-- Strict Mode (No Fallbacks) Toggle -->
+              <div class="toggle-item" onclick="toggleFallbackMode()" title="Strict error mode disables heuristic fallbacks and surfaces errors explicitly">
+                <div class="toggle-track" id="fallback-switch">
+                  <div class="toggle-thumb"></div>
+                </div>
+                <span class="control-label toggle-text" id="fallback-toggle-label">Strict Errors (No Fallback)</span>
               </div>
             </div>
           </form>
         </div>
 
-        <!-- Stages Progress Timeline -->
-        <div class="section-header">
-          <h2 class="section-title">Four Reasoning Stages Execution Timeline</h2>
-          <p class="section-desc">Watch each stage synthesize profile, judge candidate fit, summarize, and rank with guards.</p>
-        </div>
-        <div class="stages-timeline">
-          <div class="stage-box" id="stage-box-understanding">
-            <div class="stage-header">
-              <span class="stage-number">STAGE 1</span>
-              <span class="stage-status-badge idle" id="badge-understanding">Idle</span>
+        <!-- Curated Scenario Showcase -->
+        <div class="scenarios-section">
+          <div class="section-title-row">
+            <div>
+              <h3 class="section-heading">Curated Scenarios</h3>
+              <p class="section-sub">Demonstrates cold-start discovery, query interpretation, and viewing history personalization.</p>
             </div>
-            <h3 class="stage-title">Understanding</h3>
-            <p class="stage-desc">Synthesizes structured profile, constraints & mood.</p>
-            <button class="stage-inspect-btn" onclick="toggleStageDrawer('understanding')" aria-label="Inspect Stage 1 Output">Inspect Output ▾</button>
-            <div class="stage-drawer" id="drawer-understanding">No output yet.</div>
           </div>
-
-          <div class="stage-box" id="stage-box-retrieval">
-            <div class="stage-header">
-              <span class="stage-number">DISCOVERY</span>
-              <span class="stage-status-badge idle" id="badge-retrieval">Idle</span>
-            </div>
-            <h3 class="stage-title">Retrieval</h3>
-            <p class="stage-desc">Surfaces top 50 candidates from vector & graph.</p>
-            <button class="stage-inspect-btn" onclick="toggleStageDrawer('retrieval')" aria-label="Inspect Retrieval Candidates">Inspect Candidates ▾</button>
-            <div class="stage-drawer" id="drawer-retrieval">No output yet.</div>
-          </div>
-
-          <div class="stage-box" id="stage-box-judging">
-            <div class="stage-header">
-              <span class="stage-number">STAGE 2</span>
-              <span class="stage-status-badge idle" id="badge-judging">Idle</span>
-            </div>
-            <h3 class="stage-title">Judging</h3>
-            <p class="stage-desc">Batched model evaluation for match, fit & reasons.</p>
-            <button class="stage-inspect-btn" onclick="toggleStageDrawer('judging')" aria-label="Inspect Judging Verdicts">Inspect Verdicts ▾</button>
-            <div class="stage-drawer" id="drawer-judging">No output yet.</div>
-          </div>
-
-          <div class="stage-box" id="stage-box-summarising">
-            <div class="stage-header">
-              <span class="stage-number">STAGE 3 & 4</span>
-              <span class="stage-status-badge idle" id="badge-ranking">Idle</span>
-            </div>
-            <h3 class="stage-title">Summarise & Rank</h3>
-            <p class="stage-desc">Synthesizes brief, ranks top 5, attaches quotes.</p>
-            <button class="stage-inspect-btn" onclick="toggleStageDrawer('ranking')" aria-label="Inspect Final Brief">Inspect Brief ▾</button>
-            <div class="stage-drawer" id="drawer-ranking">No output yet.</div>
+          <div class="scenarios-carousel" id="scenarios-container">
+            <!-- Dynamically populated -->
           </div>
         </div>
 
-        <!-- Recommendations Output Area -->
-        <div class="results-header-row">
+        <!-- Pipeline Reasoning Bar (5 Distinct Stages) -->
+        <div class="pipeline-bar-wrapper">
+          <div class="pipeline-header">
+            <span class="pipeline-title">Pipeline Telemetry</span>
+            <span class="pipeline-status-indicator" id="pipeline-status-label">Ready</span>
+          </div>
+
+          <div class="pipeline-steps-grid">
+            <!-- Stage 1: Understanding -->
+            <div class="step-card" id="stage-box-understanding">
+              <div class="step-top">
+                <span class="step-num">01</span>
+                <span class="step-badge idle" id="badge-understanding">Idle</span>
+              </div>
+              <div class="step-name">Understanding</div>
+              <div class="step-summary">Extracts preferences, mood, and constraints.</div>
+              <button type="button" class="btn-inspect" onclick="toggleStageDrawer('understanding')">Inspect Payload ▾</button>
+              <div class="drawer-content" id="drawer-understanding">No output yet.</div>
+            </div>
+
+            <!-- Stage 2: Retrieval -->
+            <div class="step-card" id="stage-box-retrieval">
+              <div class="step-top">
+                <span class="step-num">02</span>
+                <span class="step-badge idle" id="badge-retrieval">Idle</span>
+              </div>
+              <div class="step-name">Retrieval</div>
+              <div class="step-summary">Discovers 50 candidates via vector &amp; PPR graph.</div>
+              <button type="button" class="btn-inspect" onclick="toggleStageDrawer('retrieval')">Inspect Candidates ▾</button>
+              <div class="drawer-content" id="drawer-retrieval">No output yet.</div>
+            </div>
+
+            <!-- Stage 3: Judging -->
+            <div class="step-card" id="stage-box-judging">
+              <div class="step-top">
+                <span class="step-num">03</span>
+                <span class="step-badge idle" id="badge-judging">Idle</span>
+              </div>
+              <div class="step-name">Judging</div>
+              <div class="step-summary">Batched model evaluation for match fit &amp; reasons.</div>
+              <button type="button" class="btn-inspect" onclick="toggleStageDrawer('judging')">Inspect Verdicts ▾</button>
+              <div class="drawer-content" id="drawer-judging">No output yet.</div>
+            </div>
+
+            <!-- Stage 4: Summarising -->
+            <div class="step-card" id="stage-box-summarising">
+              <div class="step-top">
+                <span class="step-num">04</span>
+                <span class="step-badge idle" id="badge-summarising">Idle</span>
+              </div>
+              <div class="step-name">Summarising</div>
+              <div class="step-summary">Synthesizes candidate brief and constraint rejections.</div>
+              <button type="button" class="btn-inspect" onclick="toggleStageDrawer('summarising')">Inspect Brief ▾</button>
+              <div class="drawer-content" id="drawer-summarising">No output yet.</div>
+            </div>
+
+            <!-- Stage 5: Ranking -->
+            <div class="step-card" id="stage-box-ranking">
+              <div class="step-top">
+                <span class="step-num">05</span>
+                <span class="step-badge idle" id="badge-ranking">Idle</span>
+              </div>
+              <div class="step-name">Ranking</div>
+              <div class="step-summary">Enforces guards, ordering, and evidence quotes.</div>
+              <button type="button" class="btn-inspect" onclick="toggleStageDrawer('ranking')">Inspect Rankings ▾</button>
+              <div class="drawer-content" id="drawer-ranking">No output yet.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommendations Showcase -->
+        <div class="showcase-header">
           <div>
-            <h2 class="section-title">Top 5 Explained Recommendations</h2>
-            <p class="section-desc">Every recommendation features personalized reasoning, discovery origin, and verbatim evidence quotes.</p>
+            <h3 class="section-heading">Recommendations</h3>
+            <p class="section-sub">Top 5 recommendations with grounded rationale, graph provenance, and verbatim quotes.</p>
           </div>
-          <div class="badges-bar" id="run-badges-bar">
-            <!-- Badges for Replay / Fallback Used / Stats -->
+          <div class="showcase-meta-bar" id="run-badges-bar">
+            <!-- Badges for Replay / Fallback / Stats -->
           </div>
         </div>
 
-        <div class="recs-list" id="recommendations-container">
-          <div style="padding: 2.5rem; text-align: center; color: var(--text-muted); border: 1px dashed var(--border-subtle); border-radius: var(--radius-lg);">
-            Select a preset scenario above or submit a custom query to view recommendations.
-          </div>
+        <div class="recs-container" id="recommendations-container">
+          <!-- Movie cards rendered dynamically -->
         </div>
       </section>
 
       <!-- TAB 2: COMPARISON VIEW -->
       <section id="view-compare" class="view-panel" style="display: none;">
-        <div class="section-header">
-          <h2 class="section-title">Side-by-Side Discovery Comparison</h2>
-          <p class="section-desc">Observe the clear lift provided by graph candidate discovery. Items present exclusively in Hybrid are highlighted.</p>
-        </div>
-
-        <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
-          <label class="option-label" for="compare-scenario-select">Select Scenario to Compare:</label>
-          <select id="compare-scenario-select" onchange="loadComparison()" style="background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-subtle); padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.9rem;">
-            <!-- Populated dynamically -->
-          </select>
-        </div>
-
-        <div class="comparison-container">
-          <!-- Column 1: Similarity-Only -->
+        <div class="showcase-header">
           <div>
-            <div class="comp-column-header">
-              <h3 style="font-size: 1.1rem; color: var(--accent-cyan);">Similarity-Only (ARAG Baseline)</h3>
-              <p style="font-size: 0.78rem; color: var(--text-secondary);">Candidates discovered solely via description semantic embeddings.</p>
+            <h2 class="hero-headline" style="font-size:1.25rem;">Side-by-Side Discovery Matrix</h2>
+            <p class="hero-subhead">Demonstrates cold-start candidate surfacing. Movies surfaced exclusively via Knowledge Graph are tagged.</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <label class="control-label" for="compare-scenario-select">Scenario:</label>
+            <select id="compare-scenario-select" onchange="loadComparison()" class="select-input">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Column 1: Similarity-Only -->
+          <div class="compare-column-card">
+            <div class="compare-column-header">
+              <h3 class="compare-col-title sim">Similarity-Only (ARAG Baseline)</h3>
+              <p class="compare-col-sub">Retrieved strictly through semantic embeddings of movie descriptions.</p>
             </div>
-            <div id="compare-vector-recs" class="recs-list">Loading...</div>
+            <div id="compare-vector-recs" class="recs-container">Loading...</div>
           </div>
 
           <!-- Column 2: Hybrid -->
-          <div>
-            <div class="comp-column-header hybrid">
-              <h3 style="font-size: 1.1rem; color: var(--accent-purple);">Hybrid (CineMind Extension)</h3>
-              <p style="font-size: 0.78rem; color: var(--text-secondary);">Candidate discovery merging 2-hop Graph PageRank and Vector similarity.</p>
+          <div class="compare-column-card">
+            <div class="compare-column-header">
+              <h3 class="compare-col-title hyb">Hybrid (CineMind Knowledge Graph)</h3>
+              <p class="compare-col-sub">Unified candidate set combining 2-hop Graph PageRank and Vector similarity.</p>
             </div>
-            <div id="compare-hybrid-recs" class="recs-list">Loading...</div>
+            <div id="compare-hybrid-recs" class="recs-container">Loading...</div>
           </div>
         </div>
       </section>
 
       <!-- TAB 3: EVALUATION RESULTS -->
       <section id="view-results" class="view-panel" style="display: none;">
-        <div class="section-header">
-          <h2 class="section-title">Reproducible Cold-Start Evaluation</h2>
-          <p class="section-desc">Evaluated over 200 sampled test viewers using a strict time-based split protocol with cold-start ground truth items.</p>
+        <div class="showcase-header">
+          <div>
+            <h2 class="hero-headline" style="font-size:1.25rem;">Evaluation Benchmarks</h2>
+            <p class="hero-subhead">Evaluated across 200 test viewers and 12,000 movies under strict temporal split (October 2022 cutoff).</p>
+          </div>
         </div>
 
-        <div class="chart-card">
-          <h3 style="margin-bottom: 1rem; font-size: 1rem;">Metric Comparison (HitRate@5, NDCG@5, Recall@50)</h3>
-          <div id="metrics-svg-chart" style="width: 100%; height: 260px;"></div>
+        <!-- KPI Grid -->
+        <div class="metrics-kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-title">Catalog Scale</span>
+            <span class="kpi-value" id="kpi-catalog">12,000</span>
+            <span class="kpi-gain">MovieLens 32M + TMDB</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title">Knowledge Graph Nodes</span>
+            <span class="kpi-value" id="kpi-nodes">49,749</span>
+            <span class="kpi-gain">176,522 Multimodal Edges</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title">Cold-Start Catalog</span>
+            <span class="kpi-value" id="kpi-cold">1,112</span>
+            <span class="kpi-gain">0 Train Ratings (Post-2022)</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title">Grounding Accuracy</span>
+            <span class="kpi-value">100%</span>
+            <span class="kpi-gain">Verbatim Substring Guarantee</span>
+          </div>
         </div>
 
-        <table class="results-table" id="results-table">
-          <thead>
-            <tr>
-              <th>Configuration</th>
-              <th>HitRate@5</th>
-              <th>HitRate@10</th>
-              <th>NDCG@5</th>
-              <th>NDCG@10</th>
-              <th>Recall@50</th>
-              <th>Calls / Rec</th>
-              <th>Sec / Rec</th>
-            </tr>
-          </thead>
-          <tbody id="results-tbody">
-            <tr><td colspan="8" style="text-align: center; color: var(--text-muted);">Loading evaluation tables...</td></tr>
-          </tbody>
-        </table>
-
-        <div class="section-header" style="margin-top: 2rem;">
-          <h3 class="section-title">Error & Divergence Analysis</h3>
-          <p class="section-desc">Exemplar test viewer cases illustrating where similarity missed cold-start items and how graph connections intervened.</p>
+        <!-- Scientific Comparison Table -->
+        <div class="table-card">
+          <div class="table-header">
+            <h4 class="table-title">Offline Ranking &amp; Discovery Evaluation</h4>
+          </div>
+          <table class="metrics-table" id="eval-table">
+            <thead>
+              <tr>
+                <th>Configuration</th>
+                <th>HitRate@5</th>
+                <th>HitRate@10</th>
+                <th>NDCG@5</th>
+                <th>NDCG@10</th>
+                <th>Avg Latency</th>
+                <th>Model Calls</th>
+              </tr>
+            </thead>
+            <tbody id="eval-table-body">
+              <tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:2rem;">Loading metrics...</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div id="error-analysis-container" class="recs-list">
+
+        <!-- Exemplar Analysis -->
+        <div class="showcase-header" style="margin-top: 2rem;">
+          <div>
+            <h3 class="section-heading">Exemplar Error &amp; Divergence Analysis</h3>
+            <p class="section-sub">Direct comparison of test cases demonstrating graph surfacing vs similarity misses.</p>
+          </div>
+        </div>
+        <div id="error-analysis-container" class="recs-container">
           <!-- Populated dynamically -->
         </div>
       </section>
     </main>
   </div>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=4"></script>
 </body>
 </html>

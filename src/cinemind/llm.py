@@ -47,14 +47,17 @@ class LLMClient:
         t0 = time.time()
         try:
             if self.stub:
-                return self._generate_stub(schema_dict)
+                return self._generate_stub(schema_dict, prompt=prompt)
 
             payload: Dict[str, Any] = {
                 "model": self.model,
                 "prompt": prompt,
                 "stream": False,
+                "keep_alive": "30s",
                 "options": {
                     "temperature": 0.2,
+                    "num_ctx": 4096,
+                    "num_predict": 768,
                 }
             }
             if schema_dict:
@@ -107,7 +110,7 @@ class LLMClient:
 
         raise StageFailed(f"Stage generation failed after {max_retries + 1} attempts: {last_error}")
 
-    def _generate_stub(self, schema_dict: Optional[Dict[str, Any]]) -> str:
+    def _generate_stub(self, schema_dict: Optional[Dict[str, Any]], prompt: str = "") -> str:
         if self.stub_mode == "malformed":
             return "{ invalid_json: true, "
 
@@ -123,32 +126,46 @@ class LLMClient:
             })
         elif "verdicts" in schema_str or "Verdict" in schema_str:
             # JudgeBatchOutput
-            return json.dumps({
-                "verdicts": [
-                    {
-                        "movie_id": 999999 if self.stub_mode == "out_of_set" else 1,
-                        "match": True,
-                        "fit": 0.95,
-                        "reason": "Captivating mind-bending sci-fi with intelligent storytelling."
-                    }
-                ]
-            })
+            import re
+            ids = [int(m) for m in re.findall(r"ID:\s*(\d+)", prompt)]
+            if not ids:
+                ids = [1]
+            if self.stub_mode == "out_of_set":
+                ids = [999999]
+            verdicts = []
+            for mid in ids:
+                verdicts.append({
+                    "movie_id": mid,
+                    "match": True,
+                    "fit": 0.92,
+                    "reason": "Strong conceptual and genre alignment with profile."
+                })
+            return json.dumps({"verdicts": verdicts})
         elif "Brief" in schema_str or "violations" in schema_str:
+            import re
+            titles = re.findall(r"- ([^(\n]+) \(Fit", prompt)
+            strong = [t.strip() for t in titles[:5]] if titles else ["Inception", "Interstellar"]
             return json.dumps({
-                "strong": ["Inception", "Interstellar"],
-                "violations": ["Transformers"],
-                "notes": "Strong pool of speculative sci-fi and cerebral thrillers."
+                "strong": strong,
+                "violations": ["Mindless Action Sequel"],
+                "notes": "Coherent thematic cluster discovered through hybrid exploration."
             })
         elif "RankModelOutput" in schema_str or "rankings" in schema_str:
-            target_id = 999999 if self.stub_mode == "out_of_set" else 1
-            return json.dumps({
-                "rankings": [
-                    {
-                        "movie_id": target_id,
-                        "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests."
-                    }
-                ]
-            })
+            import re
+            ids = [int(m) for m in re.findall(r"ID\s+(\d+):", prompt)]
+            if not ids:
+                ids = [int(m) for m in re.findall(r"ID:\s*(\d+)", prompt)]
+            if not ids:
+                ids = [1]
+            if self.stub_mode == "out_of_set":
+                ids = [999999]
+            rankings = []
+            for mid in ids[:5]:
+                rankings.append({
+                    "movie_id": mid,
+                    "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests."
+                })
+            return json.dumps({"rankings": rankings})
 
         return "{}"
 

@@ -1,235 +1,235 @@
 {
   "metrics": {
     "vector": {
-      "eval_count": 50,
-      "hit_rate_at_5": 0.76,
-      "hit_rate_at_10": 0.76,
-      "ndcg_at_5": 0.3904,
-      "ndcg_at_10": 0.3904,
-      "recall_at_50": 1.0,
-      "avg_llm_calls": 5.0,
-      "avg_seconds": 0.02
+      "eval_count": 200,
+      "hit_rate_at_5": 0.0,
+      "hit_rate_at_10": 0.0,
+      "ndcg_at_5": 0.0,
+      "ndcg_at_10": 0.0,
+      "recall_at_50": 0.0,
+      "avg_llm_calls": 9.0,
+      "avg_seconds": 0.04
     },
     "hybrid": {
-      "eval_count": 50,
-      "hit_rate_at_5": 0.74,
-      "hit_rate_at_10": 0.74,
-      "ndcg_at_5": 0.3928,
-      "ndcg_at_10": 0.3928,
-      "recall_at_50": 1.0,
-      "avg_llm_calls": 4.0,
-      "avg_seconds": 0.02
+      "eval_count": 200,
+      "hit_rate_at_5": 0.0,
+      "hit_rate_at_10": 0.0,
+      "ndcg_at_5": 0.0,
+      "ndcg_at_10": 0.0,
+      "recall_at_50": 0.0,
+      "avg_llm_calls": 12.0,
+      "avg_seconds": 0.31
     },
     "graph": {
-      "eval_count": 50,
-      "hit_rate_at_5": 0.8,
-      "hit_rate_at_10": 0.8,
-      "ndcg_at_5": 0.4203,
-      "ndcg_at_10": 0.4203,
-      "recall_at_50": 1.0,
-      "avg_llm_calls": 4.0,
-      "avg_seconds": 0.0
+      "eval_count": 200,
+      "hit_rate_at_5": 0.0,
+      "hit_rate_at_10": 0.0,
+      "ndcg_at_5": 0.0,
+      "ndcg_at_10": 0.0,
+      "recall_at_50": 0.0,
+      "avg_llm_calls": 8.0,
+      "avg_seconds": 0.27
     }
   },
   "error_analysis": [
     {
-      "user_id": 2,
-      "ground_truth": "Past Lives",
+      "user_id": 1,
+      "ground_truth": "Catacombs, Mean Girls 2",
       "vector_hit": false,
       "hybrid_hit": false,
       "vector_recommendations": [
-        "Toy Story",
-        "Dune",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things"
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
       ],
       "hybrid_recommendations": [
-        "Toy Story",
-        "Dune",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things"
+        "Branded",
+        "Ashes and Diamonds",
+        "Altered States",
+        "Curse of Chucky",
+        "Parallels"
+      ]
+    },
+    {
+      "user_id": 2,
+      "ground_truth": "Decalogue II",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
+      ],
+      "hybrid_recommendations": [
+        "Branded",
+        "Vengeance",
+        "Altered States",
+        "Breaking News",
+        "Parallels"
       ]
     },
     {
       "user_id": 3,
-      "ground_truth": "Challengers",
+      "ground_truth": "Comme t'y es belle!",
       "vector_hit": false,
       "hybrid_hit": false,
       "vector_recommendations": [
-        "Toy Story",
-        "Interstellar",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things"
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
       ],
       "hybrid_recommendations": [
-        "Toy Story",
-        "Interstellar",
-        "Civil War",
-        "Oppenheimer",
-        "Dune: Part Two"
+        "Branded",
+        "Extraterrestrial",
+        "Altered States",
+        "Demonic",
+        "Parallels"
       ]
     },
     {
       "user_id": 4,
-      "ground_truth": "Past Lives",
+      "ground_truth": "Dragon Ball: Curse of the Blood Rubies",
       "vector_hit": false,
       "hybrid_hit": false,
       "vector_recommendations": [
-        "Inception",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things",
-        "Avengers: Infinity War"
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
       ],
       "hybrid_recommendations": [
-        "Inception",
-        "Civil War",
-        "Oppenheimer",
-        "Fight Club",
-        "Dune: Part Two"
+        "Branded",
+        "Rio Lobo",
+        "Altered States",
+        "McLintock!",
+        "Parallels"
+      ]
+    },
+    {
+      "user_id": 5,
+      "ground_truth": "Sharknado 2: The Second One",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
+      ],
+      "hybrid_recommendations": [
+        "Branded",
+        "God Bless America",
+        "Altered States",
+        "Grind",
+        "Parallels"
+      ]
+    },
+    {
+      "user_id": 6,
+      "ground_truth": "Don't Blame Karma!, Dragon Ball: Sleeping Princess in Devil's Castle",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
+      ],
+      "hybrid_recommendations": [
+        "Branded",
+        "Human Capital",
+        "Altered States",
+        "Vampire's Kiss",
+        "Parallels"
+      ]
+    },
+    {
+      "user_id": 7,
+      "ground_truth": "House of Voices, Lady and the Tramp II: Scamp's Adventure",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
+      ],
+      "hybrid_recommendations": [
+        "Branded",
+        "Halloweentown II: Kalabar's Revenge",
+        "Altered States",
+        "Like Father",
+        "Parallels"
+      ]
+    },
+    {
+      "user_id": 8,
+      "ground_truth": "Wer, Second in Command",
+      "vector_hit": false,
+      "hybrid_hit": false,
+      "vector_recommendations": [
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
+      ],
+      "hybrid_recommendations": [
+        "Branded",
+        "Monkey Business",
+        "Altered States",
+        "Camp Rock 2: The Final Jam",
+        "Parallels"
       ]
     },
     {
       "user_id": 9,
-      "ground_truth": "Civil War, Challengers",
-      "vector_hit": false,
-      "hybrid_hit": true,
-      "vector_recommendations": [
-        "Interstellar",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things",
-        "Gone Girl"
-      ],
-      "hybrid_recommendations": [
-        "Interstellar",
-        "Civil War",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things"
-      ]
-    },
-    {
-      "user_id": 15,
-      "ground_truth": "Challengers",
+      "ground_truth": "BTS: Permission to Dance on Stage - LA, Disconnected",
       "vector_hit": false,
       "hybrid_hit": false,
       "vector_recommendations": [
-        "Inception",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things",
-        "Civil War"
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
       ],
       "hybrid_recommendations": [
-        "Inception",
-        "Oppenheimer",
-        "Civil War",
-        "Dune: Part Two",
-        "Poor Things"
+        "Branded",
+        "Katyn",
+        "Altered States",
+        "Danton",
+        "Parallels"
       ]
     },
     {
-      "user_id": 16,
-      "ground_truth": "Past Lives",
+      "user_id": 10,
+      "ground_truth": "Qwerty, Tremors 4: The Legend Begins",
       "vector_hit": false,
       "hybrid_hit": false,
       "vector_recommendations": [
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things",
-        "Civil War",
-        "Challengers"
+        "Branded",
+        "Altered States",
+        "Parallels",
+        "Scanners",
+        "Terminus"
       ],
       "hybrid_recommendations": [
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Civil War",
-        "Poor Things",
-        "Challengers"
-      ]
-    },
-    {
-      "user_id": 19,
-      "ground_truth": "Challengers",
-      "vector_hit": false,
-      "hybrid_hit": false,
-      "vector_recommendations": [
-        "The Matrix",
-        "Arrival",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things"
-      ],
-      "hybrid_recommendations": [
-        "The Matrix",
-        "Oppenheimer",
-        "Arrival",
-        "Civil War",
-        "Dune: Part Two"
-      ]
-    },
-    {
-      "user_id": 22,
-      "ground_truth": "Civil War",
-      "vector_hit": false,
-      "hybrid_hit": false,
-      "vector_recommendations": [
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things",
-        "The Lord of the Rings: The Fellowship of the Ring",
-        "Gone Girl"
-      ],
-      "hybrid_recommendations": [
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Gone Girl",
-        "Poor Things",
-        "The Lord of the Rings: The Fellowship of the Ring"
-      ]
-    },
-    {
-      "user_id": 28,
-      "ground_truth": "Civil War, Poor Things",
-      "vector_hit": true,
-      "hybrid_hit": false,
-      "vector_recommendations": [
-        "The Martian",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things",
-        "Avengers: Infinity War"
-      ],
-      "hybrid_recommendations": [
-        "The Martian",
-        "Oppenheimer",
-        "Shutter Island",
-        "Dune: Part Two",
-        "Star Wars"
-      ]
-    },
-    {
-      "user_id": 30,
-      "ground_truth": "Past Lives",
-      "vector_hit": false,
-      "hybrid_hit": false,
-      "vector_recommendations": [
-        "The Martian",
-        "Oppenheimer",
-        "Dune: Part Two",
-        "Poor Things",
-        "Civil War"
-      ],
-      "hybrid_recommendations": [
-        "The Martian",
-        "Dune: Part Two",
-        "Oppenheimer",
-        "Challengers",
-        "Poor Things"
+        "Branded",
+        "Ginger Snaps Back: The Beginning",
+        "Altered States",
+        "M\u00e9nage",
+        "Parallels"
       ]
     }
   ]

@@ -78,39 +78,53 @@ async def recommend_stream(request: RecommendRequest):
     has_query = bool(request.query and request.query.strip())
     has_history = bool(request.history and len(request.history) > 0)
 
-    if not has_query and not has_history:
+    if not has_query and not has_history and not (request.replay and request.scenario_id):
         raise HTTPException(
             status_code=400,
             detail="Empty request: Both query and viewing history are empty. Please provide a search query or select a history profile."
         )
 
-    # 2. Replay mode
+    # 2. Replay mode (if replay requested)
     if request.replay:
-        if not request.scenario_id:
-            raise HTTPException(status_code=400, detail="Replay mode requires a valid 'scenario_id'.")
-        trace = trace_manager.get_scenario_trace(request.scenario_id, config=request.retrieval)
-        if not trace:
-            raise HTTPException(status_code=404, detail=f"Recorded replay trace for scenario '{request.scenario_id}' with config '{request.retrieval}' not found.")
+        target_id = request.scenario_id
+        if not target_id:
+            # Try to match query with known scenarios
+            sc_list = []
+            if settings.scenarios_path.exists():
+                with open(settings.scenarios_path, "r", encoding="utf-8") as f:
+                    sc_list = json.load(f)
+            if request.query:
+                q_words = [w for w in request.query.lower().split() if len(w) > 3]
+                for sc in sc_list:
+                    sc_q = (sc.get("query") or "").lower()
+                    if any(w in sc_q for w in q_words):
+                        target_id = sc["id"]
+                        break
+            if not target_id and sc_list:
+                target_id = sc_list[0]["id"]
 
-        async def replay_generator():
-            for st in trace.stages:
-                yield {
-                    "event": "stage_start",
-                    "data": json.dumps({"stage": st.name, "started": st.started, "replay": True})
-                }
-                await asyncio.sleep(0.05)
-                yield {
-                    "event": "stage_end",
-                    "data": json.dumps({"stage": st.name, "record": st.model_dump(), "replay": True})
-                }
-                await asyncio.sleep(0.05)
+        if target_id:
+            trace = trace_manager.get_scenario_trace(target_id, config=request.retrieval)
+            if trace:
+                async def replay_generator():
+                    for st in trace.stages:
+                        yield {
+                            "event": "stage_start",
+                            "data": json.dumps({"stage": st.name, "started": st.started, "replay": True})
+                        }
+                        await asyncio.sleep(0.04)
+                        yield {
+                            "event": "stage_end",
+                            "data": json.dumps({"stage": st.name, "record": st.model_dump(), "replay": True})
+                        }
+                        await asyncio.sleep(0.04)
 
-            yield {
-                "event": "final",
-                "data": json.dumps(trace.model_dump())
-            }
+                    yield {
+                        "event": "final",
+                        "data": json.dumps(trace.model_dump())
+                    }
 
-        return EventSourceResponse(replay_generator())
+                return EventSourceResponse(replay_generator())
 
     # 3. Live mode: Check model server availability
     model_online = await default_llm.ping()
@@ -131,9 +145,12 @@ async def recommend_stream(request: RecommendRequest):
             try:
                 await pipeline.run(request, emit_callback=sse_callback)
             except Exception as e:
+                import traceback
+                print(f"[Server Error] Pipeline processing failed: {e}", flush=True)
+                traceback.print_exc()
                 await queue.put({
                     "event": "error",
-                    "data": json.dumps({"error": str(e), "message": "Pipeline processing failed."})
+                    "data": json.dumps({"error": str(e), "message": f"Pipeline processing failed: {str(e)}"})
                 })
             finally:
                 await queue.put(None)  # Sentinel

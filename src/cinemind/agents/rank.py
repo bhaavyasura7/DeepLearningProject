@@ -14,7 +14,8 @@ class RankingAgent:
         candidates: List[Candidate],
         verdicts: List[Verdict],
         k: int = 5,
-        history_ids: Optional[Set[int]] = None
+        history_ids: Optional[Set[int]] = None,
+        allow_fallback: bool = True
     ) -> Tuple[List[RankedItem], bool]:
         """
         Ranks top k recommendations using the Profile, Brief, and Verdicts.
@@ -54,7 +55,9 @@ class RankingAgent:
         try:
             res: RankModelOutput = await self.llm.generate(prompt, RankModelOutput)
             raw_rankings = res.rankings
-        except Exception:
+        except Exception as e:
+            if not allow_fallback:
+                raise e
             # Deterministic fallback: order by fit score descending
             fallback_used = True
             sorted_verdicts = sorted(verdicts, key=lambda v: (v.match, v.fit), reverse=True)

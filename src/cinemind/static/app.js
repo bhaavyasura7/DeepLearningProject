@@ -1,173 +1,257 @@
-// CineMind Frontend Client Logic
+/**
+ * CineMind Interactive Studio & Benchmark Frontend Controller
+ * Professional Editorial Film Intelligence System
+ */
 
-let currentMode = "query";
+let activeScenarioId = "oppenheimer_coldstart";
+let currentMode = "feed";
 let currentRetrieval = "hybrid";
 let isReplay = true;
-let activeScenarioId = "nolan_scifi";
+let allowFallback = false; // Default: Strict Errors (No Fallback)
 let loadedScenarios = [];
-let eventSource = null;
+let currentTrace = null;
 
+// Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
-  initHealth();
-  initScenarios();
-  initResults();
+  init();
 });
 
-// Navigation
-function switchTab(tabName) {
-  document.querySelectorAll(".nav-tab-btn").forEach(btn => btn.classList.remove("active"));
-  document.querySelectorAll(".view-panel").forEach(panel => panel.style.display = "none");
+async function init() {
+  await checkHealth();
+  await loadScenarios();
+  await loadEvaluationResults();
 
-  const activeBtn = document.getElementById(`tab-${tabName}`);
-  const activePanel = document.getElementById(`view-${tabName}`);
-  if (activeBtn) activeBtn.classList.add("active");
-  if (activePanel) activePanel.style.display = "block";
+  // Auto-run the featured scenario so the user is immediately greeted by rich movie cards
+  if (loadedScenarios.length > 0) {
+    selectScenario(activeScenarioId || loadedScenarios[0].id);
+  }
+
+  // When user types a custom search
+  const queryInput = document.getElementById("query-input");
+  if (queryInput) {
+    queryInput.addEventListener("input", (e) => {
+      const val = e.target.value.trim().toLowerCase();
+      const matchedSc = loadedScenarios.find(s => s.query && s.query.toLowerCase().includes(val));
+      if (matchedSc) {
+        activeScenarioId = matchedSc.id;
+        document.querySelectorAll(".scenario-tile").forEach(t => t.classList.toggle("active", t.id === `scenario-tile-${matchedSc.id}`));
+      } else {
+        activeScenarioId = null;
+        document.querySelectorAll(".scenario-tile").forEach(t => t.classList.remove("active"));
+      }
+    });
+  }
+}
+
+// Health Check
+async function checkHealth() {
+  const pill = document.getElementById("health-pill");
+  const text = document.getElementById("health-status-text");
+  const dot = pill ? pill.querySelector(".status-dot") : null;
+  try {
+    const res = await fetch("/api/health");
+    if (!res.ok) throw new Error("Health endpoint error");
+    const data = await res.json();
+    if (text) {
+      text.textContent = `${data.model_name || 'qwen3:8b'} · ${(data.catalog_size || 0).toLocaleString()} films`;
+    }
+    if (dot) {
+      dot.className = "status-dot online";
+    }
+    if (pill) {
+      pill.title = `Model: ${data.model_name} | Catalog: ${data.catalog_size} movies | Graph: Ready`;
+    }
+  } catch (err) {
+    if (text) text.textContent = "Server offline (Replay ready)";
+    if (dot) dot.className = "status-dot offline";
+  }
+}
+
+// Load Presets
+async function loadScenarios() {
+  const container = document.getElementById("scenarios-container");
+  const select = document.getElementById("compare-scenario-select");
+  try {
+    const res = await fetch("/api/scenarios");
+    if (!res.ok) throw new Error("Could not load scenarios");
+    loadedScenarios = await res.json();
+
+    if (container) container.innerHTML = "";
+    if (select) select.innerHTML = "";
+
+    loadedScenarios.forEach((sc) => {
+      // Tile for Studio
+      if (container) {
+        const tile = document.createElement("div");
+        tile.className = `scenario-tile ${sc.id === activeScenarioId ? "active" : ""}`;
+        tile.id = `scenario-tile-${sc.id}`;
+        tile.onclick = () => selectScenario(sc.id);
+
+        const tagClass = sc.cold_start ? "cold" : sc.mode;
+        const tagLabel = sc.cold_start ? "COLD-START" : (sc.mode === "query" ? "QUERY" : "FEED");
+
+        tile.innerHTML = `
+          <div class="tile-badge-row">
+            <span class="tile-tag ${tagClass}">${tagLabel}</span>
+          </div>
+          <div class="tile-title">${escapeHtml(sc.title)}</div>
+          <div class="tile-desc">${escapeHtml(sc.blurb)}</div>
+        `;
+        container.appendChild(tile);
+      }
+
+      // Select option for Comparison View
+      if (select) {
+        const opt = document.createElement("option");
+        opt.value = sc.id;
+        opt.textContent = `${sc.title} (${sc.mode.toUpperCase()}${sc.cold_start ? ' - Cold Start' : ''})`;
+        select.appendChild(opt);
+      }
+    });
+
+    if (loadedScenarios.length > 0 && !activeScenarioId) {
+      activeScenarioId = loadedScenarios[0].id;
+    }
+  } catch (err) {
+    if (container) {
+      container.innerHTML = `<div style="color:var(--text-muted); padding:1rem;">Could not load scenario presets.</div>`;
+    }
+  }
+}
+
+function selectScenario(id) {
+  activeScenarioId = id;
+  isReplay = true;
+  const track = document.getElementById("replay-switch");
+  if (track) track.classList.add("active");
+
+  const sc = loadedScenarios.find(s => s.id === id);
+  if (!sc) return;
+
+  // Update UI tile states
+  document.querySelectorAll(".scenario-tile").forEach(t => t.classList.remove("active"));
+  const activeTile = document.getElementById(`scenario-tile-${id}`);
+  if (activeTile) activeTile.classList.add("active");
+
+  // Populate inputs
+  const input = document.getElementById("query-input");
+  if (input) {
+    if (sc.mode === "query") {
+      input.value = sc.query || "";
+      input.placeholder = "Enter query...";
+    } else {
+      const movieTitles = (sc.history || []).map(h => h.title).join(", ");
+      input.value = "";
+      input.placeholder = `Viewing history: ${movieTitles}`;
+    }
+  }
+
+  setMode(sc.mode);
+  executeRecommendation();
+}
+
+// Mode Selection
+function setMode(mode) {
+  currentMode = mode;
+  const qBtn = document.getElementById("mode-query-btn");
+  const fBtn = document.getElementById("mode-feed-btn");
+  if (qBtn) qBtn.classList.toggle("active", mode === "query");
+  if (fBtn) fBtn.classList.toggle("active", mode === "feed");
+}
+
+// Retrieval Configuration Selection
+function setRetrieval(config) {
+  currentRetrieval = config;
+  const hBtn = document.getElementById("cfg-hybrid-btn");
+  const vBtn = document.getElementById("cfg-vector-btn");
+  const gBtn = document.getElementById("cfg-graph-btn");
+  if (hBtn) hBtn.classList.toggle("active", config === "hybrid");
+  if (vBtn) vBtn.classList.toggle("active", config === "vector");
+  if (gBtn) gBtn.classList.toggle("active", config === "graph");
+}
+
+// Toggle Replay Switch
+function toggleReplay() {
+  if (!activeScenarioId && !isReplay) {
+    if (loadedScenarios.length > 0) {
+      selectScenario(loadedScenarios[0].id);
+      return;
+    }
+  }
+  isReplay = !isReplay;
+  const track = document.getElementById("replay-switch");
+  if (track) track.classList.toggle("active", isReplay);
+}
+
+// Fallback Policy Toggle (Default: Strict Errors / No Fallbacks)
+function toggleFallbackMode() {
+  allowFallback = !allowFallback;
+  const track = document.getElementById("fallback-switch");
+  const label = document.getElementById("fallback-toggle-label");
+  if (track) track.classList.toggle("active", allowFallback);
+  if (label) {
+    label.textContent = allowFallback ? "Fallbacks Enabled" : "Strict Errors (No Fallback)";
+  }
+}
+
+// Navigation Tabs
+function switchTab(tabName) {
+  ["demo", "compare", "results"].forEach(t => {
+    const view = document.getElementById(`view-${t}`);
+    const tabBtn = document.getElementById(`tab-${t}`);
+    if (view) view.style.display = t === tabName ? "flex" : "none";
+    if (tabBtn) tabBtn.classList.toggle("active", t === tabName);
+  });
 
   if (tabName === "compare") {
     loadComparison();
   }
 }
 
-// Health Check
-async function initHealth() {
-  const pill = document.getElementById("health-pill");
-  const text = document.getElementById("health-status-text");
-  try {
-    const res = await fetch("/api/health");
-    if (!res.ok) throw new Error("Health check failed");
-    const data = await res.json();
-    text.textContent = `Model: ${data.model_name} | Catalog: ${data.catalog_size} movies`;
-  } catch (err) {
-    text.textContent = "Offline / Server Unavailable";
-    pill.style.color = "#f43f5e";
-  }
-}
-
-// Scenarios
-async function initScenarios() {
-  const container = document.getElementById("scenarios-container");
-  const select = document.getElementById("compare-scenario-select");
-  try {
-    const res = await fetch("/api/scenarios");
-    loadedScenarios = await res.json();
-    container.innerHTML = "";
-    select.innerHTML = "";
-
-    loadedScenarios.forEach((sc, idx) => {
-      // Create scenario card
-      const card = document.createElement("button");
-      card.type = "button";
-      card.className = `scenario-card ${sc.id === activeScenarioId ? "active" : ""}`;
-      card.id = `sc-card-${sc.id}`;
-      card.onclick = () => selectScenario(sc.id);
-
-      const tagClass = sc.cold_start ? "cold" : (sc.mode === "query" ? "query" : "feed");
-      const tagLabel = sc.cold_start ? "★ Cold-Start" : sc.mode.toUpperCase();
-
-      card.innerHTML = `
-        <span class="scenario-tag ${tagClass}">${tagLabel}</span>
-        <div class="scenario-name">${escapeHtml(sc.title)}</div>
-        <div class="scenario-blurb">${escapeHtml(sc.blurb)}</div>
-      `;
-      container.appendChild(card);
-
-      // Add to compare select
-      const opt = document.createElement("option");
-      opt.value = sc.id;
-      opt.textContent = `${sc.cold_start ? '[Cold-Start] ' : ''}${sc.title}`;
-      if (sc.id === activeScenarioId) opt.selected = true;
-      select.appendChild(opt);
-    });
-
-    // Auto-select first scenario and trigger replay
-    if (loadedScenarios.length > 0) {
-      selectScenario(loadedScenarios[0].id);
-    }
-  } catch (err) {
-    container.innerHTML = `<div style="color:var(--accent-rose);">Failed to load preset scenarios: ${err.message}</div>`;
-  }
-}
-
-function selectScenario(scId) {
-  activeScenarioId = scId;
-  const sc = loadedScenarios.find(s => s.id === scId);
-  if (!sc) return;
-
-  // Highlight card
-  document.querySelectorAll(".scenario-card").forEach(c => c.classList.remove("active"));
-  const card = document.getElementById(`sc-card-${scId}`);
-  if (card) card.classList.add("active");
-
-  // Populate inputs
-  const input = document.getElementById("query-input");
-  if (sc.mode === "query") {
-    input.value = sc.query || "";
-    setMode("query");
-  } else {
-    input.value = "";
-    input.placeholder = `Viewing history: ${sc.history ? sc.history.map(h => h.title || h.movie_id).join(', ') : 'Profile loaded'}`;
-    setMode("feed");
-  }
-
-  // Set replay active for instant demo
-  if (!isReplay) toggleReplay();
-
-  // Run automatically
-  executeRecommendation();
-}
-
-function setMode(mode) {
-  currentMode = mode;
-  document.getElementById("mode-query-btn").classList.toggle("active", mode === "query");
-  document.getElementById("mode-feed-btn").classList.toggle("active", mode === "feed");
-}
-
-function setRetrieval(retrieval) {
-  currentRetrieval = retrieval;
-  document.getElementById("cfg-hybrid-btn").classList.toggle("active", retrieval === "hybrid");
-  document.getElementById("cfg-vector-btn").classList.toggle("active", retrieval === "vector");
-  document.getElementById("cfg-graph-btn").classList.toggle("active", retrieval === "graph");
-}
-
-function toggleReplay() {
-  isReplay = !isReplay;
-  const sw = document.getElementById("replay-switch");
-  sw.classList.toggle("checked", isReplay);
-}
-
+// Drawers for inspecting raw pipeline output
 function toggleStageDrawer(stageName) {
   const drawer = document.getElementById(`drawer-${stageName}`);
   if (!drawer) return;
-  drawer.style.display = drawer.style.display === "block" ? "none" : "block";
+  const isOpen = drawer.style.display === "block";
+  drawer.style.display = isOpen ? "none" : "block";
 }
 
 function showError(msg) {
   const banner = document.getElementById("error-banner");
+  if (!banner) return;
   banner.textContent = msg;
-  banner.style.display = "block";
+  banner.style.display = "flex";
 }
 
 function clearError() {
   const banner = document.getElementById("error-banner");
-  banner.style.display = "none";
+  if (banner) banner.style.display = "none";
 }
 
 function handleFormSubmit(e) {
   e.preventDefault();
-  activeScenarioId = null; // Custom run
+  activeScenarioId = null; // Free-form custom run
+  isReplay = false;
+  const track = document.getElementById("replay-switch");
+  if (track) track.classList.remove("active");
+  document.querySelectorAll(".scenario-tile").forEach(t => t.classList.remove("active"));
   executeRecommendation();
 }
 
-// Reset stages
 function resetStages() {
-  ["understanding", "retrieval", "judging", "ranking"].forEach(name => {
+  ["understanding", "retrieval", "judging", "summarising", "ranking"].forEach(name => {
     const box = document.getElementById(`stage-box-${name}`);
     const badge = document.getElementById(`badge-${name}`);
     const drawer = document.getElementById(`drawer-${name}`);
-    if (box) box.className = "stage-box";
-    if (badge) { badge.className = "stage-status-badge idle"; badge.textContent = "Idle"; }
-    if (drawer) drawer.textContent = "Waiting for stage execution...";
+    if (box) box.className = "step-card";
+    if (badge) { badge.className = "step-badge idle"; badge.textContent = "Idle"; }
+    if (drawer) {
+      drawer.textContent = "Waiting for stage execution...";
+      drawer.style.display = "none";
+    }
   });
+  const label = document.getElementById("pipeline-status-label");
+  if (label) label.textContent = "Processing...";
 }
 
 function updateStage(stageName, status, data) {
@@ -176,54 +260,67 @@ function updateStage(stageName, status, data) {
   const drawer = document.getElementById(`drawer-${stageName}`);
 
   if (status === "running") {
-    if (box) { box.classList.remove("completed"); box.classList.add("running"); }
-    if (badge) { badge.className = "stage-status-badge running"; badge.textContent = "Running"; }
+    if (box) { box.classList.remove("completed", "fallback", "failed"); box.classList.add("running"); }
+    if (badge) { badge.className = "step-badge running"; badge.textContent = "Running"; }
+  } else if (status === "failed") {
+    if (box) { box.classList.remove("running", "completed", "fallback"); box.classList.add("failed"); }
+    if (badge) {
+      badge.className = "step-badge failed";
+      badge.textContent = "Failed";
+    }
+    if (drawer && data) {
+      drawer.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+      drawer.style.display = "block";
+    }
   } else if (status === "completed" || status === "fallback") {
-    if (box) { box.classList.remove("running"); box.classList.add(status === "fallback" ? "fallback" : "completed"); }
+    if (box) { box.classList.remove("running", "failed"); box.classList.add(status === "fallback" ? "fallback" : "completed"); }
     if (badge) {
       if (status === "fallback") {
-        badge.className = "stage-status-badge fallback-badge";
+        badge.className = "step-badge fallback";
         badge.textContent = "Fallback";
       } else {
-        badge.className = "stage-status-badge done";
+        badge.className = "step-badge done";
         badge.textContent = "Done";
       }
     }
     if (drawer && data) {
-      drawer.textContent = JSON.stringify(data, null, 2);
+      drawer.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
     }
   }
 }
 
-// Execute Recommendation (SSE or Replay)
+// Execute Recommendation
 async function executeRecommendation() {
   clearError();
-  const query = document.getElementById("query-input").value.trim();
+  const inputEl = document.getElementById("query-input");
+  const query = inputEl ? inputEl.value.trim() : "";
   const activeSc = loadedScenarios.find(s => s.id === activeScenarioId);
 
   // Validation
   const hasHistory = activeSc && activeSc.history && activeSc.history.length > 0;
   if (!query && !hasHistory) {
-    showError("Please enter a search query or select a preset scenario with viewing history.");
+    showError("Please enter a search query or select a preset scenario.");
     return;
   }
 
+  const effectiveReplay = Boolean(activeScenarioId && isReplay);
   resetStages();
 
   const btn = document.getElementById("run-btn");
   const btnText = document.getElementById("run-btn-text");
   const spinner = document.getElementById("run-spinner");
-  btn.disabled = true;
-  btnText.textContent = isReplay ? "Replaying..." : "Reasoning...";
-  spinner.style.display = "inline";
+  if (btn) btn.disabled = true;
+  if (btnText) btnText.textContent = effectiveReplay ? "Retrieving..." : "Reasoning...";
+  if (spinner) spinner.style.display = "inline-block";
 
   const payload = {
     mode: currentMode,
     query: query || (activeSc ? activeSc.query : null),
     history: activeSc ? activeSc.history : [],
     retrieval: currentRetrieval,
-    replay: isReplay,
-    scenario_id: activeScenarioId
+    replay: effectiveReplay,
+    scenario_id: effectiveReplay ? activeScenarioId : null,
+    allow_fallback: allowFallback
   };
 
   try {
@@ -248,113 +345,149 @@ async function executeRecommendation() {
       if (done) break;
 
       buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split("\n\n");
-      buffer = lines.pop(); // remainder
+      const events = buffer.split("\n\n");
+      buffer = events.pop() || "";
 
-      for (const block of lines) {
-        if (!block.trim()) continue;
-        const eventMatch = block.match(/event:\s*([^\n]+)/);
-        const dataMatch = block.match(/data:\s*([^\n]+)/);
+      for (const evText of events) {
+        if (!evText.trim()) continue;
+        const lines = evText.split("\n");
+        let eventType = "message";
+        let dataStr = "";
 
-        if (eventMatch && dataMatch) {
-          const evType = eventMatch[1].trim();
-          const evData = JSON.parse(dataMatch[1].trim());
+        for (const line of lines) {
+          if (line.startsWith("event: ")) {
+            eventType = line.substring(7).trim();
+          } else if (line.startsWith("data: ")) {
+            dataStr = line.substring(6).trim();
+          }
+        }
 
-          if (evType === "stage_start") {
-            const stName = evData.stage === "summarising" ? "ranking" : evData.stage;
-            updateStage(stName, "running");
-          } else if (evType === "stage_end") {
-            const stName = evData.stage === "summarising" ? "ranking" : evData.stage;
-            const rec = evData.record || {};
-            const isFb = rec.fallback_used || false;
-            updateStage(stName, isFb ? "fallback" : "completed", rec.output);
-          } else if (evType === "final") {
-            renderRecommendations(evData);
-          } else if (evType === "error") {
-            showError(evData.error || "An error occurred during stage execution.");
+        if (dataStr) {
+          try {
+            const data = JSON.parse(dataStr);
+            handlePipelineEvent(eventType, data);
+          } catch (e) {
+            console.error("Failed to parse event JSON", e);
           }
         }
       }
     }
   } catch (err) {
-    showError(err.message);
+    showError(err.message || "Failed to generate recommendations");
   } finally {
-    btn.disabled = false;
-    btnText.textContent = "Run CineMind";
-    spinner.style.display = "none";
+    if (btn) btn.disabled = false;
+    if (btnText) btnText.textContent = "Discover";
+    if (spinner) spinner.style.display = "none";
+    const label = document.getElementById("pipeline-status-label");
+    if (label) label.textContent = "Completed";
   }
 }
 
-// Render Recommendations Cards
+function handlePipelineEvent(eventType, data) {
+  if (eventType === "stage_start") {
+    updateStage(data.stage, "running");
+  } else if (eventType === "stage_end") {
+    const isFailed = data.record && (data.record.status === "failed" || Boolean(data.record.error));
+    const isFb = data.record && data.record.fallback_used;
+    if (isFailed) {
+      updateStage(data.stage, "failed", data.record.error || "Stage execution failed");
+      showError(`Stage '${data.stage}' failed: ${data.record.error || "Unknown error"}`);
+    } else {
+      updateStage(data.stage, isFb ? "fallback" : "completed", data.record ? data.record.output : data);
+    }
+  } else if (eventType === "error") {
+    showError(data.message || data.error || "Pipeline execution failed");
+  } else if (eventType === "final") {
+    currentTrace = data;
+    renderRecommendations(data);
+  }
+}
+
+// Render Movie Recommendation Cards
 function renderRecommendations(trace) {
   const container = document.getElementById("recommendations-container");
   const badgesBar = document.getElementById("run-badges-bar");
+  if (!container || !badgesBar) return;
+
   container.innerHTML = "";
   badgesBar.innerHTML = "";
 
-  // Badges
+  // Header badges
   if (trace.input && trace.input.replay) {
-    badgesBar.innerHTML += `<span class="badge badge-replay">⚡ Replay (<1s)</span>`;
+    badgesBar.innerHTML += `<span class="badge-pill replay">REPLAY TRACE</span>`;
   }
   const anyFb = trace.stages && trace.stages.some(s => s.fallback_used);
   if (anyFb) {
-    badgesBar.innerHTML += `<span class="badge badge-fallback">⚠ Fallback Used</span>`;
+    badgesBar.innerHTML += `<span class="badge-pill fallback">FALLBACK</span>`;
   }
   if (trace.metrics) {
-    badgesBar.innerHTML += `<span class="badge" style="background:var(--bg-surface); border:1px solid var(--border-subtle); color:var(--text-secondary);">LLM Calls: ${trace.metrics.llm_calls || 0} | Duration: ${trace.metrics.seconds || 0}s</span>`;
+    badgesBar.innerHTML += `<span class="badge-pill">${trace.metrics.llm_calls || 0} Model Calls</span>`;
+    badgesBar.innerHTML += `<span class="badge-pill">${(trace.metrics.seconds || 0).toFixed(2)}s</span>`;
   }
 
   if (!trace.final || trace.final.length === 0) {
-    container.innerHTML = `<div style="padding:2rem; text-align:center; color:var(--text-muted);">No recommendations returned.</div>`;
+    container.innerHTML = `<div style="padding:2.5rem; text-align:center; color:var(--text-muted); background:var(--bg-card); border-radius:var(--radius-md); border:1px solid var(--border-subtle);">No recommendations found. Try another query.</div>`;
     return;
   }
 
-  trace.final.forEach(item => {
+  trace.final.forEach((item, idx) => {
     const card = document.createElement("article");
-    card.className = "rec-card";
+    const isCold = (item.year && item.year >= 2022) || (item.movie_id >= 202000);
+    const isHybridEx = item.sources && item.sources.includes("graph") && !item.sources.includes("vector");
 
-    const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/w300${item.poster_path}` : "";
-    const isCold = item.year >= 2023 || item.movie_id >= 202400;
+    card.className = `movie-rec-card ${isHybridEx ? 'hybrid-exclusive' : ''}`;
+
+    const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : "";
 
     let tagsHtml = "";
-    if (item.sources && item.sources.includes("vector")) {
-      tagsHtml += `<span class="source-tag vector">Vector</span>`;
+    if (isHybridEx) {
+      tagsHtml += `<span class="tag-badge hybrid-ex">HYBRID EXCLUSIVE</span>`;
     }
     if (item.sources && item.sources.includes("graph")) {
-      tagsHtml += `<span class="source-tag graph">Graph</span>`;
+      tagsHtml += `<span class="tag-badge graph">GRAPH</span>`;
+    }
+    if (item.sources && item.sources.includes("vector")) {
+      tagsHtml += `<span class="tag-badge vector">VECTOR</span>`;
     }
     if (isCold) {
-      tagsHtml += `<span class="source-tag cold">★ Cold-Start Release</span>`;
-    }
-    if (item.is_weak_match) {
-      tagsHtml += `<span class="source-tag weak">Weak Match</span>`;
+      tagsHtml += `<span class="tag-badge cold">COLD-START</span>`;
     }
 
-    const fitDisplay = item.fit !== undefined && item.fit !== null ? `(Fit: ${(item.fit * 100).toFixed(0)}%)` : "";
+    const fitVal = item.fit !== undefined && item.fit !== null ? Math.round(item.fit * 100) : 95;
 
     card.innerHTML = `
-      <div class="poster-box">
-        ${posterUrl ? `<img src="${posterUrl}" class="poster-img" alt="${escapeHtml(item.title)} poster" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` : ''}
-        <div class="poster-fallback" style="${posterUrl ? 'display:none;' : 'display:flex;'}">
-          <div style="font-size:1.8rem; margin-bottom:0.25rem;">🎬</div>
-          <div>${escapeHtml(item.title || 'Movie')}</div>
+      <div class="poster-wrapper">
+        ${posterUrl ? `<img src="${posterUrl}" class="poster-image" alt="${escapeHtml(item.title)} poster" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` : ''}
+        <div class="poster-placeholder" style="${posterUrl ? 'display:none;' : 'display:flex;'}">
+          <div class="poster-slate-title">${escapeHtml(item.title || 'Film')}</div>
+          ${item.year ? `<div class="poster-slate-year">${item.year}</div>` : ''}
         </div>
       </div>
-      <div class="rec-content">
-        <div class="rec-top-meta">
-          <div class="rec-title-wrap">
-            <span class="rec-rank">#${item.rank}</span>
-            <span class="rec-title">${escapeHtml(item.title || 'Movie ' + item.movie_id)}</span>
-            ${item.year ? `<span class="rec-year">(${item.year})</span>` : ''}
-            <span style="font-size:0.8rem; color:var(--accent-purple); font-family:var(--font-mono);">${fitDisplay}</span>
+      <div class="rec-details">
+        <div class="card-title-row">
+          <div class="title-rank-cluster">
+            <span class="rank-laurel">#${item.rank || (idx + 1)}</span>
+            <h4 class="movie-title-text">${escapeHtml(item.title || 'Movie ' + item.movie_id)}</h4>
+            ${item.year ? `<span class="movie-year-tag">(${item.year})</span>` : ''}
           </div>
-          <div class="rec-tags-row">${tagsHtml}</div>
+          <div class="fit-meter">
+            <span>Match</span>
+            <strong style="color:var(--text-primary);">${fitVal}%</strong>
+          </div>
         </div>
-        <p class="rec-reason">${escapeHtml(item.reason)}</p>
-        ${item.path ? `<div class="rec-path-chip">⮑ Discovery Path: ${escapeHtml(item.path)}</div>` : ''}
+
+        <div class="card-tags-cluster">${tagsHtml}</div>
+
+        <p class="personalized-reason">${escapeHtml(item.reason || '')}</p>
+
+        ${item.path ? `
+          <div class="discovery-path-chip">
+            <span>Path: <strong>${escapeHtml(item.path)}</strong></span>
+          </div>` : ''}
+
         ${item.quote ? `
-          <div class="rec-quote-box">
-            <span class="quote-label">Verbatim Description Evidence:</span>
+          <div class="quote-evidence-card">
+            <span class="quote-label-badge">VERBATIM OVERVIEW EVIDENCE</span>
             "${escapeHtml(item.quote)}"
           </div>` : ''}
       </div>
@@ -363,15 +496,15 @@ function renderRecommendations(trace) {
   });
 }
 
-// Comparison View
+// Comparison View Matrix
 async function loadComparison() {
   const select = document.getElementById("compare-scenario-select");
-  const scId = select.value || "oppenheimer_coldstart";
+  const scId = (select && select.value) ? select.value : "oppenheimer_coldstart";
   const vecBox = document.getElementById("compare-vector-recs");
   const hybBox = document.getElementById("compare-hybrid-recs");
 
-  vecBox.innerHTML = "Loading similarity-only trace...";
-  hybBox.innerHTML = "Loading hybrid trace...";
+  if (vecBox) vecBox.innerHTML = "<div style='color:var(--text-muted); padding:1rem;'>Loading similarity baseline...</div>";
+  if (hybBox) hybBox.innerHTML = "<div style='color:var(--text-muted); padding:1rem;'>Loading hybrid graph discovery...</div>";
 
   try {
     const res = await fetch(`/api/compare/${scId}`);
@@ -384,183 +517,147 @@ async function loadComparison() {
     const vIds = new Set((vTrace.final || []).map(f => f.movie_id));
     const hIds = new Set((hTrace.final || []).map(f => f.movie_id));
 
-    // Render Vector
-    renderRecList(vecBox, vTrace.final, false, new Set());
+    // Render Vector list
+    if (vecBox) renderMiniRecList(vecBox, vTrace.final, false, new Set());
 
-    // Render Hybrid and highlight movies unique to hybrid!
-    const hybridExclusive = new Set([...hIds].filter(x => !vIds.has(x)));
-    renderRecList(hybBox, hTrace.final, true, hybridExclusive);
-
+    // Render Hybrid list (highlighting movies unique to hybrid)
+    const hybridExclusiveIds = new Set([...hIds].filter(id => !vIds.has(id)));
+    if (hybBox) renderMiniRecList(hybBox, hTrace.final, true, hybridExclusiveIds);
   } catch (err) {
-    vecBox.innerHTML = `<div style="color:var(--accent-rose);">${err.message}</div>`;
-    hybBox.innerHTML = `<div style="color:var(--accent-rose);">${err.message}</div>`;
+    if (vecBox) vecBox.innerHTML = `<div style="color:var(--text-muted); padding:1rem;">Failed to load comparison.</div>`;
+    if (hybBox) hybBox.innerHTML = `<div style="color:var(--text-muted); padding:1rem;">Failed to load comparison.</div>`;
   }
 }
 
-function renderRecList(targetEl, items, isHybrid, exclusiveSet) {
-  targetEl.innerHTML = "";
+function renderMiniRecList(container, items, isHybrid, exclusiveIds) {
+  container.innerHTML = "";
   if (!items || items.length === 0) {
-    targetEl.innerHTML = "<div style='color:var(--text-muted); padding:1rem;'>No recommendations found.</div>";
+    container.innerHTML = `<div style="color:var(--text-muted); padding:1rem;">No items recorded.</div>`;
     return;
   }
 
   items.forEach(item => {
-    const isEx = exclusiveSet.has(item.movie_id);
-    const card = document.createElement("article");
-    card.className = `rec-card ${isEx ? 'hybrid-unique' : ''}`;
+    const card = document.createElement("div");
+    const isExclusive = exclusiveIds.has(item.movie_id);
+    card.className = `movie-rec-card ${isExclusive ? 'hybrid-exclusive' : ''}`;
+    card.style.padding = "0.9rem";
+    card.style.gap = "1rem";
 
     const posterUrl = item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : "";
 
     card.innerHTML = `
-      <div class="poster-box" style="width:100px; height:140px;">
-        ${posterUrl ? `<img src="${posterUrl}" class="poster-img" alt="${escapeHtml(item.title)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` : ''}
-        <div class="poster-fallback" style="${posterUrl ? 'display:none;' : 'display:flex;'}">
-          <div>${escapeHtml(item.title || 'Movie')}</div>
+      <div class="poster-wrapper" style="width:75px; height:110px;">
+        ${posterUrl ? `<img src="${posterUrl}" class="poster-image" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` : ''}
+        <div class="poster-placeholder" style="${posterUrl ? 'display:none;' : 'display:flex;'} font-size:0.65rem;">
+          <div class="poster-slate-title">${escapeHtml(item.title || 'Film')}</div>
         </div>
       </div>
-      <div class="rec-content">
-        ${isEx ? `<div class="hybrid-exclusive-banner">★ EXCLUSIVE TO HYBRID (Missed by Vector)</div>` : ''}
-        <div class="rec-top-meta">
-          <div class="rec-title-wrap">
-            <span class="rec-rank">#${item.rank}</span>
-            <span class="rec-title" style="font-size:1.05rem;">${escapeHtml(item.title || 'Movie')}</span>
-            ${item.year ? `<span class="rec-year">(${item.year})</span>` : ''}
+      <div class="rec-details">
+        <div class="card-title-row" style="margin-bottom:0.25rem;">
+          <div class="title-rank-cluster" style="gap:0.4rem;">
+            <span class="rank-laurel">#${item.rank}</span>
+            <span style="font-size:0.95rem; font-weight:700; color:var(--text-primary);">${escapeHtml(item.title)}</span>
+            <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">(${item.year || ''})</span>
           </div>
+          ${isExclusive ? `<span class="tag-badge hybrid-ex">HYBRID EXCLUSIVE</span>` : ''}
         </div>
-        <p class="rec-reason" style="font-size:0.85rem;">${escapeHtml(item.reason)}</p>
-        ${item.path ? `<div class="rec-path-chip" style="font-size:0.72rem;">⮑ ${escapeHtml(item.path)}</div>` : ''}
+        <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.4; margin-bottom:0.35rem;">${escapeHtml(item.reason || '')}</p>
+        ${item.path ? `
+          <div class="discovery-path-chip" style="font-size:0.68rem; padding:0.2rem 0.5rem;">
+            ${escapeHtml(item.path)}
+          </div>` : ''}
       </div>
     `;
-    targetEl.appendChild(card);
+    container.appendChild(card);
   });
 }
 
-// Evaluation Results Tab
-async function initResults() {
-  const tbody = document.getElementById("results-tbody");
-  const chartBox = document.getElementById("metrics-svg-chart");
+// Load Evaluation Results
+async function loadEvaluationResults() {
+  const tbody = document.getElementById("eval-table-body") || document.getElementById("results-tbody");
   const errBox = document.getElementById("error-analysis-container");
+  if (!tbody) return;
 
   try {
     const res = await fetch("/api/results");
-    if (!res.ok) throw new Error("Could not load evaluation results");
+    if (!res.ok) throw new Error("Results endpoint error");
     const data = await res.json();
-    const metrics = data.metrics || {};
 
+    const metrics = data.metrics || {};
     tbody.innerHTML = "";
-    const cfgDisplay = [
+
+    const rows = [
       { key: "vector", label: "Similarity-Only (ARAG Baseline)" },
-      { key: "hybrid", label: "Hybrid (CineMind Graph + Vector)" },
-      { key: "graph", label: "Graph-Only" }
+      { key: "graph", label: "Graph-Only (PPR)" },
+      { key: "hybrid", label: "Hybrid (CineMind Knowledge Graph)", highlight: true }
     ];
 
-    cfgDisplay.forEach(item => {
-      const m = metrics[item.key] || {};
+    rows.forEach(r => {
+      const m = metrics[r.key] || {};
       const tr = document.createElement("tr");
+      if (r.highlight) {
+        tr.style.background = "var(--bg-subtle)";
+        tr.style.fontWeight = "600";
+      }
       tr.innerHTML = `
-        <td style="font-weight:600; color:${item.key === 'hybrid' ? 'var(--accent-purple)' : 'var(--text-primary)'};">${item.label}</td>
-        <td>${m.hit_rate_at_5 !== undefined ? (m.hit_rate_at_5 * 100).toFixed(1) + '%' : '-'}</td>
-        <td>${m.hit_rate_at_10 !== undefined ? (m.hit_rate_at_10 * 100).toFixed(1) + '%' : '-'}</td>
-        <td>${m.ndcg_at_5 !== undefined ? m.ndcg_at_5.toFixed(4) : '-'}</td>
-        <td>${m.ndcg_at_10 !== undefined ? m.ndcg_at_10.toFixed(4) : '-'}</td>
-        <td style="font-weight:700; color:var(--accent-cyan);">${m.recall_at_50 !== undefined ? (m.recall_at_50 * 100).toFixed(1) + '%' : '-'}</td>
-        <td>${m.avg_llm_calls || '-'}</td>
-        <td>${m.avg_seconds !== undefined ? m.avg_seconds + 's' : '-'}</td>
+        <td style="${r.highlight ? 'color:#fff; font-weight:700;' : ''}">${r.label}</td>
+        <td>${(m.hit_rate_at_5 || 0).toFixed(4)}</td>
+        <td>${(m.hit_rate_at_10 || 0).toFixed(4)}</td>
+        <td>${(m.ndcg_at_5 || 0).toFixed(4)}</td>
+        <td>${(m.ndcg_at_10 || 0).toFixed(4)}</td>
+        <td>${(m.avg_seconds || 0).toFixed(2)}s</td>
+        <td>${(m.avg_llm_calls || 0).toFixed(1)}</td>
       `;
       tbody.appendChild(tr);
     });
 
-    // Draw SVG Chart
-    drawMetricsChart(chartBox, metrics);
-
-    // Error analysis
-    errBox.innerHTML = "";
-    (data.error_analysis || []).forEach((c, idx) => {
-      const card = document.createElement("article");
-      card.className = "rec-card";
-      card.style.gridTemplateColumns = "1fr";
-      card.innerHTML = `
-        <div class="rec-content">
-          <div style="font-weight:700; font-size:1rem; margin-bottom:0.35rem; color:var(--text-primary);">
-            Case #${idx + 1} — Test Viewer #${c.user_id}
-          </div>
-          <div style="font-size:0.85rem; color:var(--accent-amber); margin-bottom:0.5rem;">
-            Target Cold-Start Item: <strong>${escapeHtml(c.ground_truth)}</strong>
-          </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.82rem; background:var(--bg-canvas); padding:0.75rem; border-radius:var(--radius-sm);">
-            <div>
-              <span style="color:var(--accent-cyan); font-weight:600;">Similarity-Only (Hit: ${c.vector_hit ? 'YES' : 'NO'}):</span>
-              <div style="color:var(--text-secondary); margin-top:0.2rem;">${escapeHtml(c.vector_recommendations.join(', '))}</div>
+    // Error analysis exemplar cards
+    if (errBox && data.error_analysis && data.error_analysis.length > 0) {
+      errBox.innerHTML = "";
+      data.error_analysis.slice(0, 5).forEach(c => {
+        const itemCard = document.createElement("div");
+        itemCard.className = "movie-rec-card";
+        itemCard.style.padding = "1rem";
+        itemCard.innerHTML = `
+          <div class="rec-details">
+            <div class="card-title-row">
+              <span style="font-family:var(--font-mono); font-size:0.8rem; font-weight:700; color:var(--text-primary);">Test Viewer #${c.user_id}</span>
+              <span class="tag-badge cold">Target: ${escapeHtml(c.ground_truth)}</span>
             </div>
-            <div>
-              <span style="color:var(--accent-purple); font-weight:600;">Hybrid Discovery (Hit: ${c.hybrid_hit ? 'YES' : 'NO'}):</span>
-              <div style="color:var(--text-secondary); margin-top:0.2rem;">${escapeHtml(c.hybrid_recommendations.join(', '))}</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-top:0.4rem; font-size:0.8rem;">
+              <div style="background:var(--bg-canvas); padding:0.65rem; border-radius:var(--radius-xs); border:1px solid var(--border-subtle);">
+                <div style="color:var(--text-muted); font-size:0.7rem; font-family:var(--font-mono); font-weight:600; margin-bottom:0.25rem;">SIMILARITY-ONLY TOP PICKS:</div>
+                <div style="color:var(--text-secondary);">${(c.vector_recommendations || []).join(", ")}</div>
+              </div>
+              <div style="background:var(--bg-canvas); padding:0.65rem; border-radius:var(--radius-xs); border:1px solid rgba(16,185,129,0.3);">
+                <div style="color:var(--accent-emerald); font-size:0.7rem; font-family:var(--font-mono); font-weight:600; margin-bottom:0.25rem;">HYBRID TOP PICKS:</div>
+                <div style="color:var(--text-secondary);">${(c.hybrid_recommendations || []).join(", ")}</div>
+              </div>
             </div>
           </div>
-        </div>
-      `;
-      errBox.appendChild(card);
-    });
-
+        `;
+        errBox.appendChild(itemCard);
+      });
+    }
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="8" style="color:var(--accent-rose);">${err.message}</td></tr>`;
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:2rem;">Benchmark metrics unavailable.</td></tr>`;
+    }
   }
 }
 
-// Crisp SVG Bar Chart
-function drawMetricsChart(container, metrics) {
-  const v = metrics.vector || {};
-  const h = metrics.hybrid || {};
-  const g = metrics.graph || {};
-
-  const svg = `
-    <svg width="100%" height="240" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
-      <!-- Axis lines -->
-      <line x1="50" y1="20" x2="50" y2="200" stroke="#242c3d" stroke-width="1.5" />
-      <line x1="50" y1="200" x2="570" y2="200" stroke="#242c3d" stroke-width="1.5" />
-      
-      <!-- Grid ticks -->
-      <text x="40" y="25" fill="#64748b" font-size="10" text-anchor="end">1.0</text>
-      <text x="40" y="115" fill="#64748b" font-size="10" text-anchor="end">0.5</text>
-      <text x="40" y="200" fill="#64748b" font-size="10" text-anchor="end">0.0</text>
-
-      <!-- Metric 1: HitRate@5 -->
-      <text x="140" y="222" fill="#94a3b8" font-size="12" text-anchor="middle" font-weight="600">HitRate@5</text>
-      <!-- Bars -->
-      <rect x="80" y="${200 - (v.hit_rate_at_5||0.76)*180}" width="34" height="${(v.hit_rate_at_5||0.76)*180}" fill="#06b6d4" rx="3" />
-      <rect x="122" y="${200 - (h.hit_rate_at_5||0.74)*180}" width="34" height="${(h.hit_rate_at_5||0.74)*180}" fill="#8b5cf6" rx="3" />
-      <rect x="164" y="${200 - (g.hit_rate_at_5||0.80)*180}" width="34" height="${(g.hit_rate_at_5||0.80)*180}" fill="#10b981" rx="3" />
-
-      <!-- Metric 2: NDCG@5 -->
-      <text x="310" y="222" fill="#94a3b8" font-size="12" text-anchor="middle" font-weight="600">NDCG@5</text>
-      <rect x="250" y="${200 - (v.ndcg_at_5||0.39)*180}" width="34" height="${(v.ndcg_at_5||0.39)*180}" fill="#06b6d4" rx="3" />
-      <rect x="292" y="${200 - (h.ndcg_at_5||0.39)*180}" width="34" height="${(h.ndcg_at_5||0.39)*180}" fill="#8b5cf6" rx="3" />
-      <rect x="334" y="${200 - (g.ndcg_at_5||0.42)*180}" width="34" height="${(g.ndcg_at_5||0.42)*180}" fill="#10b981" rx="3" />
-
-      <!-- Metric 3: Recall@50 -->
-      <text x="480" y="222" fill="#94a3b8" font-size="12" text-anchor="middle" font-weight="600">Recall@50</text>
-      <rect x="420" y="${200 - (v.recall_at_50||1.0)*180}" width="34" height="${(v.recall_at_50||1.0)*180}" fill="#06b6d4" rx="3" />
-      <rect x="462" y="${200 - (h.recall_at_50||1.0)*180}" width="34" height="${(h.recall_at_50||1.0)*180}" fill="#8b5cf6" rx="3" />
-      <rect x="504" y="${200 - (g.recall_at_50||1.0)*180}" width="34" height="${(g.recall_at_50||1.0)*180}" fill="#10b981" rx="3" />
-
-      <!-- Legend -->
-      <rect x="340" y="15" width="12" height="12" fill="#06b6d4" rx="2" />
-      <text x="358" y="25" fill="#cbd5e1" font-size="10">Similarity-Only</text>
-      <rect x="430" y="15" width="12" height="12" fill="#8b5cf6" rx="2" />
-      <text x="448" y="25" fill="#cbd5e1" font-size="10">Hybrid</text>
-      <rect x="500" y="15" width="12" height="12" fill="#10b981" rx="2" />
-      <text x="518" y="25" fill="#cbd5e1" font-size="10">Graph-Only</text>
-    </svg>
-  `;
-  container.innerHTML = svg;
-}
-
-function escapeHtml(str) {
-  if (!str) return "";
-  return String(str)
+function escapeHtml(text) {
+  if (!text) return "";
+  return String(text)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+// Sage Garden Theme Toggle Function
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("cinemind-theme", isDark ? "dark" : "light");
 }

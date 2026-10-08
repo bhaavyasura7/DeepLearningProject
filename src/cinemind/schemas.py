@@ -113,6 +113,7 @@ class RecommendRequest(BaseModel):
     retrieval: str = "hybrid"  # "vector" | "graph" | "hybrid"
     replay: bool = False
     scenario_id: Optional[str] = None
+    allow_fallback: bool = True  # If False, disables fallbacks and raises explicit errors
 
 class HealthResponse(BaseModel):
     model_ready: bool

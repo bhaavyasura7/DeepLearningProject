@@ -1,5 +1,5 @@
 {
-  "run_id": "run_e872d2034b",
+  "run_id": "run_1921e9310e",
   "mode": "query",
   "input": {
     "mode": "query",
@@ -14,8 +14,8 @@
   "stages": [
     {
       "name": "understanding",
-      "started": 1791352435.900197,
-      "ended": 1791352435.900217,
+      "started": 1791360579.660118,
+      "ended": 1791360579.660195,
       "status": "completed",
       "fallback_used": false,
       "output": {
@@ -41,12 +41,12 @@
     },
     {
       "name": "retrieval",
-      "started": 1791352435.900238,
-      "ended": 1791352435.944774,
+      "started": 1791360579.6602418,
+      "ended": 1791360579.7793632,
       "status": "completed",
       "fallback_used": false,
       "output": {
-        "candidate_count": 24,
+        "candidate_count": 30,
         "candidates": [
           {
             "movie_id": 79132,
@@ -56,20 +56,20 @@
               "vector"
             ],
             "path": null,
-            "score": 0.7008774280548096,
+            "score": 0.6974987387657166,
             "overview": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: \"inception\", the implantation of another person's idea into a target's subconscious.",
             "genres": [
               "Action",
-              "Sci-Fi",
+              "Science Fiction",
               "Adventure"
             ],
             "director": "Christopher Nolan",
             "cast": [
               "Leonardo DiCaprio",
               "Joseph Gordon-Levitt",
-              "Elliot Page",
+              "Ken Watanabe",
               "Tom Hardy",
-              "Ken Watanabe"
+              "Elliot Page"
             ]
           },
           {
@@ -80,544 +80,691 @@
               "vector"
             ],
             "path": null,
-            "score": 0.6967931389808655,
-            "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage. Driven by love and survival, they race against time as Earth faces extinction.",
+            "score": 0.6926856637001038,
+            "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
             "genres": [
               "Adventure",
               "Drama",
-              "Sci-Fi"
+              "Science Fiction"
             ],
             "director": "Christopher Nolan",
             "cast": [
               "Matthew McConaughey",
               "Anne Hathaway",
-              "Jessica Chastain",
               "Michael Caine",
-              "Bill Irwin"
-            ]
-          },
-          {
-            "movie_id": 2571,
-            "title": "The Matrix",
-            "year": 1999,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.6233329176902771,
-            "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth. He discovers that perceived reality is actually a simulated reality created by sentient machines.",
-            "genres": [
-              "Action",
-              "Sci-Fi"
-            ],
-            "director": "Lana Wachowski",
-            "cast": [
-              "Keanu Reeves",
-              "Laurence Fishburne",
-              "Carrie-Anne Moss",
-              "Hugo Weaving",
-              "Joe Pantoliano"
-            ]
-          },
-          {
-            "movie_id": 135133,
-            "title": "The Martian",
-            "year": 2015,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.6191734671592712,
-            "overview": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive.",
-            "genres": [
-              "Drama",
-              "Adventure",
-              "Sci-Fi"
-            ],
-            "director": "Ridley Scott",
-            "cast": [
-              "Matt Damon",
               "Jessica Chastain",
-              "Kristen Wiig",
-              "Jeff Daniels",
-              "Michael Peña"
+              "Casey Affleck"
             ]
           },
           {
-            "movie_id": 201588,
-            "title": "Dune",
-            "year": 2021,
+            "movie_id": 90405,
+            "title": "In Time",
+            "year": 2011,
             "sources": [
               "vector"
             ],
             "path": null,
-            "score": 0.6112135052680969,
-            "overview": "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their fear will survive.",
-            "genres": [
-              "Sci-Fi",
-              "Adventure"
-            ],
-            "director": "Denis Villeneuve",
-            "cast": [
-              "Timothée Chalamet",
-              "Rebecca Ferguson",
-              "Oscar Isaac",
-              "Josh Brolin",
-              "Zendaya"
-            ]
-          },
-          {
-            "movie_id": 164179,
-            "title": "Arrival",
-            "year": 2016,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.6111263036727905,
-            "overview": "Taking place after alien crafts land around the world, an expert linguist is recruited by the military to determine whether they come in peace or are a threat. As she learns their cyclical non-linear language, she experiences flashes of her own future.",
-            "genres": [
-              "Drama",
-              "Sci-Fi",
-              "Mystery"
-            ],
-            "director": "Denis Villeneuve",
-            "cast": [
-              "Amy Adams",
-              "Jeremy Renner",
-              "Forest Whitaker",
-              "Michael Stuhlbarg",
-              "Mark O'Brien"
-            ]
-          },
-          {
-            "movie_id": 174055,
-            "title": "Blade Runner 2049",
-            "year": 2017,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.6002050638198853,
-            "overview": "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a quest to find Rick Deckard, a former LAPD blade runner who has been missing for 30 years.",
-            "genres": [
-              "Sci-Fi",
-              "Drama",
-              "Mystery"
-            ],
-            "director": "Denis Villeneuve",
-            "cast": [
-              "Ryan Gosling",
-              "Harrison Ford",
-              "Ana de Armas",
-              "Sylvia Hoeks",
-              "Robin Wright"
-            ]
-          },
-          {
-            "movie_id": 177765,
-            "title": "The Shape of Water",
-            "year": 2017,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5961723327636719,
-            "overview": "An other-worldly story, set against the backdrop of Cold War era America circa 1962. In the hidden high-security government laboratory where she works, lonely Elisa is trapped in a life of isolation. Elisa's life is changed forever when she and co-worker Zelda discover a secret classified experiment.",
-            "genres": [
-              "Drama",
-              "Fantasy",
-              "Romance"
-            ],
-            "director": "Guillermo del Toro",
-            "cast": [
-              "Sally Hawkins",
-              "Michael Shannon",
-              "Richard Jenkins",
-              "Octavia Spencer",
-              "Michael Stuhlbarg"
-            ]
-          },
-          {
-            "movie_id": 202402,
-            "title": "Oppenheimer",
-            "year": 2023,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5908260941505432,
-            "overview": "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II. A gripping psychological examination of brilliant theoretical physics, bureaucratic paranoia, and catastrophic historical guilt.",
-            "genres": [
-              "Drama",
-              "History",
-              "Biography"
-            ],
-            "director": "Christopher Nolan",
-            "cast": [
-              "Cillian Murphy",
-              "Emily Blunt",
-              "Matt Damon",
-              "Robert Downey Jr.",
-              "Florence Pugh"
-            ]
-          },
-          {
-            "movie_id": 202401,
-            "title": "Dune: Part Two",
-            "year": 2024,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5863419771194458,
-            "overview": "Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.",
-            "genres": [
-              "Sci-Fi",
-              "Adventure",
-              "Action"
-            ],
-            "director": "Denis Villeneuve",
-            "cast": [
-              "Timothée Chalamet",
-              "Zendaya",
-              "Rebecca Ferguson",
-              "Javier Bardem",
-              "Austin Butler"
-            ]
-          },
-          {
-            "movie_id": 2,
-            "title": "Jumanji",
-            "year": 1995,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5583463907241821,
-            "overview": "When siblings Judy and Peter discover an enchanted board game that opens the door to a magical world, they unwittingly invite Alan Parrish, a man trapped in the game for 26 years, into their living room.",
-            "genres": [
-              "Adventure",
-              "Fantasy",
-              "Family"
-            ],
-            "director": "Joe Johnston",
-            "cast": [
-              "Robin Williams",
-              "Kirsten Dunst",
-              "David Alan Grier",
-              "Bonnie Hunt",
-              "Jonathan Hyde"
-            ]
-          },
-          {
-            "movie_id": 202403,
-            "title": "Poor Things",
-            "year": 2023,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5483771562576294,
-            "overview": "The incredible tale about the fantastical evolution of Bella Baxter, a young woman brought back to life by the brilliant and unorthodox scientist Dr. Godwin Baxter. Hungry for the worldliness she is lacking, Bella runs off on a whirlwind adventure across the continents.",
-            "genres": [
-              "Comedy",
-              "Sci-Fi",
-              "Romance"
-            ],
-            "director": "Yorgos Lanthimos",
-            "cast": [
-              "Emma Stone",
-              "Mark Ruffalo",
-              "Willem Dafoe",
-              "Ramy Youssef",
-              "Jerrod Carmichael"
-            ]
-          },
-          {
-            "movie_id": 60069,
-            "title": "Shutter Island",
-            "year": 2010,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5394271612167358,
-            "overview": "World War II soldier-turned-U.S. Marshal Teddy Daniels investigates the disappearance of a patient from Boston's Shutter Island Ashecliffe Hospital. Teddy Daniel's shrewd investigative instincts soon leave him doubting everything from his partner to his own sanity.",
-            "genres": [
-              "Drama",
-              "Mystery",
-              "Thriller"
-            ],
-            "director": "Martin Scorsese",
-            "cast": [
-              "Leonardo DiCaprio",
-              "Mark Ruffalo",
-              "Ben Kingsley",
-              "Max von Sydow",
-              "Michelle Williams"
-            ]
-          },
-          {
-            "movie_id": 296,
-            "title": "Pulp Fiction",
-            "year": 1994,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5386847257614136,
-            "overview": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
-            "genres": [
-              "Crime",
-              "Drama",
-              "Thriller"
-            ],
-            "director": "Quentin Tarantino",
-            "cast": [
-              "John Travolta",
-              "Samuel L. Jackson",
-              "Uma Thurman",
-              "Bruce Willis",
-              "Ving Rhames"
-            ]
-          },
-          {
-            "movie_id": 122886,
-            "title": "Avengers: Infinity War",
-            "year": 2018,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.531215488910675,
-            "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones.",
+            "score": 0.667038083076477,
+            "overview": "In the not-too-distant future the aging gene has been switched off. To avoid overpopulation, time has become the currency and the way people pay for luxuries and necessities. The rich can live forever, while the rest try to negotiate for their immortality. A poor young man who comes into a fortune of time, though too late to help his mother from dying. He ends up on the run from a corrupt police force known as 'time keepers'.",
             "genres": [
               "Action",
-              "Adventure",
-              "Sci-Fi"
-            ],
-            "director": "Anthony Russo",
-            "cast": [
-              "Robert Downey Jr.",
-              "Chris Hemsworth",
-              "Mark Ruffalo",
-              "Chris Evans",
-              "Scarlett Johansson"
-            ]
-          },
-          {
-            "movie_id": 202404,
-            "title": "Civil War",
-            "year": 2024,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5263330936431885,
-            "overview": "In a dystopian future America, a team of military-embedded journalists races against time to reach Washington, D.C., before rebel factions descend upon the White House. A harrowing, visceral look at modern civil conflict through a photojournalist's lens.",
-            "genres": [
-              "Action",
-              "Drama",
-              "War"
-            ],
-            "director": "Alex Garland",
-            "cast": [
-              "Kirsten Dunst",
-              "Wagner Moura",
-              "Cailee Spaeny",
-              "Stephen McKinley Henderson",
-              "Nick Offerman"
-            ]
-          },
-          {
-            "movie_id": 193587,
-            "title": "Parasite",
-            "year": 2019,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5134647488594055,
-            "overview": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident. A dark, razor-sharp social satire dissecting modern class divisions and greed.",
-            "genres": [
-              "Comedy",
               "Thriller",
-              "Drama"
+              "Science Fiction"
             ],
-            "director": "Bong Joon-ho",
+            "director": "Andrew Niccol",
             "cast": [
-              "Song Kang-ho",
-              "Lee Sun-kyun",
-              "Cho Yeo-jeong",
-              "Choi Woo-shik",
-              "Park So-dam"
+              "Justin Timberlake",
+              "Amanda Seyfried",
+              "Cillian Murphy",
+              "Olivia Wilde",
+              "Alex Pettyfer"
             ]
           },
           {
-            "movie_id": 202406,
-            "title": "Challengers",
-            "year": 2024,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5130628943443298,
-            "overview": "Tennis player-turned-coach Tashi has taken her husband, Art, and transformed him into a world-famous grand slam champion. To jolt him out of his recent losing streak, she enters him into a challenger event where he finds himself facing off against Patrick, his former best friend and Tashi's ex-boyfriend.",
-            "genres": [
-              "Drama",
-              "Romance"
-            ],
-            "director": "Luca Guadagnino",
-            "cast": [
-              "Zendaya",
-              "Mike Faist",
-              "Josh O'Connor",
-              "Darnell Appling",
-              "Bryan Doo"
-            ]
-          },
-          {
-            "movie_id": 1,
-            "title": "Toy Story",
-            "year": 1995,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5109935998916626,
-            "overview": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate them from their owner, the duo reluctantly learn to work together.",
-            "genres": [
-              "Animation",
-              "Adventure",
-              "Comedy",
-              "Family"
-            ],
-            "director": "John Lasseter",
-            "cast": [
-              "Tom Hanks",
-              "Tim Allen",
-              "Don Rickles",
-              "Jim Varney",
-              "Wallace Shawn"
-            ]
-          },
-          {
-            "movie_id": 58559,
-            "title": "The Dark Knight",
-            "year": 2008,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5061379671096802,
-            "overview": "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
-            "genres": [
-              "Action",
-              "Crime",
-              "Drama",
-              "Thriller"
-            ],
-            "director": "Christopher Nolan",
-            "cast": [
-              "Christian Bale",
-              "Heath Ledger",
-              "Aaron Eckhart",
-              "Michael Caine",
-              "Maggie Gyllenhaal"
-            ]
-          },
-          {
-            "movie_id": 202405,
-            "title": "Past Lives",
-            "year": 2023,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5042148232460022,
-            "overview": "Nora and Hae Sung, two deeply connected childhood friends, are wrested apart after Nora's family emigrates from South Korea. Two decades later, they are reunited in New York for one fateful week as they confront notions of destiny, love, and the choices that make a life.",
-            "genres": [
-              "Drama",
-              "Romance"
-            ],
-            "director": "Celine Song",
-            "cast": [
-              "Greta Lee",
-              "Teo Yoo",
-              "John Magaro",
-              "Moon Seung-ah",
-              "Yim Seung-min"
-            ]
-          },
-          {
-            "movie_id": 187593,
-            "title": "Bohemian Rhapsody",
-            "year": 2018,
-            "sources": [
-              "vector"
-            ],
-            "path": null,
-            "score": 0.5032653212547302,
-            "overview": "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970. Hitting the heights of fame, Mercury faces internal turbulence and AIDS diagnosis leading up to Live Aid.",
-            "genres": [
-              "Drama",
-              "Music"
-            ],
-            "director": "Bryan Singer",
-            "cast": [
-              "Rami Malek",
-              "Lucy Boynton",
-              "Gwilym Lee",
-              "Ben Hardy",
-              "Joe Mazzello"
-            ]
-          },
-          {
-            "movie_id": 112552,
-            "title": "Gone Girl",
+            "movie_id": 110730,
+            "title": "Transcendence",
             "year": 2014,
             "sources": [
               "vector"
             ],
             "path": null,
-            "score": 0.48495638370513916,
-            "overview": "With his wife's disappearance having become the focus of an intense media circus, a man sees the spotlight turned on him when it's suspected that he may not be innocent. A chilling examination of media sensationalism and marital toxicity.",
+            "score": 0.6548433899879456,
+            "overview": "Two leading computer scientists work toward their goal of Technological Singularity,  as a radical anti-technology organization fights to prevent them from creating a world where computers can transcend the abilities of the human brain.",
             "genres": [
-              "Mystery",
               "Thriller",
-              "Drama"
+              "Science Fiction",
+              "Drama",
+              "Mystery"
             ],
-            "director": "David Fincher",
+            "director": "Wally Pfister",
             "cast": [
-              "Ben Affleck",
-              "Rosamund Pike",
-              "Neil Patrick Harris",
-              "Tyler Perry",
-              "Carrie Coon"
+              "Johnny Depp",
+              "Rebecca Hall",
+              "Paul Bettany",
+              "Cillian Murphy",
+              "Kate Mara"
             ]
           },
           {
-            "movie_id": 318,
-            "title": "The Shawshank Redemption",
-            "year": 1994,
+            "movie_id": 96596,
+            "title": "Branded",
+            "year": 2012,
             "sources": [
               "vector"
             ],
             "path": null,
-            "score": 0.48282933235168457,
-            "overview": "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unshakeable sense of hope.",
+            "score": 0.654426634311676,
+            "overview": "In a dystopian future, where corporate brands have created a disillusioned population, one man's effort to unlock the truth behind the conspiracy leads to an epic battle with hidden forces that control the world.",
+            "genres": [
+              "Science Fiction"
+            ],
+            "director": "Jamie Bradshaw",
+            "cast": [
+              "Ed Stoppard",
+              "Leelee Sobieski",
+              "Jeffrey Tambor",
+              "Max von Sydow",
+              "Mariya Ignatova"
+            ]
+          },
+          {
+            "movie_id": 180093,
+            "title": "Singularity",
+            "year": 2017,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6540334224700928,
+            "overview": "When Elias van Dorne, CEO of the world's largest robotics company, introduces his most powerful invention, Kronos-a super-computer designed to end all wars-it determines that humans are the biggest threat and launches a worldwide attack on mankind. A small band of survivors must form an unlikely alliance to survive the greatest artificial intelligence threat man will ever know.",
+            "genres": [
+              "Science Fiction"
+            ],
+            "director": "Robert Kouba",
+            "cast": [
+              "Jeannine Wacker",
+              "Julian Schaffner",
+              "John Cusack",
+              "Carmen Argenziano",
+              "Eileen Grubba"
+            ]
+          },
+          {
+            "movie_id": 4370,
+            "title": "A.I. Artificial Intelligence",
+            "year": 2001,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.653151273727417,
+            "overview": "David, a robotic boy—the first of his kind programmed to love—is adopted as a test case by a Cybertronics employee and his wife. Though he gradually becomes their child, a series of unexpected circumstances make this life impossible for David.",
             "genres": [
               "Drama",
-              "Crime"
+              "Science Fiction",
+              "Adventure"
             ],
-            "director": "Frank Darabont",
+            "director": "Steven Spielberg",
             "cast": [
-              "Tim Robbins",
-              "Morgan Freeman",
-              "Bob Gunton",
-              "William Sadler",
-              "Clancy Brown"
+              "Haley Joel Osment",
+              "Jude Law",
+              "Frances O'Connor",
+              "Sam Robards",
+              "Jake Thomas"
+            ]
+          },
+          {
+            "movie_id": 198265,
+            "title": "The Wandering Earth",
+            "year": 2019,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6516854166984558,
+            "overview": "When the Sun begins to expand in such a way that it will inevitably engulf and destroy the Earth in a hundred years, united mankind finds a way to avoid extinction by propelling the planet out of the Solar System using gigantic engines, moving it to a new home located four light years away, an epic journey that will last thousands of years.",
+            "genres": [
+              "Science Fiction",
+              "Action",
+              "Drama"
+            ],
+            "director": "Frant Gwo",
+            "cast": [
+              "Qu Chuxiao",
+              "Li Guangjie",
+              "Zhao Jinmai",
+              "Wu Jing",
+              "Richard Ng Man-Tat"
+            ]
+          },
+          {
+            "movie_id": 113345,
+            "title": "Jupiter Ascending",
+            "year": 2015,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6501594185829163,
+            "overview": "In a universe where human genetic material is the most precious commodity, an impoverished young Earth woman becomes the key to strategic maneuvers and internal strife within a powerful dynasty…",
+            "genres": [
+              "Science Fiction",
+              "Fantasy",
+              "Action"
+            ],
+            "director": "Lana Wachowski",
+            "cast": [
+              "Channing Tatum",
+              "Mila Kunis",
+              "Sean Bean",
+              "Eddie Redmayne",
+              "Douglas Booth"
+            ]
+          },
+          {
+            "movie_id": 183055,
+            "title": "The Beyond",
+            "year": 2018,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6471522450447083,
+            "overview": "Set in 2019, The Beyond chronicles the groundbreaking mission which sent astronauts - modified with advanced robotics, through a newly discovered wormhole known as the Void. When the mission returns unexpectedly, the space agency races to discover what the astronauts encountered on their first of its kind interstellar space journey.",
+            "genres": [
+              "Science Fiction"
+            ],
+            "director": "Hasraf Dulull",
+            "cast": [
+              "David Bailie",
+              "Jane Perry",
+              "Kosha Engler",
+              "Brian Deacon",
+              "Noeleen Comiskey"
+            ]
+          },
+          {
+            "movie_id": 802,
+            "title": "Phenomenon",
+            "year": 1996,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6447388529777527,
+            "overview": "An ordinary man sees a bright light descend from the sky, and discovers he now has super-intelligence and telekinesis.",
+            "genres": [
+              "Drama",
+              "Romance",
+              "Science Fiction"
+            ],
+            "director": "Jon Turteltaub",
+            "cast": [
+              "John Travolta",
+              "Kyra Sedgwick",
+              "Forest Whitaker",
+              "Robert Duvall",
+              "Jeffrey DeMunn"
+            ]
+          },
+          {
+            "movie_id": 47997,
+            "title": "Idiocracy",
+            "year": 2006,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6446660757064819,
+            "overview": "To test its top-secret Human Hibernation Project, the Pentagon picks the most average Americans it can find - an Army private and a prostitute - and sends them to the year 2505 after a series of freak events. But when they arrive, they find a civilization so dumbed-down that they're the smartest people around.",
+            "genres": [
+              "Comedy",
+              "Science Fiction",
+              "Adventure"
+            ],
+            "director": "Mike Judge",
+            "cast": [
+              "Luke Wilson",
+              "Maya Rudolph",
+              "Dax Shepard",
+              "Terry Crews",
+              "Anthony 'Citric' Campos"
+            ]
+          },
+          {
+            "movie_id": 197707,
+            "title": "IO",
+            "year": 2019,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6435745358467102,
+            "overview": "As a young scientist searches for a way to save a dying Earth, she finds a connection with a man who's racing to catch the last shuttle off the planet.",
+            "genres": [
+              "Science Fiction"
+            ],
+            "director": "Jonathan Helpert",
+            "cast": [
+              "Margaret Qualley",
+              "Anthony Mackie",
+              "Danny Huston",
+              "Tom Payne",
+              "Emma Fitzgerald"
+            ]
+          },
+          {
+            "movie_id": 5171,
+            "title": "The Time Machine",
+            "year": 2002,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6432530879974365,
+            "overview": "Hoping to alter the events of the past, a 19th century inventor instead travels 800,000 years into the future, where he finds mankind divided into two warring races.",
+            "genres": [
+              "Science Fiction",
+              "Adventure",
+              "Action"
+            ],
+            "director": "Simon Wells",
+            "cast": [
+              "Guy Pearce",
+              "Samantha Mumba",
+              "Omero Mumba",
+              "Jeremy Irons",
+              "Sienna Guillory"
+            ]
+          },
+          {
+            "movie_id": 94864,
+            "title": "Prometheus",
+            "year": 2012,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6419424414634705,
+            "overview": "A team of explorers discover a clue to the origins of mankind on Earth, leading them on a journey to the darkest corners of the universe. There, they must fight a terrifying battle to save the future of the human race.",
+            "genres": [
+              "Science Fiction",
+              "Adventure",
+              "Mystery"
+            ],
+            "director": "Ridley Scott",
+            "cast": [
+              "Noomi Rapace",
+              "Michael Fassbender",
+              "Charlize Theron",
+              "Idris Elba",
+              "Guy Pearce"
+            ]
+          },
+          {
+            "movie_id": 3510,
+            "title": "Frequency",
+            "year": 2000,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6417533159255981,
+            "overview": "When a rare phenomenon gives police officer John Sullivan the chance to speak to his father, 30 years in the past, he takes the opportunity to prevent his dad's tragic death.  After his actions inadvertently give rise to a series of brutal murders he and his father must find a way to fix the consequences of altering time.",
+            "genres": [
+              "Science Fiction",
+              "Thriller"
+            ],
+            "director": "Gregory Hoblit",
+            "cast": [
+              "Dennis Quaid",
+              "Jim Caviezel",
+              "Shawn Doyle",
+              "Elizabeth Mitchell",
+              "Andre Braugher"
+            ]
+          },
+          {
+            "movie_id": 7254,
+            "title": "The Butterfly Effect",
+            "year": 2004,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6404101252555847,
+            "overview": "A young man struggles to access sublimated childhood memories. He finds a technique that allows him to travel back into the past, to occupy his childhood body and change history. However, he soon finds that every change he makes has unexpected consequences.",
+            "genres": [
+              "Science Fiction",
+              "Thriller"
+            ],
+            "director": "Eric Bress",
+            "cast": [
+              "Ashton Kutcher",
+              "Amy Smart",
+              "Melora Walters",
+              "Elden Henson",
+              "William Lee Scott"
+            ]
+          },
+          {
+            "movie_id": 112804,
+            "title": "I Origins",
+            "year": 2014,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6399695873260498,
+            "overview": "A molecular biologist's study of the human eye has far-reaching implications about humanity's scientific and spiritual beliefs.",
+            "genres": [
+              "Science Fiction",
+              "Drama"
+            ],
+            "director": "Mike Cahill",
+            "cast": [
+              "Michael Pitt",
+              "Brit Marling",
+              "Astrid Bergès-Frisbey",
+              "Steven Yeun",
+              "Archie Panjabi"
+            ]
+          },
+          {
+            "movie_id": 96610,
+            "title": "Looper",
+            "year": 2012,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6387954950332642,
+            "overview": "In the futuristic action thriller Looper, time travel will be invented but it will be illegal and only available on the black market. When the mob wants to get rid of someone, they will send their target 30 years into the past where a looper, a hired gun, like Joe is waiting to mop up. Joe is getting rich and life is good until the day the mob decides to close the loop, sending back Joe's future self for assassination.",
+            "genres": [
+              "Action",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "Rian Johnson",
+            "cast": [
+              "Joseph Gordon-Levitt",
+              "Bruce Willis",
+              "Emily Blunt",
+              "Paul Dano",
+              "Noah Segan"
+            ]
+          },
+          {
+            "movie_id": 27608,
+            "title": "Immortal",
+            "year": 2004,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6384050846099854,
+            "overview": "In the distant future, Earth is occupied by ancient gods and genetically altered humans. When a god is sentenced to death he seeks a new human host and a woman to bear his child.",
+            "genres": [
+              "Drama",
+              "Action",
+              "Science Fiction"
+            ],
+            "director": "Enki Bilal",
+            "cast": [
+              "Linda Hardy",
+              "Thomas Kretschmann",
+              "Charlotte Rampling",
+              "Yann Collette",
+              "Frédéric Pierrot"
+            ]
+          },
+          {
+            "movie_id": 260665,
+            "title": "Eternals",
+            "year": 2021,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.63671875,
+            "overview": "The Eternals are a team of ancient aliens who have been living on Earth in secret for thousands of years. When an unexpected tragedy forces them out of the shadows, they are forced to reunite against mankind’s most ancient enemy, the Deviants.",
+            "genres": [
+              "Science Fiction",
+              "Action",
+              "Adventure"
+            ],
+            "director": "Chloé Zhao",
+            "cast": [
+              "Gemma Chan",
+              "Richard Madden",
+              "Angelina Jolie",
+              "Salma Hayek Pinault",
+              "Kumail Nanjiani"
+            ]
+          },
+          {
+            "movie_id": 1200,
+            "title": "Aliens",
+            "year": 1986,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6354475021362305,
+            "overview": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species. When the company sends a family of colonists out to investigate her story—all contact is lost with the planet and colonists. They enlist Ripley and the colonial marines to return and search for answers.",
+            "genres": [
+              "Action",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Sigourney Weaver",
+              "Carrie Henn",
+              "Michael Biehn",
+              "Paul Reiser",
+              "Lance Henriksen"
+            ]
+          },
+          {
+            "movie_id": 151507,
+            "title": "Terminus",
+            "year": 2015,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6354352831840515,
+            "overview": "Following a near-fatal accident, David Chamberlain makes an unprecedented discovery that will not only determine the fate of his family, but of mankind.",
+            "genres": [
+              "Science Fiction",
+              "Thriller",
+              "Fantasy"
+            ],
+            "director": "Marc Furmie",
+            "cast": [
+              "Jai Koutrae",
+              "Kendra Appleton",
+              "Todd Lasance",
+              "Bren Foster",
+              "Brendan Clearkin"
+            ]
+          },
+          {
+            "movie_id": 143035,
+            "title": "Minutemen",
+            "year": 2008,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6349868178367615,
+            "overview": "When three high-school friends invent a time-machine, they decide to use it to go back in time and prevent other youngsters from making humiliating mistakes.",
+            "genres": [
+              "Family",
+              "TV Movie",
+              "Comedy",
+              "Science Fiction",
+              "Adventure"
+            ],
+            "director": "Lev L. Spiro",
+            "cast": [
+              "Jason Dolley",
+              "Nicholas Braun",
+              "Luke Benward",
+              "Chelsea Kane",
+              "Steven R. McQueen"
+            ]
+          },
+          {
+            "movie_id": 8914,
+            "title": "Primer",
+            "year": 2004,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6340286731719971,
+            "overview": "Friends and fledgling entrepreneurs invent a device in their garage which reduces the apparent mass of any object placed inside it, but they discover that it has some highly unexpected capabilities - ones that could enable them to do and to have seemingly anything they want. Taking advantage of this unique opportunity is the first challenge they face. Dealing with the consequences is the next.",
+            "genres": [
+              "Science Fiction",
+              "Drama",
+              "Thriller"
+            ],
+            "director": "Shane Carruth",
+            "cast": [
+              "David Sullivan",
+              "Anand Upadhyaya",
+              "Carrie Crawford",
+              "Jay Butler",
+              "John Carruth"
+            ]
+          },
+          {
+            "movie_id": 160569,
+            "title": "Ice Age: Collision Course",
+            "year": 2016,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.63374924659729,
+            "overview": "Set after the events of Continental Drift, Scrat's epic pursuit of his elusive acorn catapults him outside of Earth, where he accidentally sets off a series of cosmic events that transform and threaten the planet. To save themselves from peril, Manny, Sid, Diego, and the rest of the herd leave their home and embark on a quest full of thrills and spills, highs and lows, laughter and adventure while traveling to exotic new lands and locations.",
+            "genres": [
+              "Adventure",
+              "Animation",
+              "Family",
+              "Comedy",
+              "Science Fiction"
+            ],
+            "director": "Michael Thurmeier",
+            "cast": [
+              "Ray Romano",
+              "John Leguizamo",
+              "Denis Leary",
+              "Queen Latifah",
+              "Seann William Scott"
+            ]
+          },
+          {
+            "movie_id": 3959,
+            "title": "The Time Machine",
+            "year": 1960,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.633673906326294,
+            "overview": "A Victorian Englishman travels to the far future and finds that humanity has divided into two hostile species.",
+            "genres": [
+              "Thriller",
+              "Adventure",
+              "Fantasy",
+              "Science Fiction",
+              "Romance"
+            ],
+            "director": "George Pal",
+            "cast": [
+              "Rod Taylor",
+              "Alan Young",
+              "Yvette Mimieux",
+              "Sebastian Cabot",
+              "Tom Helmore"
+            ]
+          },
+          {
+            "movie_id": 8865,
+            "title": "Sky Captain and the World of Tomorrow",
+            "year": 2004,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6334219574928284,
+            "overview": "When gigantic robots attack New York City, \"Sky Captain\" uses his private air force to fight them off. His ex-girlfriend, reporter Polly Perkins, has been investigating the recent disappearance of prominent scientists. Suspecting a link between the global robot attacks and missing men, Sky Captain and Polly decide to work together. They fly to the Himalayas in pursuit of the mysterious Dr. Totenkopf, the mastermind behind the robots.",
+            "genres": [
+              "Mystery",
+              "Action",
+              "Thriller",
+              "Science Fiction",
+              "Adventure"
+            ],
+            "director": "Kerry Conran",
+            "cast": [
+              "Jude Law",
+              "Gwyneth Paltrow",
+              "Angelina Jolie",
+              "Giovanni Ribisi",
+              "Michael Gambon"
+            ]
+          },
+          {
+            "movie_id": 166635,
+            "title": "Passengers",
+            "year": 2016,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6328697800636292,
+            "overview": "A spacecraft traveling to a distant colony planet and transporting thousands of people has a malfunction in its sleep chambers. As a result, two passengers are awakened 90 years early.",
+            "genres": [
+              "Drama",
+              "Romance",
+              "Science Fiction"
+            ],
+            "director": "Morten Tyldum",
+            "cast": [
+              "Jennifer Lawrence",
+              "Chris Pratt",
+              "Michael Sheen",
+              "Laurence Fishburne",
+              "Andy García"
+            ]
+          },
+          {
+            "movie_id": 3592,
+            "title": "The Masters of Time",
+            "year": 1982,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6324091553688049,
+            "overview": "On planet Perdide, an attack of giant hornets leaves Piel – a young boy – alone in a wrecked car with his dying father. A mayday message reaches their friend Jaffar, an adventurer travelling through space. On board Jaffar’s shuttle are the renegade Prince Matton, his fiancée, and Silbad who knows the planet Perdide well. Thus begins an incredible race across space to save Piel.",
+            "genres": [
+              "Animation",
+              "Drama",
+              "Science Fiction",
+              "Mystery"
+            ],
+            "director": "René Laloux",
+            "cast": [
+              "Sady Rebbot",
+              "Michel Elias",
+              "Monique Thierry",
+              "Yves-Marie Maurin",
+              "Jean Valmont"
             ]
           }
         ]
@@ -626,155 +773,191 @@
     },
     {
       "name": "judging",
-      "started": 1791352435.9448268,
-      "ended": 1791352435.946452,
-      "status": "fallback",
-      "fallback_used": true,
+      "started": 1791360579.779449,
+      "ended": 1791360579.780401,
+      "status": "completed",
+      "fallback_used": false,
       "output": {
         "verdicts": [
           {
             "movie_id": 79132,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
             "movie_id": 109487,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 2571,
+            "movie_id": 90405,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 135133,
+            "movie_id": 110730,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 201588,
+            "movie_id": 96596,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 164179,
+            "movie_id": 180093,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 174055,
+            "movie_id": 4370,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 177765,
+            "movie_id": 198265,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 202402,
+            "movie_id": 113345,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 202401,
+            "movie_id": 183055,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 2,
+            "movie_id": 802,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 202403,
+            "movie_id": 47997,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 60069,
+            "movie_id": 197707,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 296,
+            "movie_id": 5171,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 122886,
+            "movie_id": 94864,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 202404,
+            "movie_id": 3510,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 193587,
+            "movie_id": 7254,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 202406,
+            "movie_id": 112804,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 1,
+            "movie_id": 96610,
             "match": true,
-            "fit": 0.95,
-            "reason": "Captivating mind-bending sci-fi with intelligent storytelling."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 58559,
+            "movie_id": 27608,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 202405,
+            "movie_id": 260665,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 187593,
+            "movie_id": 1200,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 112552,
+            "movie_id": 151507,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           },
           {
-            "movie_id": 318,
+            "movie_id": 143035,
             "match": true,
-            "fit": 0.85,
-            "reason": "Fallback verdict based on retrieval score relevance."
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 8914,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 160569,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 3959,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 8865,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 166635,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 3592,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
           }
         ]
       },
@@ -782,52 +965,39 @@
     },
     {
       "name": "summarising",
-      "started": 1791352435.946474,
-      "ended": 1791352435.94666,
+      "started": 1791360579.780426,
+      "ended": 1791360579.780683,
       "status": "completed",
       "fallback_used": false,
       "output": {
         "strong": [
           "Inception",
-          "Interstellar"
+          "Interstellar",
+          "In Time",
+          "Transcendence",
+          "Branded"
         ],
         "violations": [
-          "Transformers"
+          "Mindless Action Sequel"
         ],
-        "notes": "Strong pool of speculative sci-fi and cerebral thrillers."
+        "notes": "Coherent thematic cluster discovered through hybrid exploration."
       },
       "error": null
     },
     {
       "name": "ranking",
-      "started": 1791352435.946666,
-      "ended": 1791352435.946948,
+      "started": 1791360579.780689,
+      "ended": 1791360579.780991,
       "status": "completed",
       "fallback_used": false,
       "output": {
         "rankings": [
           {
-            "movie_id": 1,
-            "rank": 1,
-            "title": "Toy Story",
-            "year": 1995,
-            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
-            "path": null,
-            "quote": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene.",
-            "poster_path": null,
-            "overview": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate them from their owner, the duo reluctantly learn to work together.",
-            "is_weak_match": false,
-            "sources": [
-              "vector"
-            ],
-            "fit": 0.95
-          },
-          {
             "movie_id": 79132,
-            "rank": 2,
+            "rank": 1,
             "title": "Inception",
             "year": 2010,
-            "reason": "Fallback verdict based on retrieval score relevance.",
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
             "path": null,
             "quote": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: \"inception\", the implantation of another person's idea into a target's subconscious.",
             "poster_path": null,
@@ -836,55 +1006,71 @@
             "sources": [
               "vector"
             ],
-            "fit": 0.85
+            "fit": 0.92
           },
           {
             "movie_id": 109487,
-            "rank": 3,
+            "rank": 2,
             "title": "Interstellar",
             "year": 2014,
-            "reason": "Fallback verdict based on retrieval score relevance.",
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
             "path": null,
             "quote": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
             "poster_path": null,
-            "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage. Driven by love and survival, they race against time as Earth faces extinction.",
+            "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
             "is_weak_match": false,
             "sources": [
               "vector"
             ],
-            "fit": 0.85
+            "fit": 0.92
           },
           {
-            "movie_id": 2571,
+            "movie_id": 90405,
+            "rank": 3,
+            "title": "In Time",
+            "year": 2011,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+            "path": null,
+            "quote": "In the not-too-distant future the aging gene has been switched off.",
+            "poster_path": null,
+            "overview": "In the not-too-distant future the aging gene has been switched off. To avoid overpopulation, time has become the currency and the way people pay for luxuries and necessities. The rich can live forever, while the rest try to negotiate for their immortality. A poor young man who comes into a fortune of time, though too late to help his mother from dying. He ends up on the run from a corrupt police force known as 'time keepers'.",
+            "is_weak_match": false,
+            "sources": [
+              "vector"
+            ],
+            "fit": 0.92
+          },
+          {
+            "movie_id": 110730,
             "rank": 4,
-            "title": "The Matrix",
-            "year": 1999,
-            "reason": "Fallback verdict based on retrieval score relevance.",
+            "title": "Transcendence",
+            "year": 2014,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
             "path": null,
-            "quote": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
+            "quote": "Two leading computer scientists work toward their goal of Technological Singularity,  as a radical anti-technology organization fights to prevent them from creating a world where computers can transcend the abilities of the human brain.",
             "poster_path": null,
-            "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth. He discovers that perceived reality is actually a simulated reality created by sentient machines.",
+            "overview": "Two leading computer scientists work toward their goal of Technological Singularity,  as a radical anti-technology organization fights to prevent them from creating a world where computers can transcend the abilities of the human brain.",
             "is_weak_match": false,
             "sources": [
               "vector"
             ],
-            "fit": 0.85
+            "fit": 0.92
           },
           {
-            "movie_id": 135133,
+            "movie_id": 96596,
             "rank": 5,
-            "title": "The Martian",
-            "year": 2015,
-            "reason": "Fallback verdict based on retrieval score relevance.",
+            "title": "Branded",
+            "year": 2012,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
             "path": null,
-            "quote": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew.",
+            "quote": "In a dystopian future, where corporate brands have created a disillusioned population, one man's effort to unlock the truth behind the conspiracy leads to an epic battle with hidden forces that control the world.",
             "poster_path": null,
-            "overview": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive.",
+            "overview": "In a dystopian future, where corporate brands have created a disillusioned population, one man's effort to unlock the truth behind the conspiracy leads to an epic battle with hidden forces that control the world.",
             "is_weak_match": false,
             "sources": [
               "vector"
             ],
-            "fit": 0.85
+            "fit": 0.92
           }
         ]
       },
@@ -900,20 +1086,20 @@
         "vector"
       ],
       "path": null,
-      "score": 0.7008774280548096,
+      "score": 0.6974987387657166,
       "overview": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: \"inception\", the implantation of another person's idea into a target's subconscious.",
       "genres": [
         "Action",
-        "Sci-Fi",
+        "Science Fiction",
         "Adventure"
       ],
       "director": "Christopher Nolan",
       "cast": [
         "Leonardo DiCaprio",
         "Joseph Gordon-Levitt",
-        "Elliot Page",
+        "Ken Watanabe",
         "Tom Hardy",
-        "Ken Watanabe"
+        "Elliot Page"
       ]
     },
     {
@@ -924,570 +1110,701 @@
         "vector"
       ],
       "path": null,
-      "score": 0.6967931389808655,
-      "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage. Driven by love and survival, they race against time as Earth faces extinction.",
+      "score": 0.6926856637001038,
+      "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
       "genres": [
         "Adventure",
         "Drama",
-        "Sci-Fi"
+        "Science Fiction"
       ],
       "director": "Christopher Nolan",
       "cast": [
         "Matthew McConaughey",
         "Anne Hathaway",
-        "Jessica Chastain",
         "Michael Caine",
-        "Bill Irwin"
-      ]
-    },
-    {
-      "movie_id": 2571,
-      "title": "The Matrix",
-      "year": 1999,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.6233329176902771,
-      "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth. He discovers that perceived reality is actually a simulated reality created by sentient machines.",
-      "genres": [
-        "Action",
-        "Sci-Fi"
-      ],
-      "director": "Lana Wachowski",
-      "cast": [
-        "Keanu Reeves",
-        "Laurence Fishburne",
-        "Carrie-Anne Moss",
-        "Hugo Weaving",
-        "Joe Pantoliano"
-      ]
-    },
-    {
-      "movie_id": 135133,
-      "title": "The Martian",
-      "year": 2015,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.6191734671592712,
-      "overview": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive.",
-      "genres": [
-        "Drama",
-        "Adventure",
-        "Sci-Fi"
-      ],
-      "director": "Ridley Scott",
-      "cast": [
-        "Matt Damon",
         "Jessica Chastain",
-        "Kristen Wiig",
-        "Jeff Daniels",
-        "Michael Peña"
+        "Casey Affleck"
       ]
     },
     {
-      "movie_id": 201588,
-      "title": "Dune",
-      "year": 2021,
+      "movie_id": 90405,
+      "title": "In Time",
+      "year": 2011,
       "sources": [
         "vector"
       ],
       "path": null,
-      "score": 0.6112135052680969,
-      "overview": "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their fear will survive.",
-      "genres": [
-        "Sci-Fi",
-        "Adventure"
-      ],
-      "director": "Denis Villeneuve",
-      "cast": [
-        "Timothée Chalamet",
-        "Rebecca Ferguson",
-        "Oscar Isaac",
-        "Josh Brolin",
-        "Zendaya"
-      ]
-    },
-    {
-      "movie_id": 164179,
-      "title": "Arrival",
-      "year": 2016,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.6111263036727905,
-      "overview": "Taking place after alien crafts land around the world, an expert linguist is recruited by the military to determine whether they come in peace or are a threat. As she learns their cyclical non-linear language, she experiences flashes of her own future.",
-      "genres": [
-        "Drama",
-        "Sci-Fi",
-        "Mystery"
-      ],
-      "director": "Denis Villeneuve",
-      "cast": [
-        "Amy Adams",
-        "Jeremy Renner",
-        "Forest Whitaker",
-        "Michael Stuhlbarg",
-        "Mark O'Brien"
-      ]
-    },
-    {
-      "movie_id": 174055,
-      "title": "Blade Runner 2049",
-      "year": 2017,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.6002050638198853,
-      "overview": "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a quest to find Rick Deckard, a former LAPD blade runner who has been missing for 30 years.",
-      "genres": [
-        "Sci-Fi",
-        "Drama",
-        "Mystery"
-      ],
-      "director": "Denis Villeneuve",
-      "cast": [
-        "Ryan Gosling",
-        "Harrison Ford",
-        "Ana de Armas",
-        "Sylvia Hoeks",
-        "Robin Wright"
-      ]
-    },
-    {
-      "movie_id": 177765,
-      "title": "The Shape of Water",
-      "year": 2017,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5961723327636719,
-      "overview": "An other-worldly story, set against the backdrop of Cold War era America circa 1962. In the hidden high-security government laboratory where she works, lonely Elisa is trapped in a life of isolation. Elisa's life is changed forever when she and co-worker Zelda discover a secret classified experiment.",
-      "genres": [
-        "Drama",
-        "Fantasy",
-        "Romance"
-      ],
-      "director": "Guillermo del Toro",
-      "cast": [
-        "Sally Hawkins",
-        "Michael Shannon",
-        "Richard Jenkins",
-        "Octavia Spencer",
-        "Michael Stuhlbarg"
-      ]
-    },
-    {
-      "movie_id": 202402,
-      "title": "Oppenheimer",
-      "year": 2023,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5908260941505432,
-      "overview": "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II. A gripping psychological examination of brilliant theoretical physics, bureaucratic paranoia, and catastrophic historical guilt.",
-      "genres": [
-        "Drama",
-        "History",
-        "Biography"
-      ],
-      "director": "Christopher Nolan",
-      "cast": [
-        "Cillian Murphy",
-        "Emily Blunt",
-        "Matt Damon",
-        "Robert Downey Jr.",
-        "Florence Pugh"
-      ]
-    },
-    {
-      "movie_id": 202401,
-      "title": "Dune: Part Two",
-      "year": 2024,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5863419771194458,
-      "overview": "Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.",
-      "genres": [
-        "Sci-Fi",
-        "Adventure",
-        "Action"
-      ],
-      "director": "Denis Villeneuve",
-      "cast": [
-        "Timothée Chalamet",
-        "Zendaya",
-        "Rebecca Ferguson",
-        "Javier Bardem",
-        "Austin Butler"
-      ]
-    },
-    {
-      "movie_id": 2,
-      "title": "Jumanji",
-      "year": 1995,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5583463907241821,
-      "overview": "When siblings Judy and Peter discover an enchanted board game that opens the door to a magical world, they unwittingly invite Alan Parrish, a man trapped in the game for 26 years, into their living room.",
-      "genres": [
-        "Adventure",
-        "Fantasy",
-        "Family"
-      ],
-      "director": "Joe Johnston",
-      "cast": [
-        "Robin Williams",
-        "Kirsten Dunst",
-        "David Alan Grier",
-        "Bonnie Hunt",
-        "Jonathan Hyde"
-      ]
-    },
-    {
-      "movie_id": 202403,
-      "title": "Poor Things",
-      "year": 2023,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5483771562576294,
-      "overview": "The incredible tale about the fantastical evolution of Bella Baxter, a young woman brought back to life by the brilliant and unorthodox scientist Dr. Godwin Baxter. Hungry for the worldliness she is lacking, Bella runs off on a whirlwind adventure across the continents.",
-      "genres": [
-        "Comedy",
-        "Sci-Fi",
-        "Romance"
-      ],
-      "director": "Yorgos Lanthimos",
-      "cast": [
-        "Emma Stone",
-        "Mark Ruffalo",
-        "Willem Dafoe",
-        "Ramy Youssef",
-        "Jerrod Carmichael"
-      ]
-    },
-    {
-      "movie_id": 60069,
-      "title": "Shutter Island",
-      "year": 2010,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5394271612167358,
-      "overview": "World War II soldier-turned-U.S. Marshal Teddy Daniels investigates the disappearance of a patient from Boston's Shutter Island Ashecliffe Hospital. Teddy Daniel's shrewd investigative instincts soon leave him doubting everything from his partner to his own sanity.",
-      "genres": [
-        "Drama",
-        "Mystery",
-        "Thriller"
-      ],
-      "director": "Martin Scorsese",
-      "cast": [
-        "Leonardo DiCaprio",
-        "Mark Ruffalo",
-        "Ben Kingsley",
-        "Max von Sydow",
-        "Michelle Williams"
-      ]
-    },
-    {
-      "movie_id": 296,
-      "title": "Pulp Fiction",
-      "year": 1994,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5386847257614136,
-      "overview": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
-      "genres": [
-        "Crime",
-        "Drama",
-        "Thriller"
-      ],
-      "director": "Quentin Tarantino",
-      "cast": [
-        "John Travolta",
-        "Samuel L. Jackson",
-        "Uma Thurman",
-        "Bruce Willis",
-        "Ving Rhames"
-      ]
-    },
-    {
-      "movie_id": 122886,
-      "title": "Avengers: Infinity War",
-      "year": 2018,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.531215488910675,
-      "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones.",
+      "score": 0.667038083076477,
+      "overview": "In the not-too-distant future the aging gene has been switched off. To avoid overpopulation, time has become the currency and the way people pay for luxuries and necessities. The rich can live forever, while the rest try to negotiate for their immortality. A poor young man who comes into a fortune of time, though too late to help his mother from dying. He ends up on the run from a corrupt police force known as 'time keepers'.",
       "genres": [
         "Action",
-        "Adventure",
-        "Sci-Fi"
-      ],
-      "director": "Anthony Russo",
-      "cast": [
-        "Robert Downey Jr.",
-        "Chris Hemsworth",
-        "Mark Ruffalo",
-        "Chris Evans",
-        "Scarlett Johansson"
-      ]
-    },
-    {
-      "movie_id": 202404,
-      "title": "Civil War",
-      "year": 2024,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5263330936431885,
-      "overview": "In a dystopian future America, a team of military-embedded journalists races against time to reach Washington, D.C., before rebel factions descend upon the White House. A harrowing, visceral look at modern civil conflict through a photojournalist's lens.",
-      "genres": [
-        "Action",
-        "Drama",
-        "War"
-      ],
-      "director": "Alex Garland",
-      "cast": [
-        "Kirsten Dunst",
-        "Wagner Moura",
-        "Cailee Spaeny",
-        "Stephen McKinley Henderson",
-        "Nick Offerman"
-      ]
-    },
-    {
-      "movie_id": 193587,
-      "title": "Parasite",
-      "year": 2019,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5134647488594055,
-      "overview": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident. A dark, razor-sharp social satire dissecting modern class divisions and greed.",
-      "genres": [
-        "Comedy",
         "Thriller",
-        "Drama"
+        "Science Fiction"
       ],
-      "director": "Bong Joon-ho",
+      "director": "Andrew Niccol",
       "cast": [
-        "Song Kang-ho",
-        "Lee Sun-kyun",
-        "Cho Yeo-jeong",
-        "Choi Woo-shik",
-        "Park So-dam"
+        "Justin Timberlake",
+        "Amanda Seyfried",
+        "Cillian Murphy",
+        "Olivia Wilde",
+        "Alex Pettyfer"
       ]
     },
     {
-      "movie_id": 202406,
-      "title": "Challengers",
-      "year": 2024,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5130628943443298,
-      "overview": "Tennis player-turned-coach Tashi has taken her husband, Art, and transformed him into a world-famous grand slam champion. To jolt him out of his recent losing streak, she enters him into a challenger event where he finds himself facing off against Patrick, his former best friend and Tashi's ex-boyfriend.",
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "director": "Luca Guadagnino",
-      "cast": [
-        "Zendaya",
-        "Mike Faist",
-        "Josh O'Connor",
-        "Darnell Appling",
-        "Bryan Doo"
-      ]
-    },
-    {
-      "movie_id": 1,
-      "title": "Toy Story",
-      "year": 1995,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5109935998916626,
-      "overview": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate them from their owner, the duo reluctantly learn to work together.",
-      "genres": [
-        "Animation",
-        "Adventure",
-        "Comedy",
-        "Family"
-      ],
-      "director": "John Lasseter",
-      "cast": [
-        "Tom Hanks",
-        "Tim Allen",
-        "Don Rickles",
-        "Jim Varney",
-        "Wallace Shawn"
-      ]
-    },
-    {
-      "movie_id": 58559,
-      "title": "The Dark Knight",
-      "year": 2008,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5061379671096802,
-      "overview": "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
-      "genres": [
-        "Action",
-        "Crime",
-        "Drama",
-        "Thriller"
-      ],
-      "director": "Christopher Nolan",
-      "cast": [
-        "Christian Bale",
-        "Heath Ledger",
-        "Aaron Eckhart",
-        "Michael Caine",
-        "Maggie Gyllenhaal"
-      ]
-    },
-    {
-      "movie_id": 202405,
-      "title": "Past Lives",
-      "year": 2023,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5042148232460022,
-      "overview": "Nora and Hae Sung, two deeply connected childhood friends, are wrested apart after Nora's family emigrates from South Korea. Two decades later, they are reunited in New York for one fateful week as they confront notions of destiny, love, and the choices that make a life.",
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "director": "Celine Song",
-      "cast": [
-        "Greta Lee",
-        "Teo Yoo",
-        "John Magaro",
-        "Moon Seung-ah",
-        "Yim Seung-min"
-      ]
-    },
-    {
-      "movie_id": 187593,
-      "title": "Bohemian Rhapsody",
-      "year": 2018,
-      "sources": [
-        "vector"
-      ],
-      "path": null,
-      "score": 0.5032653212547302,
-      "overview": "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970. Hitting the heights of fame, Mercury faces internal turbulence and AIDS diagnosis leading up to Live Aid.",
-      "genres": [
-        "Drama",
-        "Music"
-      ],
-      "director": "Bryan Singer",
-      "cast": [
-        "Rami Malek",
-        "Lucy Boynton",
-        "Gwilym Lee",
-        "Ben Hardy",
-        "Joe Mazzello"
-      ]
-    },
-    {
-      "movie_id": 112552,
-      "title": "Gone Girl",
+      "movie_id": 110730,
+      "title": "Transcendence",
       "year": 2014,
       "sources": [
         "vector"
       ],
       "path": null,
-      "score": 0.48495638370513916,
-      "overview": "With his wife's disappearance having become the focus of an intense media circus, a man sees the spotlight turned on him when it's suspected that he may not be innocent. A chilling examination of media sensationalism and marital toxicity.",
+      "score": 0.6548433899879456,
+      "overview": "Two leading computer scientists work toward their goal of Technological Singularity,  as a radical anti-technology organization fights to prevent them from creating a world where computers can transcend the abilities of the human brain.",
       "genres": [
-        "Mystery",
         "Thriller",
-        "Drama"
+        "Science Fiction",
+        "Drama",
+        "Mystery"
       ],
-      "director": "David Fincher",
+      "director": "Wally Pfister",
       "cast": [
-        "Ben Affleck",
-        "Rosamund Pike",
-        "Neil Patrick Harris",
-        "Tyler Perry",
-        "Carrie Coon"
+        "Johnny Depp",
+        "Rebecca Hall",
+        "Paul Bettany",
+        "Cillian Murphy",
+        "Kate Mara"
       ]
     },
     {
-      "movie_id": 318,
-      "title": "The Shawshank Redemption",
-      "year": 1994,
+      "movie_id": 96596,
+      "title": "Branded",
+      "year": 2012,
       "sources": [
         "vector"
       ],
       "path": null,
-      "score": 0.48282933235168457,
-      "overview": "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unshakeable sense of hope.",
+      "score": 0.654426634311676,
+      "overview": "In a dystopian future, where corporate brands have created a disillusioned population, one man's effort to unlock the truth behind the conspiracy leads to an epic battle with hidden forces that control the world.",
+      "genres": [
+        "Science Fiction"
+      ],
+      "director": "Jamie Bradshaw",
+      "cast": [
+        "Ed Stoppard",
+        "Leelee Sobieski",
+        "Jeffrey Tambor",
+        "Max von Sydow",
+        "Mariya Ignatova"
+      ]
+    },
+    {
+      "movie_id": 180093,
+      "title": "Singularity",
+      "year": 2017,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6540334224700928,
+      "overview": "When Elias van Dorne, CEO of the world's largest robotics company, introduces his most powerful invention, Kronos-a super-computer designed to end all wars-it determines that humans are the biggest threat and launches a worldwide attack on mankind. A small band of survivors must form an unlikely alliance to survive the greatest artificial intelligence threat man will ever know.",
+      "genres": [
+        "Science Fiction"
+      ],
+      "director": "Robert Kouba",
+      "cast": [
+        "Jeannine Wacker",
+        "Julian Schaffner",
+        "John Cusack",
+        "Carmen Argenziano",
+        "Eileen Grubba"
+      ]
+    },
+    {
+      "movie_id": 4370,
+      "title": "A.I. Artificial Intelligence",
+      "year": 2001,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.653151273727417,
+      "overview": "David, a robotic boy—the first of his kind programmed to love—is adopted as a test case by a Cybertronics employee and his wife. Though he gradually becomes their child, a series of unexpected circumstances make this life impossible for David.",
       "genres": [
         "Drama",
-        "Crime"
+        "Science Fiction",
+        "Adventure"
       ],
-      "director": "Frank Darabont",
+      "director": "Steven Spielberg",
       "cast": [
-        "Tim Robbins",
-        "Morgan Freeman",
-        "Bob Gunton",
-        "William Sadler",
-        "Clancy Brown"
+        "Haley Joel Osment",
+        "Jude Law",
+        "Frances O'Connor",
+        "Sam Robards",
+        "Jake Thomas"
+      ]
+    },
+    {
+      "movie_id": 198265,
+      "title": "The Wandering Earth",
+      "year": 2019,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6516854166984558,
+      "overview": "When the Sun begins to expand in such a way that it will inevitably engulf and destroy the Earth in a hundred years, united mankind finds a way to avoid extinction by propelling the planet out of the Solar System using gigantic engines, moving it to a new home located four light years away, an epic journey that will last thousands of years.",
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Drama"
+      ],
+      "director": "Frant Gwo",
+      "cast": [
+        "Qu Chuxiao",
+        "Li Guangjie",
+        "Zhao Jinmai",
+        "Wu Jing",
+        "Richard Ng Man-Tat"
+      ]
+    },
+    {
+      "movie_id": 113345,
+      "title": "Jupiter Ascending",
+      "year": 2015,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6501594185829163,
+      "overview": "In a universe where human genetic material is the most precious commodity, an impoverished young Earth woman becomes the key to strategic maneuvers and internal strife within a powerful dynasty…",
+      "genres": [
+        "Science Fiction",
+        "Fantasy",
+        "Action"
+      ],
+      "director": "Lana Wachowski",
+      "cast": [
+        "Channing Tatum",
+        "Mila Kunis",
+        "Sean Bean",
+        "Eddie Redmayne",
+        "Douglas Booth"
+      ]
+    },
+    {
+      "movie_id": 183055,
+      "title": "The Beyond",
+      "year": 2018,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6471522450447083,
+      "overview": "Set in 2019, The Beyond chronicles the groundbreaking mission which sent astronauts - modified with advanced robotics, through a newly discovered wormhole known as the Void. When the mission returns unexpectedly, the space agency races to discover what the astronauts encountered on their first of its kind interstellar space journey.",
+      "genres": [
+        "Science Fiction"
+      ],
+      "director": "Hasraf Dulull",
+      "cast": [
+        "David Bailie",
+        "Jane Perry",
+        "Kosha Engler",
+        "Brian Deacon",
+        "Noeleen Comiskey"
+      ]
+    },
+    {
+      "movie_id": 802,
+      "title": "Phenomenon",
+      "year": 1996,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6447388529777527,
+      "overview": "An ordinary man sees a bright light descend from the sky, and discovers he now has super-intelligence and telekinesis.",
+      "genres": [
+        "Drama",
+        "Romance",
+        "Science Fiction"
+      ],
+      "director": "Jon Turteltaub",
+      "cast": [
+        "John Travolta",
+        "Kyra Sedgwick",
+        "Forest Whitaker",
+        "Robert Duvall",
+        "Jeffrey DeMunn"
+      ]
+    },
+    {
+      "movie_id": 47997,
+      "title": "Idiocracy",
+      "year": 2006,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6446660757064819,
+      "overview": "To test its top-secret Human Hibernation Project, the Pentagon picks the most average Americans it can find - an Army private and a prostitute - and sends them to the year 2505 after a series of freak events. But when they arrive, they find a civilization so dumbed-down that they're the smartest people around.",
+      "genres": [
+        "Comedy",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "director": "Mike Judge",
+      "cast": [
+        "Luke Wilson",
+        "Maya Rudolph",
+        "Dax Shepard",
+        "Terry Crews",
+        "Anthony 'Citric' Campos"
+      ]
+    },
+    {
+      "movie_id": 197707,
+      "title": "IO",
+      "year": 2019,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6435745358467102,
+      "overview": "As a young scientist searches for a way to save a dying Earth, she finds a connection with a man who's racing to catch the last shuttle off the planet.",
+      "genres": [
+        "Science Fiction"
+      ],
+      "director": "Jonathan Helpert",
+      "cast": [
+        "Margaret Qualley",
+        "Anthony Mackie",
+        "Danny Huston",
+        "Tom Payne",
+        "Emma Fitzgerald"
+      ]
+    },
+    {
+      "movie_id": 5171,
+      "title": "The Time Machine",
+      "year": 2002,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6432530879974365,
+      "overview": "Hoping to alter the events of the past, a 19th century inventor instead travels 800,000 years into the future, where he finds mankind divided into two warring races.",
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Action"
+      ],
+      "director": "Simon Wells",
+      "cast": [
+        "Guy Pearce",
+        "Samantha Mumba",
+        "Omero Mumba",
+        "Jeremy Irons",
+        "Sienna Guillory"
+      ]
+    },
+    {
+      "movie_id": 94864,
+      "title": "Prometheus",
+      "year": 2012,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6419424414634705,
+      "overview": "A team of explorers discover a clue to the origins of mankind on Earth, leading them on a journey to the darkest corners of the universe. There, they must fight a terrifying battle to save the future of the human race.",
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Mystery"
+      ],
+      "director": "Ridley Scott",
+      "cast": [
+        "Noomi Rapace",
+        "Michael Fassbender",
+        "Charlize Theron",
+        "Idris Elba",
+        "Guy Pearce"
+      ]
+    },
+    {
+      "movie_id": 3510,
+      "title": "Frequency",
+      "year": 2000,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6417533159255981,
+      "overview": "When a rare phenomenon gives police officer John Sullivan the chance to speak to his father, 30 years in the past, he takes the opportunity to prevent his dad's tragic death.  After his actions inadvertently give rise to a series of brutal murders he and his father must find a way to fix the consequences of altering time.",
+      "genres": [
+        "Science Fiction",
+        "Thriller"
+      ],
+      "director": "Gregory Hoblit",
+      "cast": [
+        "Dennis Quaid",
+        "Jim Caviezel",
+        "Shawn Doyle",
+        "Elizabeth Mitchell",
+        "Andre Braugher"
+      ]
+    },
+    {
+      "movie_id": 7254,
+      "title": "The Butterfly Effect",
+      "year": 2004,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6404101252555847,
+      "overview": "A young man struggles to access sublimated childhood memories. He finds a technique that allows him to travel back into the past, to occupy his childhood body and change history. However, he soon finds that every change he makes has unexpected consequences.",
+      "genres": [
+        "Science Fiction",
+        "Thriller"
+      ],
+      "director": "Eric Bress",
+      "cast": [
+        "Ashton Kutcher",
+        "Amy Smart",
+        "Melora Walters",
+        "Elden Henson",
+        "William Lee Scott"
+      ]
+    },
+    {
+      "movie_id": 112804,
+      "title": "I Origins",
+      "year": 2014,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6399695873260498,
+      "overview": "A molecular biologist's study of the human eye has far-reaching implications about humanity's scientific and spiritual beliefs.",
+      "genres": [
+        "Science Fiction",
+        "Drama"
+      ],
+      "director": "Mike Cahill",
+      "cast": [
+        "Michael Pitt",
+        "Brit Marling",
+        "Astrid Bergès-Frisbey",
+        "Steven Yeun",
+        "Archie Panjabi"
+      ]
+    },
+    {
+      "movie_id": 96610,
+      "title": "Looper",
+      "year": 2012,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6387954950332642,
+      "overview": "In the futuristic action thriller Looper, time travel will be invented but it will be illegal and only available on the black market. When the mob wants to get rid of someone, they will send their target 30 years into the past where a looper, a hired gun, like Joe is waiting to mop up. Joe is getting rich and life is good until the day the mob decides to close the loop, sending back Joe's future self for assassination.",
+      "genres": [
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "Rian Johnson",
+      "cast": [
+        "Joseph Gordon-Levitt",
+        "Bruce Willis",
+        "Emily Blunt",
+        "Paul Dano",
+        "Noah Segan"
+      ]
+    },
+    {
+      "movie_id": 27608,
+      "title": "Immortal",
+      "year": 2004,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6384050846099854,
+      "overview": "In the distant future, Earth is occupied by ancient gods and genetically altered humans. When a god is sentenced to death he seeks a new human host and a woman to bear his child.",
+      "genres": [
+        "Drama",
+        "Action",
+        "Science Fiction"
+      ],
+      "director": "Enki Bilal",
+      "cast": [
+        "Linda Hardy",
+        "Thomas Kretschmann",
+        "Charlotte Rampling",
+        "Yann Collette",
+        "Frédéric Pierrot"
+      ]
+    },
+    {
+      "movie_id": 260665,
+      "title": "Eternals",
+      "year": 2021,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.63671875,
+      "overview": "The Eternals are a team of ancient aliens who have been living on Earth in secret for thousands of years. When an unexpected tragedy forces them out of the shadows, they are forced to reunite against mankind’s most ancient enemy, the Deviants.",
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Adventure"
+      ],
+      "director": "Chloé Zhao",
+      "cast": [
+        "Gemma Chan",
+        "Richard Madden",
+        "Angelina Jolie",
+        "Salma Hayek Pinault",
+        "Kumail Nanjiani"
+      ]
+    },
+    {
+      "movie_id": 1200,
+      "title": "Aliens",
+      "year": 1986,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6354475021362305,
+      "overview": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species. When the company sends a family of colonists out to investigate her story—all contact is lost with the planet and colonists. They enlist Ripley and the colonial marines to return and search for answers.",
+      "genres": [
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Sigourney Weaver",
+        "Carrie Henn",
+        "Michael Biehn",
+        "Paul Reiser",
+        "Lance Henriksen"
+      ]
+    },
+    {
+      "movie_id": 151507,
+      "title": "Terminus",
+      "year": 2015,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6354352831840515,
+      "overview": "Following a near-fatal accident, David Chamberlain makes an unprecedented discovery that will not only determine the fate of his family, but of mankind.",
+      "genres": [
+        "Science Fiction",
+        "Thriller",
+        "Fantasy"
+      ],
+      "director": "Marc Furmie",
+      "cast": [
+        "Jai Koutrae",
+        "Kendra Appleton",
+        "Todd Lasance",
+        "Bren Foster",
+        "Brendan Clearkin"
+      ]
+    },
+    {
+      "movie_id": 143035,
+      "title": "Minutemen",
+      "year": 2008,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6349868178367615,
+      "overview": "When three high-school friends invent a time-machine, they decide to use it to go back in time and prevent other youngsters from making humiliating mistakes.",
+      "genres": [
+        "Family",
+        "TV Movie",
+        "Comedy",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "director": "Lev L. Spiro",
+      "cast": [
+        "Jason Dolley",
+        "Nicholas Braun",
+        "Luke Benward",
+        "Chelsea Kane",
+        "Steven R. McQueen"
+      ]
+    },
+    {
+      "movie_id": 8914,
+      "title": "Primer",
+      "year": 2004,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6340286731719971,
+      "overview": "Friends and fledgling entrepreneurs invent a device in their garage which reduces the apparent mass of any object placed inside it, but they discover that it has some highly unexpected capabilities - ones that could enable them to do and to have seemingly anything they want. Taking advantage of this unique opportunity is the first challenge they face. Dealing with the consequences is the next.",
+      "genres": [
+        "Science Fiction",
+        "Drama",
+        "Thriller"
+      ],
+      "director": "Shane Carruth",
+      "cast": [
+        "David Sullivan",
+        "Anand Upadhyaya",
+        "Carrie Crawford",
+        "Jay Butler",
+        "John Carruth"
+      ]
+    },
+    {
+      "movie_id": 160569,
+      "title": "Ice Age: Collision Course",
+      "year": 2016,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.63374924659729,
+      "overview": "Set after the events of Continental Drift, Scrat's epic pursuit of his elusive acorn catapults him outside of Earth, where he accidentally sets off a series of cosmic events that transform and threaten the planet. To save themselves from peril, Manny, Sid, Diego, and the rest of the herd leave their home and embark on a quest full of thrills and spills, highs and lows, laughter and adventure while traveling to exotic new lands and locations.",
+      "genres": [
+        "Adventure",
+        "Animation",
+        "Family",
+        "Comedy",
+        "Science Fiction"
+      ],
+      "director": "Michael Thurmeier",
+      "cast": [
+        "Ray Romano",
+        "John Leguizamo",
+        "Denis Leary",
+        "Queen Latifah",
+        "Seann William Scott"
+      ]
+    },
+    {
+      "movie_id": 3959,
+      "title": "The Time Machine",
+      "year": 1960,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.633673906326294,
+      "overview": "A Victorian Englishman travels to the far future and finds that humanity has divided into two hostile species.",
+      "genres": [
+        "Thriller",
+        "Adventure",
+        "Fantasy",
+        "Science Fiction",
+        "Romance"
+      ],
+      "director": "George Pal",
+      "cast": [
+        "Rod Taylor",
+        "Alan Young",
+        "Yvette Mimieux",
+        "Sebastian Cabot",
+        "Tom Helmore"
+      ]
+    },
+    {
+      "movie_id": 8865,
+      "title": "Sky Captain and the World of Tomorrow",
+      "year": 2004,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6334219574928284,
+      "overview": "When gigantic robots attack New York City, \"Sky Captain\" uses his private air force to fight them off. His ex-girlfriend, reporter Polly Perkins, has been investigating the recent disappearance of prominent scientists. Suspecting a link between the global robot attacks and missing men, Sky Captain and Polly decide to work together. They fly to the Himalayas in pursuit of the mysterious Dr. Totenkopf, the mastermind behind the robots.",
+      "genres": [
+        "Mystery",
+        "Action",
+        "Thriller",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "director": "Kerry Conran",
+      "cast": [
+        "Jude Law",
+        "Gwyneth Paltrow",
+        "Angelina Jolie",
+        "Giovanni Ribisi",
+        "Michael Gambon"
+      ]
+    },
+    {
+      "movie_id": 166635,
+      "title": "Passengers",
+      "year": 2016,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6328697800636292,
+      "overview": "A spacecraft traveling to a distant colony planet and transporting thousands of people has a malfunction in its sleep chambers. As a result, two passengers are awakened 90 years early.",
+      "genres": [
+        "Drama",
+        "Romance",
+        "Science Fiction"
+      ],
+      "director": "Morten Tyldum",
+      "cast": [
+        "Jennifer Lawrence",
+        "Chris Pratt",
+        "Michael Sheen",
+        "Laurence Fishburne",
+        "Andy García"
+      ]
+    },
+    {
+      "movie_id": 3592,
+      "title": "The Masters of Time",
+      "year": 1982,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6324091553688049,
+      "overview": "On planet Perdide, an attack of giant hornets leaves Piel – a young boy – alone in a wrecked car with his dying father. A mayday message reaches their friend Jaffar, an adventurer travelling through space. On board Jaffar’s shuttle are the renegade Prince Matton, his fiancée, and Silbad who knows the planet Perdide well. Thus begins an incredible race across space to save Piel.",
+      "genres": [
+        "Animation",
+        "Drama",
+        "Science Fiction",
+        "Mystery"
+      ],
+      "director": "René Laloux",
+      "cast": [
+        "Sady Rebbot",
+        "Michel Elias",
+        "Monique Thierry",
+        "Yves-Marie Maurin",
+        "Jean Valmont"
       ]
     }
   ],
   "final": [
     {
-      "movie_id": 1,
-      "rank": 1,
-      "title": "Toy Story",
-      "year": 1995,
-      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
-      "path": null,
-      "quote": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene.",
-      "poster_path": "/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg",
-      "overview": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate them from their owner, the duo reluctantly learn to work together.",
-      "is_weak_match": false,
-      "sources": [
-        "vector"
-      ],
-      "fit": 0.95
-    },
-    {
       "movie_id": 79132,
-      "rank": 2,
+      "rank": 1,
       "title": "Inception",
       "year": 2010,
-      "reason": "Fallback verdict based on retrieval score relevance.",
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
       "path": null,
       "quote": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: \"inception\", the implantation of another person's idea into a target's subconscious.",
       "poster_path": "/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
@@ -1496,59 +1813,75 @@
       "sources": [
         "vector"
       ],
-      "fit": 0.85
+      "fit": 0.92
     },
     {
       "movie_id": 109487,
-      "rank": 3,
+      "rank": 2,
       "title": "Interstellar",
       "year": 2014,
-      "reason": "Fallback verdict based on retrieval score relevance.",
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
       "path": null,
       "quote": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
       "poster_path": "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-      "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage. Driven by love and survival, they race against time as Earth faces extinction.",
+      "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
       "is_weak_match": false,
       "sources": [
         "vector"
       ],
-      "fit": 0.85
+      "fit": 0.92
     },
     {
-      "movie_id": 2571,
+      "movie_id": 90405,
+      "rank": 3,
+      "title": "In Time",
+      "year": 2011,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+      "path": null,
+      "quote": "In the not-too-distant future the aging gene has been switched off.",
+      "poster_path": "/3Mwj2sIONQckOZP3YwsUXF7U5I4.jpg",
+      "overview": "In the not-too-distant future the aging gene has been switched off. To avoid overpopulation, time has become the currency and the way people pay for luxuries and necessities. The rich can live forever, while the rest try to negotiate for their immortality. A poor young man who comes into a fortune of time, though too late to help his mother from dying. He ends up on the run from a corrupt police force known as 'time keepers'.",
+      "is_weak_match": false,
+      "sources": [
+        "vector"
+      ],
+      "fit": 0.92
+    },
+    {
+      "movie_id": 110730,
       "rank": 4,
-      "title": "The Matrix",
-      "year": 1999,
-      "reason": "Fallback verdict based on retrieval score relevance.",
+      "title": "Transcendence",
+      "year": 2014,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
       "path": null,
-      "quote": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
-      "poster_path": "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
-      "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth. He discovers that perceived reality is actually a simulated reality created by sentient machines.",
+      "quote": "Two leading computer scientists work toward their goal of Technological Singularity,  as a radical anti-technology organization fights to prevent them from creating a world where computers can transcend the abilities of the human brain.",
+      "poster_path": "/qmOKJWl3wnXDcLhjtJHnCCCvAiO.jpg",
+      "overview": "Two leading computer scientists work toward their goal of Technological Singularity,  as a radical anti-technology organization fights to prevent them from creating a world where computers can transcend the abilities of the human brain.",
       "is_weak_match": false,
       "sources": [
         "vector"
       ],
-      "fit": 0.85
+      "fit": 0.92
     },
     {
-      "movie_id": 135133,
+      "movie_id": 96596,
       "rank": 5,
-      "title": "The Martian",
-      "year": 2015,
-      "reason": "Fallback verdict based on retrieval score relevance.",
+      "title": "Branded",
+      "year": 2012,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
       "path": null,
-      "quote": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew.",
-      "poster_path": "/5BHuvQ6p9kQTSpEuz6cvMuUVZnQ.jpg",
-      "overview": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive.",
+      "quote": "In a dystopian future, where corporate brands have created a disillusioned population, one man's effort to unlock the truth behind the conspiracy leads to an epic battle with hidden forces that control the world.",
+      "poster_path": "/8YE4OfV1sHketYGy78AOCMI7j7T.jpg",
+      "overview": "In a dystopian future, where corporate brands have created a disillusioned population, one man's effort to unlock the truth behind the conspiracy leads to an epic battle with hidden forces that control the world.",
       "is_weak_match": false,
       "sources": [
         "vector"
       ],
-      "fit": 0.85
+      "fit": 0.92
     }
   ],
   "metrics": {
-    "llm_calls": 8,
-    "seconds": 0.05
+    "llm_calls": 5,
+    "seconds": 0.12
   }
 }

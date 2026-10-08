@@ -105,57 +105,116 @@ class Pipeline:
         # --- Stage 3: Judging ---
         s3_start = time.time()
         await emit("stage_start", {"stage": "judging", "started": s3_start})
-        verdicts, judge_fb = await self.judge_agent.judge(profile, candidates)
-        s3_end = time.time()
-        s3_rec = StageRecord(
-            name="judging",
-            started=s3_start,
-            ended=s3_end,
-            status="fallback" if judge_fb else "completed",
-            fallback_used=judge_fb,
-            output={"verdicts": [v.model_dump() for v in verdicts]}
-        )
-        stages.append(s3_rec)
-        await emit("stage_end", {"stage": "judging", "record": s3_rec.model_dump()})
+
+        async def on_judge_progress(batch_num: int, total_batches: int):
+            await emit("stage_progress", {
+                "stage": "judging",
+                "batch": batch_num,
+                "total_batches": total_batches,
+                "message": f"Judging batch {batch_num}/{total_batches} ({min(batch_num*10, len(candidates))}/{len(candidates)} candidates)..."
+            })
+
+        try:
+            verdicts, judge_fb = await self.judge_agent.judge(
+                profile,
+                candidates,
+                allow_fallback=request.allow_fallback,
+                progress_callback=on_judge_progress
+            )
+            s3_end = time.time()
+            s3_rec = StageRecord(
+                name="judging",
+                started=s3_start,
+                ended=s3_end,
+                status="fallback" if judge_fb else "completed",
+                fallback_used=judge_fb,
+                output={"verdicts": [v.model_dump() for v in verdicts]}
+            )
+            stages.append(s3_rec)
+            await emit("stage_end", {"stage": "judging", "record": s3_rec.model_dump()})
+        except Exception as e:
+            s3_end = time.time()
+            s3_rec = StageRecord(
+                name="judging",
+                started=s3_start,
+                ended=s3_end,
+                status="failed",
+                error=str(e)
+            )
+            stages.append(s3_rec)
+            await emit("stage_end", {"stage": "judging", "record": s3_rec.model_dump()})
+            raise
 
         # --- Stage 4: Summarising ---
         s4_start = time.time()
         await emit("stage_start", {"stage": "summarising", "started": s4_start})
-        brief, sum_fb = await self.summarise_agent.summarise(profile, verdicts, candidates)
-        s4_end = time.time()
-        s4_rec = StageRecord(
-            name="summarising",
-            started=s4_start,
-            ended=s4_end,
-            status="fallback" if sum_fb else "completed",
-            fallback_used=sum_fb,
-            output=brief.model_dump()
-        )
-        stages.append(s4_rec)
-        await emit("stage_end", {"stage": "summarising", "record": s4_rec.model_dump()})
+        try:
+            brief, sum_fb = await self.summarise_agent.summarise(
+                profile,
+                verdicts,
+                candidates,
+                allow_fallback=request.allow_fallback
+            )
+            s4_end = time.time()
+            s4_rec = StageRecord(
+                name="summarising",
+                started=s4_start,
+                ended=s4_end,
+                status="fallback" if sum_fb else "completed",
+                fallback_used=sum_fb,
+                output=brief.model_dump()
+            )
+            stages.append(s4_rec)
+            await emit("stage_end", {"stage": "summarising", "record": s4_rec.model_dump()})
+        except Exception as e:
+            s4_end = time.time()
+            s4_rec = StageRecord(
+                name="summarising",
+                started=s4_start,
+                ended=s4_end,
+                status="failed",
+                error=str(e)
+            )
+            stages.append(s4_rec)
+            await emit("stage_end", {"stage": "summarising", "record": s4_rec.model_dump()})
+            raise
 
         # --- Stage 5: Ranking ---
         s5_start = time.time()
         await emit("stage_start", {"stage": "ranking", "started": s5_start})
-        ranked_items, rank_fb = await self.rank_agent.rank(
-            profile=profile,
-            brief=brief,
-            candidates=candidates,
-            verdicts=verdicts,
-            k=settings.final_k,
-            history_ids=history_ids
-        )
-        s5_end = time.time()
-        s5_rec = StageRecord(
-            name="ranking",
-            started=s5_start,
-            ended=s5_end,
-            status="fallback" if rank_fb else "completed",
-            fallback_used=rank_fb,
-            output={"rankings": [r.model_dump() for r in ranked_items]}
-        )
-        stages.append(s5_rec)
-        await emit("stage_end", {"stage": "ranking", "record": s5_rec.model_dump()})
+        try:
+            ranked_items, rank_fb = await self.rank_agent.rank(
+                profile=profile,
+                brief=brief,
+                candidates=candidates,
+                verdicts=verdicts,
+                k=settings.final_k,
+                history_ids=history_ids,
+                allow_fallback=request.allow_fallback
+            )
+            s5_end = time.time()
+            s5_rec = StageRecord(
+                name="ranking",
+                started=s5_start,
+                ended=s5_end,
+                status="fallback" if rank_fb else "completed",
+                fallback_used=rank_fb,
+                output={"rankings": [r.model_dump() for r in ranked_items]}
+            )
+            stages.append(s5_rec)
+            await emit("stage_end", {"stage": "ranking", "record": s5_rec.model_dump()})
+        except Exception as e:
+            s5_end = time.time()
+            s5_rec = StageRecord(
+                name="ranking",
+                started=s5_start,
+                ended=s5_end,
+                status="failed",
+                error=str(e)
+            )
+            stages.append(s5_rec)
+            await emit("stage_end", {"stage": "ranking", "record": s5_rec.model_dump()})
+            raise
 
         total_duration = time.time() - t_start
         llm_calls_made = self.llm.call_count - initial_calls

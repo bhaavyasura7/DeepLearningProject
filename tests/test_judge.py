@@ -89,3 +89,17 @@ async def test_judge_persistent_failure_yields_fallback():
     # Highest score movie should be matched in fallback top 40%
     v1 = next(v for v in verdicts if v.movie_id == 1)
     assert v1.match is True
+
+@pytest.mark.asyncio
+async def test_judge_strict_failure_raises_error():
+    stub = CustomStubLLM(mode="malformed")
+    agent = JudgingAgent(llm=stub, batch_size=10)
+
+    candidates = [
+        Candidate(movie_id=1, title="Movie 1", overview="Overview 1", score=10.0),
+        Candidate(movie_id=2, title="Movie 2", overview="Overview 2", score=5.0)
+    ]
+    profile = Profile(likes=["Drama"], summary="Deep drama")
+
+    with pytest.raises(Exception):
+        await agent.judge(profile, candidates, allow_fallback=False)

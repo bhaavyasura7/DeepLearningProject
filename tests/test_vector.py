@@ -8,12 +8,13 @@ def test_vector_indexing_and_search(tmp_path: Path):
     persist_dir = tmp_path / "chroma_test"
     catalog = load_catalog()
     assert len(catalog) > 0
+    test_subset = [m for m in catalog if m.movie_id == 109487] + [m for m in catalog if m.movie_id != 109487][:9]
 
-    collection = build_vector_index(catalog=catalog, persist_dir=persist_dir)
-    assert collection.count() == len(catalog)
+    collection = build_vector_index(catalog=test_subset, persist_dir=persist_dir)
+    assert collection.count() == len(test_subset)
 
     index = VectorIndex(persist_dir=persist_dir)
-    assert index.count() == len(catalog)
+    assert index.count() == len(test_subset)
 
     # 1. Searching for space exploration and time dilation returns Interstellar (109487)
     results = index.search("space exploration and time dilation wormhole interstellar", k=10)

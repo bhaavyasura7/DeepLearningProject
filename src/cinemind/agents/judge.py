@@ -10,15 +10,16 @@ class JudgingAgent:
     async def judge_batch(
         self,
         profile: Profile,
-        batch: List[Candidate]
+        batch: List[Candidate],
+        allow_fallback: bool = True
     ) -> Tuple[List[Verdict], bool]:
         """
         Judges a single batch of up to 10 candidates.
         Re-asks once for missing IDs.
-        Falls back to retrieval scores on persistent failure.
+        Falls back to retrieval scores on persistent failure if allow_fallback=True, else raises.
         """
         expected_ids: Set[int] = {c.movie_id for c in batch}
-        cand_map: Dict[int, Candidate] = {c.movie_id for c in batch}
+        cand_map: Dict[int, Candidate] = {c.movie_id: c for c in batch}
         fallback_used = False
 
         prompt = self._build_batch_prompt(profile, batch)
@@ -31,29 +32,34 @@ class JudgingAgent:
             missing_ids = expected_ids - set(received_verdicts.keys())
             if missing_ids:
                 # Re-ask once for missing IDs
-                missing_candidates = [c for c in batch if c.movie_id in missing_ids]
+                missing_candidates = [cand_map[mid] for mid in missing_ids if mid in cand_map]
                 reask_prompt = self._build_batch_prompt(profile, missing_candidates, is_reask=True)
                 try:
                     reask_res: JudgeBatchOutput = await self.llm.generate(reask_prompt, JudgeBatchOutput)
                     for v in reask_res.verdicts:
                         if v.movie_id in missing_ids:
                             received_verdicts[v.movie_id] = v
-                except Exception:
-                    pass
+                except Exception as e:
+                    if not allow_fallback:
+                        raise e
 
-            # If still missing any IDs, fill with deterministic fallback
+            # If still missing any IDs
             final_missing = expected_ids - set(received_verdicts.keys())
             if final_missing:
+                if not allow_fallback:
+                    raise StageFailed(f"Judging stage failed: model omitted candidate IDs {list(final_missing)}")
                 fallback_used = True
                 for mid in final_missing:
-                    cand = next(c for c in batch if c.movie_id == mid)
+                    cand = cand_map[mid]
                     received_verdicts[mid] = self._create_fallback_verdict(cand)
 
             # Return verdicts in the exact original batch order
             ordered_verdicts = [received_verdicts[c.movie_id] for c in batch]
             return ordered_verdicts, fallback_used
 
-        except Exception:
+        except Exception as e:
+            if not allow_fallback:
+                raise e
             # Persistent failure: use full deterministic fallback for the batch
             fallback_used = True
             fallback_verdicts = self._deterministic_fallback_batch(batch)
@@ -118,7 +124,9 @@ class JudgingAgent:
     async def judge(
         self,
         profile: Profile,
-        candidates: List[Candidate]
+        candidates: List[Candidate],
+        allow_fallback: bool = True,
+        progress_callback: Optional[Any] = None
     ) -> Tuple[List[Verdict], bool]:
         if not candidates:
             return [], False
@@ -127,8 +135,13 @@ class JudgingAgent:
         all_verdicts: List[Verdict] = []
         any_fallback = False
 
-        for b in batches:
-            v_list, fb = await self.judge_batch(profile, b)
+        for idx, b in enumerate(batches):
+            if progress_callback:
+                import inspect
+                res = progress_callback(idx + 1, len(batches))
+                if inspect.isawaitable(res):
+                    await res
+            v_list, fb = await self.judge_batch(profile, b, allow_fallback=allow_fallback)
             all_verdicts.extend(v_list)
             if fb:
                 any_fallback = True

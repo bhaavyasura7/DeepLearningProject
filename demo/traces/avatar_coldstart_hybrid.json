@@ -1,0 +1,2965 @@
+{
+  "run_id": "run_0454913dd4",
+  "mode": "query",
+  "input": {
+    "mode": "query",
+    "query": "lush alien moon ocean creatures and high tech marine warfare",
+    "user_id": null,
+    "history": [
+      {
+        "movie_id": 72998,
+        "title": "Avatar",
+        "rating": 5.0,
+        "timestamp": null,
+        "genres": [
+          "Action",
+          "Adventure",
+          "Fantasy",
+          "Science Fiction"
+        ]
+      }
+    ],
+    "retrieval": "hybrid",
+    "replay": false,
+    "scenario_id": "avatar_coldstart"
+  },
+  "config": "hybrid",
+  "stages": [
+    {
+      "name": "understanding",
+      "started": 1791360580.346258,
+      "ended": 1791360580.346273,
+      "status": "completed",
+      "fallback_used": false,
+      "output": {
+        "likes": [
+          "Sci-Fi",
+          "Complex narratives",
+          "Christopher Nolan"
+        ],
+        "dislikes": [
+          "Mindless action",
+          "Horror"
+        ],
+        "constraints": [
+          "Runtime under 150m"
+        ],
+        "mood": "Thought-provoking and thrilling",
+        "summary": "Enjoys mind-bending sci-fi narratives with deep themes and strong directorial vision."
+      },
+      "error": null
+    },
+    {
+      "name": "retrieval",
+      "started": 1791360580.3462799,
+      "ended": 1791360580.4262972,
+      "status": "completed",
+      "fallback_used": false,
+      "output": {
+        "candidate_count": 50,
+        "candidates": [
+          {
+            "movie_id": 1200,
+            "title": "Aliens",
+            "year": 1986,
+            "sources": [
+              "vector",
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → Aliens",
+            "score": 0.737647533416748,
+            "overview": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species. When the company sends a family of colonists out to investigate her story—all contact is lost with the planet and colonists. They enlist Ripley and the colonial marines to return and search for answers.",
+            "genres": [
+              "Action",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Sigourney Weaver",
+              "Carrie Henn",
+              "Michael Biehn",
+              "Paul Reiser",
+              "Lance Henriksen"
+            ]
+          },
+          {
+            "movie_id": 280218,
+            "title": "Avatar: The Way of Water",
+            "year": 2022,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → Avatar: The Way of Water",
+            "score": 0.009168998760601075,
+            "overview": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+            "genres": [
+              "Science Fiction",
+              "Adventure",
+              "Action"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Sam Worthington",
+              "Zoe Saldaña",
+              "Sigourney Weaver",
+              "Stephen Lang",
+              "Kate Winslet"
+            ]
+          },
+          {
+            "movie_id": 103228,
+            "title": "Pacific Rim",
+            "year": 2013,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7354571223258972,
+            "overview": "Using massive piloted robots to combat the alien threat, earth's survivors take the fight to the invading alien force lurking in the depths of the Pacific Ocean. Nearly defenseless in the face of the relentless enemy, the forces of mankind have no choice but to turn to two unlikely heroes who now stand as earth's final hope against the mounting apocalypse.",
+            "genres": [
+              "Action",
+              "Science Fiction",
+              "Adventure"
+            ],
+            "director": "Guillermo del Toro",
+            "cast": [
+              "Charlie Hunnam",
+              "Rinko Kikuchi",
+              "Idris Elba",
+              "Max Martini",
+              "Clifton Collins Jr."
+            ]
+          },
+          {
+            "movie_id": 80917,
+            "title": "Monsters",
+            "year": 2010,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7252935767173767,
+            "overview": "Six years ago NASA discovered the possibility of alien life within our solar system. A probe was launched to collect samples, but crashed upon re-entry over Central America. Soon after, new life forms began to appear and half of Mexico was quarantined as an infected zone. Today, the American and Mexican military still struggle to contain \"the creatures,\" while a journalist agrees to escort a shaken tourist through the infected zone in Mexico to the safety of the U.S. border.",
+            "genres": [
+              "Drama",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "Gareth Edwards",
+            "cast": [
+              "Scoot McNairy",
+              "Whitney Able",
+              "Mario Zuniga Benavides",
+              "Annalee Jefferies",
+              "Ricky Catter"
+            ]
+          },
+          {
+            "movie_id": 1127,
+            "title": "The Abyss",
+            "year": 1989,
+            "sources": [
+              "graph",
+              "vector"
+            ],
+            "path": "Avatar → Director: James Cameron → The Abyss",
+            "score": 0.0034507434748213958,
+            "overview": "A civilian oil rig crew is recruited to conduct a search and rescue effort when a nuclear submarine mysteriously sinks. One diver soon finds himself on a spectacular odyssey 25,000 feet below the ocean's surface where he confronts a mysterious force that has the power to change the world or destroy it.",
+            "genres": [
+              "Adventure",
+              "Action",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Ed Harris",
+              "Mary Elizabeth Mastrantonio",
+              "Michael Biehn",
+              "Leo Burmester",
+              "Todd Graff"
+            ]
+          },
+          {
+            "movie_id": 589,
+            "title": "Terminator 2: Judgment Day",
+            "year": 1991,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → Terminator 2: Judgment Day",
+            "score": 0.0034431866577160023,
+            "overview": "Nearly 10 years have passed since Sarah Connor was targeted for termination by a cyborg from the future. Now her son, John, the future leader of the resistance, is the target for a newer, more deadly terminator. Once again, the resistance has managed to send a protector back to attempt to save John and his mother Sarah.",
+            "genres": [
+              "Action",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Arnold Schwarzenegger",
+              "Linda Hamilton",
+              "Edward Furlong",
+              "Robert Patrick",
+              "Earl Boen"
+            ]
+          },
+          {
+            "movie_id": 109487,
+            "title": "Interstellar",
+            "year": 2014,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7146197557449341,
+            "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+            "genres": [
+              "Adventure",
+              "Drama",
+              "Science Fiction"
+            ],
+            "director": "Christopher Nolan",
+            "cast": [
+              "Matthew McConaughey",
+              "Anne Hathaway",
+              "Michael Caine",
+              "Jessica Chastain",
+              "Casey Affleck"
+            ]
+          },
+          {
+            "movie_id": 1240,
+            "title": "The Terminator",
+            "year": 1984,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → The Terminator",
+            "score": 0.0034431866577160023,
+            "overview": "In the post-apocalyptic future, reigning tyrannical supercomputers teleport a cyborg assassin known as the \"Terminator\" back to 1984 to kill Sarah Connor, whose unborn son is destined to lead insurgents against 21st century mechanical hegemony. Meanwhile, the human-resistance movement dispatches a lone warrior to safeguard Sarah. Can he stop the virtually indestructible killing machine?",
+            "genres": [
+              "Action",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Arnold Schwarzenegger",
+              "Michael Biehn",
+              "Linda Hamilton",
+              "Paul Winfield",
+              "Lance Henriksen"
+            ]
+          },
+          {
+            "movie_id": 1762,
+            "title": "Deep Rising",
+            "year": 1998,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7128651738166809,
+            "overview": "A group of heavily armed hijackers board a luxury ocean liner in the South Pacific Ocean to loot it, only to do battle with a series of large-sized, tentacled, man-eating sea creatures who have taken over the ship first.",
+            "genres": [
+              "Adventure",
+              "Action",
+              "Horror",
+              "Science Fiction"
+            ],
+            "director": "Stephen Sommers",
+            "cast": [
+              "Treat Williams",
+              "Famke Janssen",
+              "Anthony Heald",
+              "Kevin J. O'Connor",
+              "Wes Studi"
+            ]
+          },
+          {
+            "movie_id": 380,
+            "title": "True Lies",
+            "year": 1994,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → True Lies",
+            "score": 0.0034330013395075056,
+            "overview": "A fearless, globe-trotting, terrorist-battling secret agent has his life turned upside down when he discovers his wife might be having an affair with a used car salesman while terrorists smuggle nuclear war heads into the United States.",
+            "genres": [
+              "Action",
+              "Thriller"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Arnold Schwarzenegger",
+              "Jamie Lee Curtis",
+              "Tom Arnold",
+              "Bill Paxton",
+              "Tia Carrere"
+            ]
+          },
+          {
+            "movie_id": 8447,
+            "title": "This Island Earth",
+            "year": 1955,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7115461826324463,
+            "overview": "Aliens have landed and are hiding on Earth, but need Earth’s scientists to help them fight an inter-planetary war.",
+            "genres": [
+              "Science Fiction",
+              "Adventure"
+            ],
+            "director": "Joseph M. Newman",
+            "cast": [
+              "Rex Reason",
+              "Faith Domergue",
+              "Jeff Morrow",
+              "Lance Fuller",
+              "Robert Nichols"
+            ]
+          },
+          {
+            "movie_id": 5779,
+            "title": "Piranha II: The Spawning",
+            "year": 1982,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → Piranha II: The Spawning",
+            "score": 0.0034255702427644402,
+            "overview": "A scuba diving instructor, her biochemist boyfriend, and her police chief ex-husband try to link a series of bizarre deaths to a mutant strain of piranha fish whose lair is a sunken freighter ship off a Caribbean island resort.",
+            "genres": [
+              "Horror"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Tricia O'Neil",
+              "Steve Marachuk",
+              "Lance Henriksen",
+              "Ricky Paull Goldin",
+              "Ted Richert"
+            ]
+          },
+          {
+            "movie_id": 87520,
+            "title": "Transformers: Dark of the Moon",
+            "year": 2011,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.710588276386261,
+            "overview": "The Autobots continue to work for NEST, now no longer in secret. But after discovering a strange artifact during a mission in Chernobyl, it becomes apparent to Optimus Prime that the United States government has been less than forthright with them.",
+            "genres": [
+              "Action",
+              "Science Fiction",
+              "Adventure"
+            ],
+            "director": "Michael Bay",
+            "cast": [
+              "Shia LaBeouf",
+              "Rosie Huntington-Whiteley",
+              "Peter Cullen",
+              "Leonard Nimoy",
+              "John Turturro"
+            ]
+          },
+          {
+            "movie_id": 6289,
+            "title": "Ghosts of the Abyss",
+            "year": 2003,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → Ghosts of the Abyss",
+            "score": 0.0034255702427644402,
+            "overview": "With a team of the world's foremost historic and marine experts as well as friend Bill Paxton, James Cameron embarks on an unscripted adventure back to the wreck of the Titanic where nearly 1,500 souls lost their lives almost a century ago.",
+            "genres": [
+              "Documentary"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Bill Paxton",
+              "John Broadwater",
+              "Charles Pellegrino",
+              "Lewis Abernathy",
+              "Mike Cameron"
+            ]
+          },
+          {
+            "movie_id": 102880,
+            "title": "After Earth",
+            "year": 2013,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7056047916412354,
+            "overview": "One thousand years after cataclysmic events forced humanity's escape from Earth, Nova Prime has become mankind's new home. Legendary General Cypher Raige returns from an extended tour of duty to his estranged family, ready to be a father to his 13-year-old son, Kitai. When an asteroid storm damages Cypher and Kitai's craft, they crash-land on a now unfamiliar and dangerous Earth. As his father lies dying in the cockpit, Kitai must trek across the hostile terrain to recover their rescue beacon. His whole life, Kitai has wanted nothing more than to be a soldier like his father. Today, he gets his chance.",
+            "genres": [
+              "Science Fiction",
+              "Action",
+              "Adventure"
+            ],
+            "director": "M. Night Shyamalan",
+            "cast": [
+              "Jaden Smith",
+              "Will Smith",
+              "Sophie Okonedo",
+              "Zoë Kravitz",
+              "Glenn Morshower"
+            ]
+          },
+          {
+            "movie_id": 1721,
+            "title": "Titanic",
+            "year": 1997,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Director: James Cameron → Titanic",
+            "score": 0.0034255702427644402,
+            "overview": "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic's departure through to its death—on its first and last voyage—on April 15, 1912.",
+            "genres": [
+              "Drama",
+              "Romance"
+            ],
+            "director": "James Cameron",
+            "cast": [
+              "Leonardo DiCaprio",
+              "Kate Winslet",
+              "Billy Zane",
+              "Kathy Bates",
+              "Frances Fisher"
+            ]
+          },
+          {
+            "movie_id": 94018,
+            "title": "Battleship",
+            "year": 2012,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7048491835594177,
+            "overview": "When mankind beams a radio signal into space, a reply comes from ‘Planet G’, in the form of several alien crafts that splash down in the waters off Hawaii. Lieutenant Alex Hopper is a weapons officer assigned to the USS John Paul Jones, part of an international naval coalition which becomes the world's last hope for survival as they engage the hostile alien force of unimaginable strength. While taking on the invaders, Hopper must also try to live up to the potential that his brother, and his fiancée's father—an Admiral—expect of him.",
+            "genres": [
+              "Thriller",
+              "Action",
+              "Adventure",
+              "Science Fiction"
+            ],
+            "director": "Peter Berg",
+            "cast": [
+              "Taylor Kitsch",
+              "Tadanobu Asano",
+              "Rihanna",
+              "Brooklyn Decker",
+              "Gregory D. Gadson"
+            ]
+          },
+          {
+            "movie_id": 1320,
+            "title": "Alien³",
+            "year": 1992,
+            "sources": [
+              "graph",
+              "vector"
+            ],
+            "path": "Avatar → Cast: Sigourney Weaver → Alien³",
+            "score": 0.0034196374855833384,
+            "overview": "After escaping with Newt and Hicks from the alien planet, Ripley crash lands on Fiorina 161, a prison planet and host to a correctional facility. Unfortunately, although Newt and Hicks do not survive the crash, a more unwelcome visitor does. The prison does not allow weapons of any kind, and with aid being a long time away, the prisoners must simply survive in any way they can.",
+            "genres": [
+              "Science Fiction",
+              "Action",
+              "Horror"
+            ],
+            "director": "David Fincher",
+            "cast": [
+              "Sigourney Weaver",
+              "Charles S. Dutton",
+              "Charles Dance",
+              "Paul McGann",
+              "Brian Glover"
+            ]
+          },
+          {
+            "movie_id": 4618,
+            "title": "Leviathan",
+            "year": 1989,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7039875388145447,
+            "overview": "Underwater deep-sea miners encounter a Soviet wreck and bring back a dangerous cargo to their base on the ocean floor with horrifying results. The crew of the mining base must fight to survive against a genetic mutation that hunts them down one by one.",
+            "genres": [
+              "Adventure",
+              "Horror",
+              "Action",
+              "Thriller",
+              "Science Fiction"
+            ],
+            "director": "George P. Cosmatos",
+            "cast": [
+              "Peter Weller",
+              "Richard Crenna",
+              "Amanda Pays",
+              "Daniel Stern",
+              "Ernie Hudson"
+            ]
+          },
+          {
+            "movie_id": 77795,
+            "title": "Cargo",
+            "year": 2009,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: space travel → Cargo",
+            "score": 0.0024284172056847795,
+            "overview": "The story of CARGO takes place on rusty space-freighter KASSANDRA on its way to Station 42. The young medic LAURA is the only one awake on board while the rest of the crew lies frozen in hibernation sleep. In 4 months will Laura's shift be over.",
+            "genres": [
+              "Thriller",
+              "Mystery",
+              "Science Fiction"
+            ],
+            "director": "Ivan Engler",
+            "cast": [
+              "Martin Rapold",
+              "Anna-Katharina Schwabroh",
+              "Regula Grauwiller",
+              "Michael Finger",
+              "Claude-Oliver Rudolph"
+            ]
+          },
+          {
+            "movie_id": 5468,
+            "title": "20 Million Miles to Earth",
+            "year": 1957,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7038275003433228,
+            "overview": "When the first manned flight to Venus returns to Earth, the rocket crash-lands in the Mediterranean near a small Italian fishing village. The locals manage to save one of the astronauts Colonel Calder, the mission commander. A young boy also recovers what turns out to be a specimen of an alien creature. Growing at a fantastic rate, it manages to escape and eventually threatens the city of Rome.",
+            "genres": [
+              "Science Fiction",
+              "Horror"
+            ],
+            "director": "Nathan Juran",
+            "cast": [
+              "William Hopper",
+              "Joan Taylor",
+              "Frank Puglia",
+              "John Zaremba",
+              "Thomas Browne Henry"
+            ]
+          },
+          {
+            "movie_id": 166526,
+            "title": "The Space Between Us",
+            "year": 2017,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: future → The Space Between Us",
+            "score": 0.002198190214202987,
+            "overview": "A young man raised by scientists on Mars returns to Earth to find his father.",
+            "genres": [
+              "Romance",
+              "Adventure",
+              "Science Fiction",
+              "Drama"
+            ],
+            "director": "Peter Chelsom",
+            "cast": [
+              "Asa Butterfield",
+              "Britt Robertson",
+              "Carla Gugino",
+              "Gary Oldman",
+              "Janet Montgomery"
+            ]
+          },
+          {
+            "movie_id": 53996,
+            "title": "Transformers",
+            "year": 2007,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7016074657440186,
+            "overview": "Young teenager Sam Witwicky becomes involved in the ancient struggle between two extraterrestrial factions of transforming robots – the heroic Autobots and the evil Decepticons. Sam holds the clue to unimaginable power and the Decepticons will stop at nothing to retrieve it.",
+            "genres": [
+              "Adventure",
+              "Science Fiction",
+              "Action"
+            ],
+            "director": "Michael Bay",
+            "cast": [
+              "Shia LaBeouf",
+              "Megan Fox",
+              "Mark Ryan",
+              "Peter Cullen",
+              "Hugo Weaving"
+            ]
+          },
+          {
+            "movie_id": 169814,
+            "title": "The Assignment",
+            "year": 2016,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Cast: Sigourney Weaver → The Assignment",
+            "score": 0.0021777805948716643,
+            "overview": "Ace assassin Frank Kitchen is double crossed by gangsters and falls into the hands of rogue surgeon known as The Doctor who turns him into a woman. The hitman, now a hitwoman, sets out for revenge, aided by a nurse named Johnnie who also has secrets.",
+            "genres": [
+              "Action",
+              "Crime",
+              "Thriller"
+            ],
+            "director": "Walter Hill",
+            "cast": [
+              "Michelle Rodriguez",
+              "Sigourney Weaver",
+              "Tony Shalhoub",
+              "Caitlin Gerard",
+              "Anthony LaPaglia"
+            ]
+          },
+          {
+            "movie_id": 242778,
+            "title": "Voyagers",
+            "year": 2021,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.7013432383537292,
+            "overview": "With the future of the human race at stake, a group of young men and women -- bred for intelligence and obedience -- embark on an expedition to colonize a distant planet. When they uncover disturbing secrets about the mission, they defy their training and begin to explore their most primitive natures. As life on the ship descends into chaos, they soon become consumed by fear, lust and an insatiable hunger for power.",
+            "genres": [
+              "Science Fiction",
+              "Thriller"
+            ],
+            "director": "Neil Burger",
+            "cast": [
+              "Tye Sheridan",
+              "Lily-Rose Depp",
+              "Fionn Whitehead",
+              "Colin Farrell",
+              "Chanté Adams"
+            ]
+          },
+          {
+            "movie_id": 160,
+            "title": "Congo",
+            "year": 1995,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: tribe → Congo",
+            "score": 0.0021280753417988667,
+            "overview": "Eight people embark on an expedition into the Congo, a mysterious expanse of unexplored Africa where human greed and the laws of nature have gone berserk. When the thrill-seekers -- some with ulterior motives -- stumble across a race of killer apes.",
+            "genres": [
+              "Action",
+              "Adventure",
+              "Science Fiction"
+            ],
+            "director": "Frank Marshall",
+            "cast": [
+              "Laura Linney",
+              "Dylan Walsh",
+              "Ernie Hudson",
+              "Tim Curry",
+              "Grant Heslov"
+            ]
+          },
+          {
+            "movie_id": 192307,
+            "title": "The Meg",
+            "year": 2018,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6992306113243103,
+            "overview": "A deep sea submersible pilot revisits his past fears in the Mariana Trench, and accidentally unleashes the seventy foot ancestor of the Great White Shark believed to be extinct.",
+            "genres": [
+              "Action",
+              "Science Fiction",
+              "Horror"
+            ],
+            "director": "Jon Turteltaub",
+            "cast": [
+              "Jason Statham",
+              "Li Bingbing",
+              "Rainn Wilson",
+              "Cliff Curtis",
+              "Ruby Rose"
+            ]
+          },
+          {
+            "movie_id": 5717,
+            "title": "Cannibal Ferox",
+            "year": 1981,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: tribe → Cannibal Ferox",
+            "score": 0.002110458926847306,
+            "overview": "Three friends out to disprove cannibalism meet two men on the run who tortured and enslaved a cannibal tribe to find emeralds, and now the tribe is out for revenge.",
+            "genres": [
+              "Adventure",
+              "Horror"
+            ],
+            "director": "Umberto Lenzi",
+            "cast": [
+              "Giovanni Lombardo Radice",
+              "Lorraine De Selle",
+              "Danilo Mattei",
+              "Zora Kerova",
+              "Walter Lucchini"
+            ]
+          },
+          {
+            "movie_id": 68237,
+            "title": "Moon",
+            "year": 2009,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6991556286811829,
+            "overview": "With only three weeks left in his three year contract, Sam Bell is getting anxious to finally return to Earth. He is the only occupant of a Moon-based manufacturing facility along with his computer and assistant, GERTY. When he has an accident however, he wakens to find that he is not alone.",
+            "genres": [
+              "Science Fiction",
+              "Drama"
+            ],
+            "director": "Duncan Jones",
+            "cast": [
+              "Sam Rockwell",
+              "Kevin Spacey",
+              "Dominique McElligott",
+              "Rosie Shaw",
+              "Adrienne Shaw"
+            ]
+          },
+          {
+            "movie_id": 169900,
+            "title": "The Lost City of Z",
+            "year": 2017,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: tribe → The Lost City of Z",
+            "score": 0.002110458926847306,
+            "overview": "A true-life drama in the 1920s, centering on British explorer Col. Percy Fawcett, who discovered evidence of a previously unknown, advanced civilization in the Amazon and disappeared whilst searching for it.",
+            "genres": [
+              "Adventure",
+              "Drama",
+              "History"
+            ],
+            "director": "James Gray",
+            "cast": [
+              "Charlie Hunnam",
+              "Robert Pattinson",
+              "Sienna Miller",
+              "Tom Holland",
+              "Angus Macfadyen"
+            ]
+          },
+          {
+            "movie_id": 32076,
+            "title": "Ebirah, Horror of the Deep",
+            "year": 1966,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.69905024766922,
+            "overview": "Searching for his brother, Ryota stows away on a boat belonging to a criminal alongside two other teenagers. The group shipwrecks on Letchi island and discover the Infant Island natives have been enslaved by a terrorist organization controlling a crustacean monster. Finding a sleeping Godzilla, they decide to awaken him to defeat the terrorists and liberate the natives.",
+            "genres": [
+              "Science Fiction",
+              "Action",
+              "Fantasy"
+            ],
+            "director": "Jun Fukuda",
+            "cast": [
+              "Akira Takarada",
+              "Kumi Mizuno",
+              "Chōtarō Tōgin",
+              "Hideo Sunazuka",
+              "Tôru Ibuki"
+            ]
+          },
+          {
+            "movie_id": 2151,
+            "title": "The Gods Must Be Crazy II",
+            "year": 1989,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: tribe → The Gods Must Be Crazy II",
+            "score": 0.002110333206484977,
+            "overview": "Xixo is back again. This time, his children accidentally stow away on a fast-moving poachers' truck, unable to get off, and Xixo sets out to rescue them. Along the way, he encounters a couple of soldiers trying to capture each other and a pilot and passenger of a small plane, who are each having a few problems of their own.",
+            "genres": [
+              "Action",
+              "Comedy"
+            ],
+            "director": "Jamie Uys",
+            "cast": [
+              "N!xau",
+              "Lena Farugia",
+              "Hans Strydom",
+              "Eiros",
+              "Nadies"
+            ]
+          },
+          {
+            "movie_id": 1862,
+            "title": "Species II",
+            "year": 1998,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6979843378067017,
+            "overview": "Having just returned from a mission to Mars, Commander Ross isn't exactly himself. He's slowly becoming a terrifying alien entity with one goal -- to procreate with human women! When countless women suffer gruesome deaths after bearing half-alien offspring, scientist Laura Baker and hired assassin Press Lennox use Eve, a more tempered alien clone, to find Ross and his brood. Before long Eve escapes to mate with Ross.",
+            "genres": [
+              "Science Fiction",
+              "Action",
+              "Horror"
+            ],
+            "director": "Peter Medak",
+            "cast": [
+              "Michael Madsen",
+              "Natasha Henstridge",
+              "Marg Helgenberger",
+              "Mykelti Williamson",
+              "George Dzundza"
+            ]
+          },
+          {
+            "movie_id": 2150,
+            "title": "The Gods Must Be Crazy",
+            "year": 1980,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: tribe → The Gods Must Be Crazy",
+            "score": 0.002110333206484977,
+            "overview": "A Coca-Cola bottle dropped from an airplane raises havoc among a normally peaceful tribe of African bushmen who believe it to be a utensil of the gods.",
+            "genres": [
+              "Action",
+              "Comedy"
+            ],
+            "director": "Jamie Uys",
+            "cast": [
+              "Marius Weyers",
+              "Sandra Prinsloo",
+              "N!xau",
+              "Louw Verwey",
+              "Michael Thys"
+            ]
+          },
+          {
+            "movie_id": 2722,
+            "title": "Deep Blue Sea",
+            "year": 1999,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6973015069961548,
+            "overview": "Researchers on the undersea lab Aquatica have genetically altered the brains of captive sharks to develop a cure for Alzheimer's disease. But there's an unexpected side effect: the sharks got smarter, faster, and more dangerous. After a big storm damages their remote research facility, they must fight for their lives.",
+            "genres": [
+              "Action",
+              "Horror",
+              "Science Fiction"
+            ],
+            "director": "Renny Harlin",
+            "cast": [
+              "Thomas Jane",
+              "Saffron Burrows",
+              "Samuel L. Jackson",
+              "Jacqueline McKenzie",
+              "Michael Rapaport"
+            ]
+          },
+          {
+            "movie_id": 48304,
+            "title": "Apocalypto",
+            "year": 2006,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: tribe → Apocalypto",
+            "score": 0.002110333206484977,
+            "overview": "Set in the Mayan civilization, when a man's idyllic presence is brutally disrupted by a violent invading force, he is taken on a perilous journey to a world ruled by fear and oppression where a harrowing end awaits him. Through a twist of fate and spurred by the power of his love for his woman and his family he will make a desperate break to return home and to ultimately save his way of life.",
+            "genres": [
+              "Action",
+              "Drama",
+              "History"
+            ],
+            "director": "Mel Gibson",
+            "cast": [
+              "Rudy Youngblood",
+              "Raoul Max Trujillo",
+              "Gerardo Taracena",
+              "Iazua Larios",
+              "Antonio Monroy"
+            ]
+          },
+          {
+            "movie_id": 7725,
+            "title": "On Deadly Ground",
+            "year": 1994,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Theme: tribe → On Deadly Ground",
+            "score": 0.002110333206484977,
+            "overview": "Forrest Taft is an environmental agent who works for the Aegis Oil Company in Alaska. Aegis Oil's corrupt CEO is the kind of person who doesn't care whether or not oil spills into the ocean or onto the land—just as long as it's making money for him.",
+            "genres": [
+              "Action"
+            ],
+            "director": "Steven Seagal",
+            "cast": [
+              "Steven Seagal",
+              "Michael Caine",
+              "Joan Chen",
+              "John C. McGinley",
+              "R. Lee Ermey"
+            ]
+          },
+          {
+            "movie_id": 115471,
+            "title": "Extraterrestrial",
+            "year": 2014,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6963299512863159,
+            "overview": "Five friends set out to a cabin in the woods for a fun weekend getaway that is, until extraterrestrial visitors turn it into a fight for their lives. The group is pulled from their reverie when a flickering object crashes deep in the woods. As they investigate, the friends stumble across an alien spacecraft, and its inhabitants have not arrived in peace.",
+            "genres": [
+              "Horror",
+              "Science Fiction"
+            ],
+            "director": "Colin Minihan",
+            "cast": [
+              "Brittany Allen",
+              "Melanie Papalia",
+              "Jesse Moss",
+              "Anja Savcic",
+              "Sean Rogerson"
+            ]
+          },
+          {
+            "movie_id": 89190,
+            "title": "Conan the Barbarian",
+            "year": 2011,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Cast: Stephen Lang → Conan the Barbarian",
+            "score": 0.002021423173298476,
+            "overview": "A quest that begins as a personal vendetta for the fierce Cimmerian warrior soon turns into an epic battle against hulking rivals, horrific monsters, and impossible odds, as Conan realizes he is the only hope of saving the great nations of Hyboria from an encroaching reign of supernatural evil.",
+            "genres": [
+              "Adventure",
+              "Fantasy",
+              "Action"
+            ],
+            "director": "Marcus Nispel",
+            "cast": [
+              "Jason Momoa",
+              "Stephen Lang",
+              "Rachel Nichols",
+              "Ron Perlman",
+              "Rose McGowan"
+            ]
+          },
+          {
+            "movie_id": 94864,
+            "title": "Prometheus",
+            "year": 2012,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6957356333732605,
+            "overview": "A team of explorers discover a clue to the origins of mankind on Earth, leading them on a journey to the darkest corners of the universe. There, they must fight a terrifying battle to save the future of the human race.",
+            "genres": [
+              "Science Fiction",
+              "Adventure",
+              "Mystery"
+            ],
+            "director": "Ridley Scott",
+            "cast": [
+              "Noomi Rapace",
+              "Michael Fassbender",
+              "Charlize Theron",
+              "Idris Elba",
+              "Guy Pearce"
+            ]
+          },
+          {
+            "movie_id": 110130,
+            "title": "The Nut Job",
+            "year": 2014,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Cast: Stephen Lang → The Nut Job",
+            "score": 0.0020073022850618447,
+            "overview": "Surly, a curmudgeon, independent squirrel is banished from his park and forced to survive in the city. Lucky for him, he stumbles on the one thing that may be able to save his life, and the rest of park community, as they gear up for winter - Maury's Nut Store.",
+            "genres": [
+              "Animation",
+              "Comedy",
+              "Family",
+              "Adventure"
+            ],
+            "director": "Peter Lepeniotis",
+            "cast": [
+              "Will Arnett",
+              "Brendan Fraser",
+              "Liam Neeson",
+              "Katherine Heigl",
+              "Stephen Lang"
+            ]
+          },
+          {
+            "movie_id": 171207,
+            "title": "Beyond Skyline",
+            "year": 2017,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6946216821670532,
+            "overview": "Detective Mark Corley storms his way onto an alien spaceship to rescue his estranged son. When the ship crashes in Southeast Asia, he forges an alliance with a band of survivors to take back the planet once and for all.",
+            "genres": [
+              "Action",
+              "Science Fiction",
+              "Adventure"
+            ],
+            "director": "Liam O'Donnell",
+            "cast": [
+              "Frank Grillo",
+              "Bojana Novaković",
+              "Iko Uwais",
+              "Yayan Ruhian",
+              "Callan Mulvey"
+            ]
+          },
+          {
+            "movie_id": 1626,
+            "title": "Fire Down Below",
+            "year": 1997,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Cast: Stephen Lang → Fire Down Below",
+            "score": 0.002007176564699516,
+            "overview": "When an EPA representative is murdered in a small Appalachian community, EPA undercover agent Jack Taggart is sent in—posing as a handyman working with a Christian relief agency—to determine what happened.",
+            "genres": [
+              "Action",
+              "Thriller"
+            ],
+            "director": "Félix Enríquez Alcalá",
+            "cast": [
+              "Steven Seagal",
+              "Marg Helgenberger",
+              "Stephen Lang",
+              "Brad Hunt",
+              "Kris Kristofferson"
+            ]
+          },
+          {
+            "movie_id": 185319,
+            "title": "Prospect",
+            "year": 2018,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6945017576217651,
+            "overview": "A teenage girl and her father travel to a remote alien moon, aiming to strike it rich. They've secured a contract to harvest a large deposit of the elusive gems hidden in the depths of the moon's toxic forest. But there are others roving the wilderness and the job quickly devolves into a fight to survive.",
+            "genres": [
+              "Science Fiction"
+            ],
+            "director": "Christopher Caldwell",
+            "cast": [
+              "Sophie Thatcher",
+              "Pedro Pascal",
+              "Andre Royo",
+              "Sheila Vand",
+              "Anwan Glover"
+            ]
+          },
+          {
+            "movie_id": 110426,
+            "title": "In the Blood",
+            "year": 2014,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Cast: Stephen Lang → In the Blood",
+            "score": 0.002007176564699516,
+            "overview": "When her husband goes missing during their Caribbean vacation, a woman sets off on her own to take down the men she thinks are responsible.",
+            "genres": [
+              "Action",
+              "Crime",
+              "Thriller"
+            ],
+            "director": "John Stockwell",
+            "cast": [
+              "Gina Carano",
+              "Cam Gigandet",
+              "Luis Guzmán",
+              "Stephen Lang",
+              "Treat Williams"
+            ]
+          },
+          {
+            "movie_id": 158956,
+            "title": "Kill Command",
+            "year": 2016,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6935869455337524,
+            "overview": "Set in a near future, technology-reliant society that pits man against killing machines. Against this backdrop an elite army unit is helicoptered to a remote, off-the-grid island training facility. What starts out as a simple training exercise for Captain Bukes and his tight-knit unit, descends into a terrifying battle to the death, as the marines discover the island is overrun by an enemy that transcends the human concept of evil.",
+            "genres": [
+              "Action",
+              "Horror",
+              "Science Fiction",
+              "Thriller"
+            ],
+            "director": "Steven Gomez",
+            "cast": [
+              "Vanessa Kirby",
+              "Thure Lindhardt",
+              "David Ajala",
+              "Tom McKay",
+              "Deborah Rosan"
+            ]
+          },
+          {
+            "movie_id": 6994,
+            "title": "The Hard Way",
+            "year": 1991,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Cast: Stephen Lang → The Hard Way",
+            "score": 0.002007176564699516,
+            "overview": "Seeking to raise his credibility as an actor and to land a role as a tough cop on a new show, Hollywood action star Nick Lang works a deal with New York City Police Capt. Brix, who by chance is one of his fans. Nick will be paired with detective Lt. John Moss and learn how to act like a real cop. But when Nick drives John crazy with questions and imitating him, he gets in the way of John's pursuit of a serial killer.",
+            "genres": [
+              "Action",
+              "Comedy",
+              "Crime"
+            ],
+            "director": "John Badham",
+            "cast": [
+              "Michael J. Fox",
+              "James Woods",
+              "Stephen Lang",
+              "Annabella Sciorra",
+              "John Capodice"
+            ]
+          },
+          {
+            "movie_id": 175187,
+            "title": "Revolt",
+            "year": 2017,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.6934199333190918,
+            "overview": "The story of humankind's last stand against a cataclysmic alien invasion. Set in the war-ravaged African countryside, a U.S. soldier and a French foreign aid worker team up to survive the alien onslaught. Their bond will be tested as they search for refuge across a crumbling world.",
+            "genres": [
+              "Science Fiction",
+              "Action"
+            ],
+            "director": "Joe Miale",
+            "cast": [
+              "Lee Pace",
+              "Bérénice Marlohe",
+              "Jason Flemyng",
+              "Sibulele Gcilitshana",
+              "Wandile Molebatsi"
+            ]
+          },
+          {
+            "movie_id": 184119,
+            "title": "Braven",
+            "year": 2018,
+            "sources": [
+              "graph"
+            ],
+            "path": "Avatar → Cast: Stephen Lang → Braven",
+            "score": 0.002007176564699516,
+            "overview": "A logger defends his family from a group of dangerous drug runners.",
+            "genres": [
+              "Drama",
+              "Action",
+              "Thriller"
+            ],
+            "director": "Lin Oeding",
+            "cast": [
+              "Jason Momoa",
+              "Stephen Lang",
+              "Garret Dillahunt",
+              "Zahn McClarnon",
+              "Jill Wagner"
+            ]
+          },
+          {
+            "movie_id": 111364,
+            "title": "Godzilla",
+            "year": 2014,
+            "sources": [
+              "vector"
+            ],
+            "path": null,
+            "score": 0.693401575088501,
+            "overview": "Ford Brody, a Navy bomb expert, has just reunited with his family in San Francisco when he is forced to go to Japan to help his estranged father, Joe. Soon, both men are swept up in an escalating crisis when an ancient alpha predator arises from the sea to combat malevolent adversaries that threaten the survival of humanity. The creatures leave colossal destruction in their wake, as they make their way toward their final battleground: San Francisco.",
+            "genres": [
+              "Action",
+              "Drama",
+              "Science Fiction"
+            ],
+            "director": "Gareth Edwards",
+            "cast": [
+              "Aaron Taylor-Johnson",
+              "Elizabeth Olsen",
+              "Juliette Binoche",
+              "Bryan Cranston",
+              "Ken Watanabe"
+            ]
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "judging",
+      "started": 1791360580.4263942,
+      "ended": 1791360580.427455,
+      "status": "completed",
+      "fallback_used": false,
+      "output": {
+        "verdicts": [
+          {
+            "movie_id": 1200,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 280218,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 103228,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 80917,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 1127,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 589,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 109487,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 1240,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 1762,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 380,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 8447,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 5779,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 87520,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 6289,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 102880,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 1721,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 94018,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 1320,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 4618,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 77795,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 5468,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 166526,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 53996,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 169814,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 242778,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 160,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 192307,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 5717,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 68237,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 169900,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 32076,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 2151,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 1862,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 2150,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 2722,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 48304,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 7725,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 115471,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 89190,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 94864,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 110130,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 171207,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 1626,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 185319,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 110426,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 158956,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 6994,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 175187,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 184119,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          },
+          {
+            "movie_id": 111364,
+            "match": true,
+            "fit": 0.92,
+            "reason": "Strong conceptual and genre alignment with profile."
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "summarising",
+      "started": 1791360580.42749,
+      "ended": 1791360580.427667,
+      "status": "completed",
+      "fallback_used": false,
+      "output": {
+        "strong": [
+          "Aliens",
+          "Avatar: The Way of Water",
+          "Pacific Rim",
+          "Monsters",
+          "The Abyss"
+        ],
+        "violations": [
+          "Mindless Action Sequel"
+        ],
+        "notes": "Coherent thematic cluster discovered through hybrid exploration."
+      },
+      "error": null
+    },
+    {
+      "name": "ranking",
+      "started": 1791360580.4276721,
+      "ended": 1791360580.427906,
+      "status": "completed",
+      "fallback_used": false,
+      "output": {
+        "rankings": [
+          {
+            "movie_id": 1200,
+            "rank": 1,
+            "title": "Aliens",
+            "year": 1986,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+            "path": "Avatar → Director: James Cameron → Aliens",
+            "quote": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species.",
+            "poster_path": null,
+            "overview": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species. When the company sends a family of colonists out to investigate her story—all contact is lost with the planet and colonists. They enlist Ripley and the colonial marines to return and search for answers.",
+            "is_weak_match": false,
+            "sources": [
+              "vector",
+              "graph"
+            ],
+            "fit": 0.92
+          },
+          {
+            "movie_id": 280218,
+            "rank": 2,
+            "title": "Avatar: The Way of Water",
+            "year": 2022,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+            "path": "Avatar → Director: James Cameron → Avatar: The Way of Water",
+            "quote": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+            "poster_path": null,
+            "overview": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+            "is_weak_match": false,
+            "sources": [
+              "graph"
+            ],
+            "fit": 0.92
+          },
+          {
+            "movie_id": 103228,
+            "rank": 3,
+            "title": "Pacific Rim",
+            "year": 2013,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+            "path": null,
+            "quote": "Using massive piloted robots to combat the alien threat, earth's survivors take the fight to the invading alien force lurking in the depths of the Pacific Ocean.",
+            "poster_path": null,
+            "overview": "Using massive piloted robots to combat the alien threat, earth's survivors take the fight to the invading alien force lurking in the depths of the Pacific Ocean. Nearly defenseless in the face of the relentless enemy, the forces of mankind have no choice but to turn to two unlikely heroes who now stand as earth's final hope against the mounting apocalypse.",
+            "is_weak_match": false,
+            "sources": [
+              "vector"
+            ],
+            "fit": 0.92
+          },
+          {
+            "movie_id": 80917,
+            "rank": 4,
+            "title": "Monsters",
+            "year": 2010,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+            "path": null,
+            "quote": "Six years ago NASA discovered the possibility of alien life within our solar system.",
+            "poster_path": null,
+            "overview": "Six years ago NASA discovered the possibility of alien life within our solar system. A probe was launched to collect samples, but crashed upon re-entry over Central America. Soon after, new life forms began to appear and half of Mexico was quarantined as an infected zone. Today, the American and Mexican military still struggle to contain \"the creatures,\" while a journalist agrees to escort a shaken tourist through the infected zone in Mexico to the safety of the U.S. border.",
+            "is_weak_match": false,
+            "sources": [
+              "vector"
+            ],
+            "fit": 0.92
+          },
+          {
+            "movie_id": 1127,
+            "rank": 5,
+            "title": "The Abyss",
+            "year": 1989,
+            "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+            "path": "Avatar → Director: James Cameron → The Abyss",
+            "quote": "A civilian oil rig crew is recruited to conduct a search and rescue effort when a nuclear submarine mysteriously sinks.",
+            "poster_path": null,
+            "overview": "A civilian oil rig crew is recruited to conduct a search and rescue effort when a nuclear submarine mysteriously sinks. One diver soon finds himself on a spectacular odyssey 25,000 feet below the ocean's surface where he confronts a mysterious force that has the power to change the world or destroy it.",
+            "is_weak_match": false,
+            "sources": [
+              "graph",
+              "vector"
+            ],
+            "fit": 0.92
+          }
+        ]
+      },
+      "error": null
+    }
+  ],
+  "candidates": [
+    {
+      "movie_id": 1200,
+      "title": "Aliens",
+      "year": 1986,
+      "sources": [
+        "vector",
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → Aliens",
+      "score": 0.737647533416748,
+      "overview": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species. When the company sends a family of colonists out to investigate her story—all contact is lost with the planet and colonists. They enlist Ripley and the colonial marines to return and search for answers.",
+      "genres": [
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Sigourney Weaver",
+        "Carrie Henn",
+        "Michael Biehn",
+        "Paul Reiser",
+        "Lance Henriksen"
+      ]
+    },
+    {
+      "movie_id": 280218,
+      "title": "Avatar: The Way of Water",
+      "year": 2022,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → Avatar: The Way of Water",
+      "score": 0.009168998760601075,
+      "overview": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Action"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Sam Worthington",
+        "Zoe Saldaña",
+        "Sigourney Weaver",
+        "Stephen Lang",
+        "Kate Winslet"
+      ]
+    },
+    {
+      "movie_id": 103228,
+      "title": "Pacific Rim",
+      "year": 2013,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7354571223258972,
+      "overview": "Using massive piloted robots to combat the alien threat, earth's survivors take the fight to the invading alien force lurking in the depths of the Pacific Ocean. Nearly defenseless in the face of the relentless enemy, the forces of mankind have no choice but to turn to two unlikely heroes who now stand as earth's final hope against the mounting apocalypse.",
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "director": "Guillermo del Toro",
+      "cast": [
+        "Charlie Hunnam",
+        "Rinko Kikuchi",
+        "Idris Elba",
+        "Max Martini",
+        "Clifton Collins Jr."
+      ]
+    },
+    {
+      "movie_id": 80917,
+      "title": "Monsters",
+      "year": 2010,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7252935767173767,
+      "overview": "Six years ago NASA discovered the possibility of alien life within our solar system. A probe was launched to collect samples, but crashed upon re-entry over Central America. Soon after, new life forms began to appear and half of Mexico was quarantined as an infected zone. Today, the American and Mexican military still struggle to contain \"the creatures,\" while a journalist agrees to escort a shaken tourist through the infected zone in Mexico to the safety of the U.S. border.",
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "Gareth Edwards",
+      "cast": [
+        "Scoot McNairy",
+        "Whitney Able",
+        "Mario Zuniga Benavides",
+        "Annalee Jefferies",
+        "Ricky Catter"
+      ]
+    },
+    {
+      "movie_id": 1127,
+      "title": "The Abyss",
+      "year": 1989,
+      "sources": [
+        "graph",
+        "vector"
+      ],
+      "path": "Avatar → Director: James Cameron → The Abyss",
+      "score": 0.0034507434748213958,
+      "overview": "A civilian oil rig crew is recruited to conduct a search and rescue effort when a nuclear submarine mysteriously sinks. One diver soon finds himself on a spectacular odyssey 25,000 feet below the ocean's surface where he confronts a mysterious force that has the power to change the world or destroy it.",
+      "genres": [
+        "Adventure",
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Ed Harris",
+        "Mary Elizabeth Mastrantonio",
+        "Michael Biehn",
+        "Leo Burmester",
+        "Todd Graff"
+      ]
+    },
+    {
+      "movie_id": 589,
+      "title": "Terminator 2: Judgment Day",
+      "year": 1991,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → Terminator 2: Judgment Day",
+      "score": 0.0034431866577160023,
+      "overview": "Nearly 10 years have passed since Sarah Connor was targeted for termination by a cyborg from the future. Now her son, John, the future leader of the resistance, is the target for a newer, more deadly terminator. Once again, the resistance has managed to send a protector back to attempt to save John and his mother Sarah.",
+      "genres": [
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Arnold Schwarzenegger",
+        "Linda Hamilton",
+        "Edward Furlong",
+        "Robert Patrick",
+        "Earl Boen"
+      ]
+    },
+    {
+      "movie_id": 109487,
+      "title": "Interstellar",
+      "year": 2014,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7146197557449341,
+      "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+      "genres": [
+        "Adventure",
+        "Drama",
+        "Science Fiction"
+      ],
+      "director": "Christopher Nolan",
+      "cast": [
+        "Matthew McConaughey",
+        "Anne Hathaway",
+        "Michael Caine",
+        "Jessica Chastain",
+        "Casey Affleck"
+      ]
+    },
+    {
+      "movie_id": 1240,
+      "title": "The Terminator",
+      "year": 1984,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → The Terminator",
+      "score": 0.0034431866577160023,
+      "overview": "In the post-apocalyptic future, reigning tyrannical supercomputers teleport a cyborg assassin known as the \"Terminator\" back to 1984 to kill Sarah Connor, whose unborn son is destined to lead insurgents against 21st century mechanical hegemony. Meanwhile, the human-resistance movement dispatches a lone warrior to safeguard Sarah. Can he stop the virtually indestructible killing machine?",
+      "genres": [
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Arnold Schwarzenegger",
+        "Michael Biehn",
+        "Linda Hamilton",
+        "Paul Winfield",
+        "Lance Henriksen"
+      ]
+    },
+    {
+      "movie_id": 1762,
+      "title": "Deep Rising",
+      "year": 1998,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7128651738166809,
+      "overview": "A group of heavily armed hijackers board a luxury ocean liner in the South Pacific Ocean to loot it, only to do battle with a series of large-sized, tentacled, man-eating sea creatures who have taken over the ship first.",
+      "genres": [
+        "Adventure",
+        "Action",
+        "Horror",
+        "Science Fiction"
+      ],
+      "director": "Stephen Sommers",
+      "cast": [
+        "Treat Williams",
+        "Famke Janssen",
+        "Anthony Heald",
+        "Kevin J. O'Connor",
+        "Wes Studi"
+      ]
+    },
+    {
+      "movie_id": 380,
+      "title": "True Lies",
+      "year": 1994,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → True Lies",
+      "score": 0.0034330013395075056,
+      "overview": "A fearless, globe-trotting, terrorist-battling secret agent has his life turned upside down when he discovers his wife might be having an affair with a used car salesman while terrorists smuggle nuclear war heads into the United States.",
+      "genres": [
+        "Action",
+        "Thriller"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Arnold Schwarzenegger",
+        "Jamie Lee Curtis",
+        "Tom Arnold",
+        "Bill Paxton",
+        "Tia Carrere"
+      ]
+    },
+    {
+      "movie_id": 8447,
+      "title": "This Island Earth",
+      "year": 1955,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7115461826324463,
+      "overview": "Aliens have landed and are hiding on Earth, but need Earth’s scientists to help them fight an inter-planetary war.",
+      "genres": [
+        "Science Fiction",
+        "Adventure"
+      ],
+      "director": "Joseph M. Newman",
+      "cast": [
+        "Rex Reason",
+        "Faith Domergue",
+        "Jeff Morrow",
+        "Lance Fuller",
+        "Robert Nichols"
+      ]
+    },
+    {
+      "movie_id": 5779,
+      "title": "Piranha II: The Spawning",
+      "year": 1982,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → Piranha II: The Spawning",
+      "score": 0.0034255702427644402,
+      "overview": "A scuba diving instructor, her biochemist boyfriend, and her police chief ex-husband try to link a series of bizarre deaths to a mutant strain of piranha fish whose lair is a sunken freighter ship off a Caribbean island resort.",
+      "genres": [
+        "Horror"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Tricia O'Neil",
+        "Steve Marachuk",
+        "Lance Henriksen",
+        "Ricky Paull Goldin",
+        "Ted Richert"
+      ]
+    },
+    {
+      "movie_id": 87520,
+      "title": "Transformers: Dark of the Moon",
+      "year": 2011,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.710588276386261,
+      "overview": "The Autobots continue to work for NEST, now no longer in secret. But after discovering a strange artifact during a mission in Chernobyl, it becomes apparent to Optimus Prime that the United States government has been less than forthright with them.",
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "director": "Michael Bay",
+      "cast": [
+        "Shia LaBeouf",
+        "Rosie Huntington-Whiteley",
+        "Peter Cullen",
+        "Leonard Nimoy",
+        "John Turturro"
+      ]
+    },
+    {
+      "movie_id": 6289,
+      "title": "Ghosts of the Abyss",
+      "year": 2003,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → Ghosts of the Abyss",
+      "score": 0.0034255702427644402,
+      "overview": "With a team of the world's foremost historic and marine experts as well as friend Bill Paxton, James Cameron embarks on an unscripted adventure back to the wreck of the Titanic where nearly 1,500 souls lost their lives almost a century ago.",
+      "genres": [
+        "Documentary"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Bill Paxton",
+        "John Broadwater",
+        "Charles Pellegrino",
+        "Lewis Abernathy",
+        "Mike Cameron"
+      ]
+    },
+    {
+      "movie_id": 102880,
+      "title": "After Earth",
+      "year": 2013,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7056047916412354,
+      "overview": "One thousand years after cataclysmic events forced humanity's escape from Earth, Nova Prime has become mankind's new home. Legendary General Cypher Raige returns from an extended tour of duty to his estranged family, ready to be a father to his 13-year-old son, Kitai. When an asteroid storm damages Cypher and Kitai's craft, they crash-land on a now unfamiliar and dangerous Earth. As his father lies dying in the cockpit, Kitai must trek across the hostile terrain to recover their rescue beacon. His whole life, Kitai has wanted nothing more than to be a soldier like his father. Today, he gets his chance.",
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Adventure"
+      ],
+      "director": "M. Night Shyamalan",
+      "cast": [
+        "Jaden Smith",
+        "Will Smith",
+        "Sophie Okonedo",
+        "Zoë Kravitz",
+        "Glenn Morshower"
+      ]
+    },
+    {
+      "movie_id": 1721,
+      "title": "Titanic",
+      "year": 1997,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Director: James Cameron → Titanic",
+      "score": 0.0034255702427644402,
+      "overview": "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic's departure through to its death—on its first and last voyage—on April 15, 1912.",
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "director": "James Cameron",
+      "cast": [
+        "Leonardo DiCaprio",
+        "Kate Winslet",
+        "Billy Zane",
+        "Kathy Bates",
+        "Frances Fisher"
+      ]
+    },
+    {
+      "movie_id": 94018,
+      "title": "Battleship",
+      "year": 2012,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7048491835594177,
+      "overview": "When mankind beams a radio signal into space, a reply comes from ‘Planet G’, in the form of several alien crafts that splash down in the waters off Hawaii. Lieutenant Alex Hopper is a weapons officer assigned to the USS John Paul Jones, part of an international naval coalition which becomes the world's last hope for survival as they engage the hostile alien force of unimaginable strength. While taking on the invaders, Hopper must also try to live up to the potential that his brother, and his fiancée's father—an Admiral—expect of him.",
+      "genres": [
+        "Thriller",
+        "Action",
+        "Adventure",
+        "Science Fiction"
+      ],
+      "director": "Peter Berg",
+      "cast": [
+        "Taylor Kitsch",
+        "Tadanobu Asano",
+        "Rihanna",
+        "Brooklyn Decker",
+        "Gregory D. Gadson"
+      ]
+    },
+    {
+      "movie_id": 1320,
+      "title": "Alien³",
+      "year": 1992,
+      "sources": [
+        "graph",
+        "vector"
+      ],
+      "path": "Avatar → Cast: Sigourney Weaver → Alien³",
+      "score": 0.0034196374855833384,
+      "overview": "After escaping with Newt and Hicks from the alien planet, Ripley crash lands on Fiorina 161, a prison planet and host to a correctional facility. Unfortunately, although Newt and Hicks do not survive the crash, a more unwelcome visitor does. The prison does not allow weapons of any kind, and with aid being a long time away, the prisoners must simply survive in any way they can.",
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Horror"
+      ],
+      "director": "David Fincher",
+      "cast": [
+        "Sigourney Weaver",
+        "Charles S. Dutton",
+        "Charles Dance",
+        "Paul McGann",
+        "Brian Glover"
+      ]
+    },
+    {
+      "movie_id": 4618,
+      "title": "Leviathan",
+      "year": 1989,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7039875388145447,
+      "overview": "Underwater deep-sea miners encounter a Soviet wreck and bring back a dangerous cargo to their base on the ocean floor with horrifying results. The crew of the mining base must fight to survive against a genetic mutation that hunts them down one by one.",
+      "genres": [
+        "Adventure",
+        "Horror",
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "director": "George P. Cosmatos",
+      "cast": [
+        "Peter Weller",
+        "Richard Crenna",
+        "Amanda Pays",
+        "Daniel Stern",
+        "Ernie Hudson"
+      ]
+    },
+    {
+      "movie_id": 77795,
+      "title": "Cargo",
+      "year": 2009,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: space travel → Cargo",
+      "score": 0.0024284172056847795,
+      "overview": "The story of CARGO takes place on rusty space-freighter KASSANDRA on its way to Station 42. The young medic LAURA is the only one awake on board while the rest of the crew lies frozen in hibernation sleep. In 4 months will Laura's shift be over.",
+      "genres": [
+        "Thriller",
+        "Mystery",
+        "Science Fiction"
+      ],
+      "director": "Ivan Engler",
+      "cast": [
+        "Martin Rapold",
+        "Anna-Katharina Schwabroh",
+        "Regula Grauwiller",
+        "Michael Finger",
+        "Claude-Oliver Rudolph"
+      ]
+    },
+    {
+      "movie_id": 5468,
+      "title": "20 Million Miles to Earth",
+      "year": 1957,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7038275003433228,
+      "overview": "When the first manned flight to Venus returns to Earth, the rocket crash-lands in the Mediterranean near a small Italian fishing village. The locals manage to save one of the astronauts Colonel Calder, the mission commander. A young boy also recovers what turns out to be a specimen of an alien creature. Growing at a fantastic rate, it manages to escape and eventually threatens the city of Rome.",
+      "genres": [
+        "Science Fiction",
+        "Horror"
+      ],
+      "director": "Nathan Juran",
+      "cast": [
+        "William Hopper",
+        "Joan Taylor",
+        "Frank Puglia",
+        "John Zaremba",
+        "Thomas Browne Henry"
+      ]
+    },
+    {
+      "movie_id": 166526,
+      "title": "The Space Between Us",
+      "year": 2017,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: future → The Space Between Us",
+      "score": 0.002198190214202987,
+      "overview": "A young man raised by scientists on Mars returns to Earth to find his father.",
+      "genres": [
+        "Romance",
+        "Adventure",
+        "Science Fiction",
+        "Drama"
+      ],
+      "director": "Peter Chelsom",
+      "cast": [
+        "Asa Butterfield",
+        "Britt Robertson",
+        "Carla Gugino",
+        "Gary Oldman",
+        "Janet Montgomery"
+      ]
+    },
+    {
+      "movie_id": 53996,
+      "title": "Transformers",
+      "year": 2007,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7016074657440186,
+      "overview": "Young teenager Sam Witwicky becomes involved in the ancient struggle between two extraterrestrial factions of transforming robots – the heroic Autobots and the evil Decepticons. Sam holds the clue to unimaginable power and the Decepticons will stop at nothing to retrieve it.",
+      "genres": [
+        "Adventure",
+        "Science Fiction",
+        "Action"
+      ],
+      "director": "Michael Bay",
+      "cast": [
+        "Shia LaBeouf",
+        "Megan Fox",
+        "Mark Ryan",
+        "Peter Cullen",
+        "Hugo Weaving"
+      ]
+    },
+    {
+      "movie_id": 169814,
+      "title": "The Assignment",
+      "year": 2016,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Cast: Sigourney Weaver → The Assignment",
+      "score": 0.0021777805948716643,
+      "overview": "Ace assassin Frank Kitchen is double crossed by gangsters and falls into the hands of rogue surgeon known as The Doctor who turns him into a woman. The hitman, now a hitwoman, sets out for revenge, aided by a nurse named Johnnie who also has secrets.",
+      "genres": [
+        "Action",
+        "Crime",
+        "Thriller"
+      ],
+      "director": "Walter Hill",
+      "cast": [
+        "Michelle Rodriguez",
+        "Sigourney Weaver",
+        "Tony Shalhoub",
+        "Caitlin Gerard",
+        "Anthony LaPaglia"
+      ]
+    },
+    {
+      "movie_id": 242778,
+      "title": "Voyagers",
+      "year": 2021,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.7013432383537292,
+      "overview": "With the future of the human race at stake, a group of young men and women -- bred for intelligence and obedience -- embark on an expedition to colonize a distant planet. When they uncover disturbing secrets about the mission, they defy their training and begin to explore their most primitive natures. As life on the ship descends into chaos, they soon become consumed by fear, lust and an insatiable hunger for power.",
+      "genres": [
+        "Science Fiction",
+        "Thriller"
+      ],
+      "director": "Neil Burger",
+      "cast": [
+        "Tye Sheridan",
+        "Lily-Rose Depp",
+        "Fionn Whitehead",
+        "Colin Farrell",
+        "Chanté Adams"
+      ]
+    },
+    {
+      "movie_id": 160,
+      "title": "Congo",
+      "year": 1995,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: tribe → Congo",
+      "score": 0.0021280753417988667,
+      "overview": "Eight people embark on an expedition into the Congo, a mysterious expanse of unexplored Africa where human greed and the laws of nature have gone berserk. When the thrill-seekers -- some with ulterior motives -- stumble across a race of killer apes.",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Science Fiction"
+      ],
+      "director": "Frank Marshall",
+      "cast": [
+        "Laura Linney",
+        "Dylan Walsh",
+        "Ernie Hudson",
+        "Tim Curry",
+        "Grant Heslov"
+      ]
+    },
+    {
+      "movie_id": 192307,
+      "title": "The Meg",
+      "year": 2018,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6992306113243103,
+      "overview": "A deep sea submersible pilot revisits his past fears in the Mariana Trench, and accidentally unleashes the seventy foot ancestor of the Great White Shark believed to be extinct.",
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Horror"
+      ],
+      "director": "Jon Turteltaub",
+      "cast": [
+        "Jason Statham",
+        "Li Bingbing",
+        "Rainn Wilson",
+        "Cliff Curtis",
+        "Ruby Rose"
+      ]
+    },
+    {
+      "movie_id": 5717,
+      "title": "Cannibal Ferox",
+      "year": 1981,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: tribe → Cannibal Ferox",
+      "score": 0.002110458926847306,
+      "overview": "Three friends out to disprove cannibalism meet two men on the run who tortured and enslaved a cannibal tribe to find emeralds, and now the tribe is out for revenge.",
+      "genres": [
+        "Adventure",
+        "Horror"
+      ],
+      "director": "Umberto Lenzi",
+      "cast": [
+        "Giovanni Lombardo Radice",
+        "Lorraine De Selle",
+        "Danilo Mattei",
+        "Zora Kerova",
+        "Walter Lucchini"
+      ]
+    },
+    {
+      "movie_id": 68237,
+      "title": "Moon",
+      "year": 2009,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6991556286811829,
+      "overview": "With only three weeks left in his three year contract, Sam Bell is getting anxious to finally return to Earth. He is the only occupant of a Moon-based manufacturing facility along with his computer and assistant, GERTY. When he has an accident however, he wakens to find that he is not alone.",
+      "genres": [
+        "Science Fiction",
+        "Drama"
+      ],
+      "director": "Duncan Jones",
+      "cast": [
+        "Sam Rockwell",
+        "Kevin Spacey",
+        "Dominique McElligott",
+        "Rosie Shaw",
+        "Adrienne Shaw"
+      ]
+    },
+    {
+      "movie_id": 169900,
+      "title": "The Lost City of Z",
+      "year": 2017,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: tribe → The Lost City of Z",
+      "score": 0.002110458926847306,
+      "overview": "A true-life drama in the 1920s, centering on British explorer Col. Percy Fawcett, who discovered evidence of a previously unknown, advanced civilization in the Amazon and disappeared whilst searching for it.",
+      "genres": [
+        "Adventure",
+        "Drama",
+        "History"
+      ],
+      "director": "James Gray",
+      "cast": [
+        "Charlie Hunnam",
+        "Robert Pattinson",
+        "Sienna Miller",
+        "Tom Holland",
+        "Angus Macfadyen"
+      ]
+    },
+    {
+      "movie_id": 32076,
+      "title": "Ebirah, Horror of the Deep",
+      "year": 1966,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.69905024766922,
+      "overview": "Searching for his brother, Ryota stows away on a boat belonging to a criminal alongside two other teenagers. The group shipwrecks on Letchi island and discover the Infant Island natives have been enslaved by a terrorist organization controlling a crustacean monster. Finding a sleeping Godzilla, they decide to awaken him to defeat the terrorists and liberate the natives.",
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Fantasy"
+      ],
+      "director": "Jun Fukuda",
+      "cast": [
+        "Akira Takarada",
+        "Kumi Mizuno",
+        "Chōtarō Tōgin",
+        "Hideo Sunazuka",
+        "Tôru Ibuki"
+      ]
+    },
+    {
+      "movie_id": 2151,
+      "title": "The Gods Must Be Crazy II",
+      "year": 1989,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: tribe → The Gods Must Be Crazy II",
+      "score": 0.002110333206484977,
+      "overview": "Xixo is back again. This time, his children accidentally stow away on a fast-moving poachers' truck, unable to get off, and Xixo sets out to rescue them. Along the way, he encounters a couple of soldiers trying to capture each other and a pilot and passenger of a small plane, who are each having a few problems of their own.",
+      "genres": [
+        "Action",
+        "Comedy"
+      ],
+      "director": "Jamie Uys",
+      "cast": [
+        "N!xau",
+        "Lena Farugia",
+        "Hans Strydom",
+        "Eiros",
+        "Nadies"
+      ]
+    },
+    {
+      "movie_id": 1862,
+      "title": "Species II",
+      "year": 1998,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6979843378067017,
+      "overview": "Having just returned from a mission to Mars, Commander Ross isn't exactly himself. He's slowly becoming a terrifying alien entity with one goal -- to procreate with human women! When countless women suffer gruesome deaths after bearing half-alien offspring, scientist Laura Baker and hired assassin Press Lennox use Eve, a more tempered alien clone, to find Ross and his brood. Before long Eve escapes to mate with Ross.",
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Horror"
+      ],
+      "director": "Peter Medak",
+      "cast": [
+        "Michael Madsen",
+        "Natasha Henstridge",
+        "Marg Helgenberger",
+        "Mykelti Williamson",
+        "George Dzundza"
+      ]
+    },
+    {
+      "movie_id": 2150,
+      "title": "The Gods Must Be Crazy",
+      "year": 1980,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: tribe → The Gods Must Be Crazy",
+      "score": 0.002110333206484977,
+      "overview": "A Coca-Cola bottle dropped from an airplane raises havoc among a normally peaceful tribe of African bushmen who believe it to be a utensil of the gods.",
+      "genres": [
+        "Action",
+        "Comedy"
+      ],
+      "director": "Jamie Uys",
+      "cast": [
+        "Marius Weyers",
+        "Sandra Prinsloo",
+        "N!xau",
+        "Louw Verwey",
+        "Michael Thys"
+      ]
+    },
+    {
+      "movie_id": 2722,
+      "title": "Deep Blue Sea",
+      "year": 1999,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6973015069961548,
+      "overview": "Researchers on the undersea lab Aquatica have genetically altered the brains of captive sharks to develop a cure for Alzheimer's disease. But there's an unexpected side effect: the sharks got smarter, faster, and more dangerous. After a big storm damages their remote research facility, they must fight for their lives.",
+      "genres": [
+        "Action",
+        "Horror",
+        "Science Fiction"
+      ],
+      "director": "Renny Harlin",
+      "cast": [
+        "Thomas Jane",
+        "Saffron Burrows",
+        "Samuel L. Jackson",
+        "Jacqueline McKenzie",
+        "Michael Rapaport"
+      ]
+    },
+    {
+      "movie_id": 48304,
+      "title": "Apocalypto",
+      "year": 2006,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: tribe → Apocalypto",
+      "score": 0.002110333206484977,
+      "overview": "Set in the Mayan civilization, when a man's idyllic presence is brutally disrupted by a violent invading force, he is taken on a perilous journey to a world ruled by fear and oppression where a harrowing end awaits him. Through a twist of fate and spurred by the power of his love for his woman and his family he will make a desperate break to return home and to ultimately save his way of life.",
+      "genres": [
+        "Action",
+        "Drama",
+        "History"
+      ],
+      "director": "Mel Gibson",
+      "cast": [
+        "Rudy Youngblood",
+        "Raoul Max Trujillo",
+        "Gerardo Taracena",
+        "Iazua Larios",
+        "Antonio Monroy"
+      ]
+    },
+    {
+      "movie_id": 7725,
+      "title": "On Deadly Ground",
+      "year": 1994,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Theme: tribe → On Deadly Ground",
+      "score": 0.002110333206484977,
+      "overview": "Forrest Taft is an environmental agent who works for the Aegis Oil Company in Alaska. Aegis Oil's corrupt CEO is the kind of person who doesn't care whether or not oil spills into the ocean or onto the land—just as long as it's making money for him.",
+      "genres": [
+        "Action"
+      ],
+      "director": "Steven Seagal",
+      "cast": [
+        "Steven Seagal",
+        "Michael Caine",
+        "Joan Chen",
+        "John C. McGinley",
+        "R. Lee Ermey"
+      ]
+    },
+    {
+      "movie_id": 115471,
+      "title": "Extraterrestrial",
+      "year": 2014,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6963299512863159,
+      "overview": "Five friends set out to a cabin in the woods for a fun weekend getaway that is, until extraterrestrial visitors turn it into a fight for their lives. The group is pulled from their reverie when a flickering object crashes deep in the woods. As they investigate, the friends stumble across an alien spacecraft, and its inhabitants have not arrived in peace.",
+      "genres": [
+        "Horror",
+        "Science Fiction"
+      ],
+      "director": "Colin Minihan",
+      "cast": [
+        "Brittany Allen",
+        "Melanie Papalia",
+        "Jesse Moss",
+        "Anja Savcic",
+        "Sean Rogerson"
+      ]
+    },
+    {
+      "movie_id": 89190,
+      "title": "Conan the Barbarian",
+      "year": 2011,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Cast: Stephen Lang → Conan the Barbarian",
+      "score": 0.002021423173298476,
+      "overview": "A quest that begins as a personal vendetta for the fierce Cimmerian warrior soon turns into an epic battle against hulking rivals, horrific monsters, and impossible odds, as Conan realizes he is the only hope of saving the great nations of Hyboria from an encroaching reign of supernatural evil.",
+      "genres": [
+        "Adventure",
+        "Fantasy",
+        "Action"
+      ],
+      "director": "Marcus Nispel",
+      "cast": [
+        "Jason Momoa",
+        "Stephen Lang",
+        "Rachel Nichols",
+        "Ron Perlman",
+        "Rose McGowan"
+      ]
+    },
+    {
+      "movie_id": 94864,
+      "title": "Prometheus",
+      "year": 2012,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6957356333732605,
+      "overview": "A team of explorers discover a clue to the origins of mankind on Earth, leading them on a journey to the darkest corners of the universe. There, they must fight a terrifying battle to save the future of the human race.",
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Mystery"
+      ],
+      "director": "Ridley Scott",
+      "cast": [
+        "Noomi Rapace",
+        "Michael Fassbender",
+        "Charlize Theron",
+        "Idris Elba",
+        "Guy Pearce"
+      ]
+    },
+    {
+      "movie_id": 110130,
+      "title": "The Nut Job",
+      "year": 2014,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Cast: Stephen Lang → The Nut Job",
+      "score": 0.0020073022850618447,
+      "overview": "Surly, a curmudgeon, independent squirrel is banished from his park and forced to survive in the city. Lucky for him, he stumbles on the one thing that may be able to save his life, and the rest of park community, as they gear up for winter - Maury's Nut Store.",
+      "genres": [
+        "Animation",
+        "Comedy",
+        "Family",
+        "Adventure"
+      ],
+      "director": "Peter Lepeniotis",
+      "cast": [
+        "Will Arnett",
+        "Brendan Fraser",
+        "Liam Neeson",
+        "Katherine Heigl",
+        "Stephen Lang"
+      ]
+    },
+    {
+      "movie_id": 171207,
+      "title": "Beyond Skyline",
+      "year": 2017,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6946216821670532,
+      "overview": "Detective Mark Corley storms his way onto an alien spaceship to rescue his estranged son. When the ship crashes in Southeast Asia, he forges an alliance with a band of survivors to take back the planet once and for all.",
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "director": "Liam O'Donnell",
+      "cast": [
+        "Frank Grillo",
+        "Bojana Novaković",
+        "Iko Uwais",
+        "Yayan Ruhian",
+        "Callan Mulvey"
+      ]
+    },
+    {
+      "movie_id": 1626,
+      "title": "Fire Down Below",
+      "year": 1997,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Cast: Stephen Lang → Fire Down Below",
+      "score": 0.002007176564699516,
+      "overview": "When an EPA representative is murdered in a small Appalachian community, EPA undercover agent Jack Taggart is sent in—posing as a handyman working with a Christian relief agency—to determine what happened.",
+      "genres": [
+        "Action",
+        "Thriller"
+      ],
+      "director": "Félix Enríquez Alcalá",
+      "cast": [
+        "Steven Seagal",
+        "Marg Helgenberger",
+        "Stephen Lang",
+        "Brad Hunt",
+        "Kris Kristofferson"
+      ]
+    },
+    {
+      "movie_id": 185319,
+      "title": "Prospect",
+      "year": 2018,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6945017576217651,
+      "overview": "A teenage girl and her father travel to a remote alien moon, aiming to strike it rich. They've secured a contract to harvest a large deposit of the elusive gems hidden in the depths of the moon's toxic forest. But there are others roving the wilderness and the job quickly devolves into a fight to survive.",
+      "genres": [
+        "Science Fiction"
+      ],
+      "director": "Christopher Caldwell",
+      "cast": [
+        "Sophie Thatcher",
+        "Pedro Pascal",
+        "Andre Royo",
+        "Sheila Vand",
+        "Anwan Glover"
+      ]
+    },
+    {
+      "movie_id": 110426,
+      "title": "In the Blood",
+      "year": 2014,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Cast: Stephen Lang → In the Blood",
+      "score": 0.002007176564699516,
+      "overview": "When her husband goes missing during their Caribbean vacation, a woman sets off on her own to take down the men she thinks are responsible.",
+      "genres": [
+        "Action",
+        "Crime",
+        "Thriller"
+      ],
+      "director": "John Stockwell",
+      "cast": [
+        "Gina Carano",
+        "Cam Gigandet",
+        "Luis Guzmán",
+        "Stephen Lang",
+        "Treat Williams"
+      ]
+    },
+    {
+      "movie_id": 158956,
+      "title": "Kill Command",
+      "year": 2016,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6935869455337524,
+      "overview": "Set in a near future, technology-reliant society that pits man against killing machines. Against this backdrop an elite army unit is helicoptered to a remote, off-the-grid island training facility. What starts out as a simple training exercise for Captain Bukes and his tight-knit unit, descends into a terrifying battle to the death, as the marines discover the island is overrun by an enemy that transcends the human concept of evil.",
+      "genres": [
+        "Action",
+        "Horror",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "director": "Steven Gomez",
+      "cast": [
+        "Vanessa Kirby",
+        "Thure Lindhardt",
+        "David Ajala",
+        "Tom McKay",
+        "Deborah Rosan"
+      ]
+    },
+    {
+      "movie_id": 6994,
+      "title": "The Hard Way",
+      "year": 1991,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Cast: Stephen Lang → The Hard Way",
+      "score": 0.002007176564699516,
+      "overview": "Seeking to raise his credibility as an actor and to land a role as a tough cop on a new show, Hollywood action star Nick Lang works a deal with New York City Police Capt. Brix, who by chance is one of his fans. Nick will be paired with detective Lt. John Moss and learn how to act like a real cop. But when Nick drives John crazy with questions and imitating him, he gets in the way of John's pursuit of a serial killer.",
+      "genres": [
+        "Action",
+        "Comedy",
+        "Crime"
+      ],
+      "director": "John Badham",
+      "cast": [
+        "Michael J. Fox",
+        "James Woods",
+        "Stephen Lang",
+        "Annabella Sciorra",
+        "John Capodice"
+      ]
+    },
+    {
+      "movie_id": 175187,
+      "title": "Revolt",
+      "year": 2017,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.6934199333190918,
+      "overview": "The story of humankind's last stand against a cataclysmic alien invasion. Set in the war-ravaged African countryside, a U.S. soldier and a French foreign aid worker team up to survive the alien onslaught. Their bond will be tested as they search for refuge across a crumbling world.",
+      "genres": [
+        "Science Fiction",
+        "Action"
+      ],
+      "director": "Joe Miale",
+      "cast": [
+        "Lee Pace",
+        "Bérénice Marlohe",
+        "Jason Flemyng",
+        "Sibulele Gcilitshana",
+        "Wandile Molebatsi"
+      ]
+    },
+    {
+      "movie_id": 184119,
+      "title": "Braven",
+      "year": 2018,
+      "sources": [
+        "graph"
+      ],
+      "path": "Avatar → Cast: Stephen Lang → Braven",
+      "score": 0.002007176564699516,
+      "overview": "A logger defends his family from a group of dangerous drug runners.",
+      "genres": [
+        "Drama",
+        "Action",
+        "Thriller"
+      ],
+      "director": "Lin Oeding",
+      "cast": [
+        "Jason Momoa",
+        "Stephen Lang",
+        "Garret Dillahunt",
+        "Zahn McClarnon",
+        "Jill Wagner"
+      ]
+    },
+    {
+      "movie_id": 111364,
+      "title": "Godzilla",
+      "year": 2014,
+      "sources": [
+        "vector"
+      ],
+      "path": null,
+      "score": 0.693401575088501,
+      "overview": "Ford Brody, a Navy bomb expert, has just reunited with his family in San Francisco when he is forced to go to Japan to help his estranged father, Joe. Soon, both men are swept up in an escalating crisis when an ancient alpha predator arises from the sea to combat malevolent adversaries that threaten the survival of humanity. The creatures leave colossal destruction in their wake, as they make their way toward their final battleground: San Francisco.",
+      "genres": [
+        "Action",
+        "Drama",
+        "Science Fiction"
+      ],
+      "director": "Gareth Edwards",
+      "cast": [
+        "Aaron Taylor-Johnson",
+        "Elizabeth Olsen",
+        "Juliette Binoche",
+        "Bryan Cranston",
+        "Ken Watanabe"
+      ]
+    }
+  ],
+  "final": [
+    {
+      "movie_id": 1200,
+      "rank": 1,
+      "title": "Aliens",
+      "year": 1986,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+      "path": "Avatar → Director: James Cameron → Aliens",
+      "quote": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species.",
+      "poster_path": "/r1x5JGpyqZU8PYhbs4UcrO1Xb6x.jpg",
+      "overview": "When Ripley's lifepod is found by a salvage crew over 50 years later, she finds that terra-formers are on the very planet they found the alien species. When the company sends a family of colonists out to investigate her story—all contact is lost with the planet and colonists. They enlist Ripley and the colonial marines to return and search for answers.",
+      "is_weak_match": false,
+      "sources": [
+        "vector",
+        "graph"
+      ],
+      "fit": 0.92
+    },
+    {
+      "movie_id": 280218,
+      "rank": 2,
+      "title": "Avatar: The Way of Water",
+      "year": 2022,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+      "path": "Avatar → Director: James Cameron → Avatar: The Way of Water",
+      "quote": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+      "poster_path": "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+      "overview": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+      "is_weak_match": false,
+      "sources": [
+        "graph"
+      ],
+      "fit": 0.92
+    },
+    {
+      "movie_id": 103228,
+      "rank": 3,
+      "title": "Pacific Rim",
+      "year": 2013,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+      "path": null,
+      "quote": "Using massive piloted robots to combat the alien threat, earth's survivors take the fight to the invading alien force lurking in the depths of the Pacific Ocean.",
+      "poster_path": "/8wo4eN8dWKaKlxhSvBz19uvj8gA.jpg",
+      "overview": "Using massive piloted robots to combat the alien threat, earth's survivors take the fight to the invading alien force lurking in the depths of the Pacific Ocean. Nearly defenseless in the face of the relentless enemy, the forces of mankind have no choice but to turn to two unlikely heroes who now stand as earth's final hope against the mounting apocalypse.",
+      "is_weak_match": false,
+      "sources": [
+        "vector"
+      ],
+      "fit": 0.92
+    },
+    {
+      "movie_id": 80917,
+      "rank": 4,
+      "title": "Monsters",
+      "year": 2010,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+      "path": null,
+      "quote": "Six years ago NASA discovered the possibility of alien life within our solar system.",
+      "poster_path": "/qpJyTxR33KG9qFmXoCD5AUTToPl.jpg",
+      "overview": "Six years ago NASA discovered the possibility of alien life within our solar system. A probe was launched to collect samples, but crashed upon re-entry over Central America. Soon after, new life forms began to appear and half of Mexico was quarantined as an infected zone. Today, the American and Mexican military still struggle to contain \"the creatures,\" while a journalist agrees to escort a shaken tourist through the infected zone in Mexico to the safety of the U.S. border.",
+      "is_weak_match": false,
+      "sources": [
+        "vector"
+      ],
+      "fit": 0.92
+    },
+    {
+      "movie_id": 1127,
+      "rank": 5,
+      "title": "The Abyss",
+      "year": 1989,
+      "reason": "Outstanding mind-bending sci-fi masterpiece perfectly matching user interests.",
+      "path": "Avatar → Director: James Cameron → The Abyss",
+      "quote": "A civilian oil rig crew is recruited to conduct a search and rescue effort when a nuclear submarine mysteriously sinks.",
+      "poster_path": "/nCOdcQ4HrVBug0MsqvfVuMCijmx.jpg",
+      "overview": "A civilian oil rig crew is recruited to conduct a search and rescue effort when a nuclear submarine mysteriously sinks. One diver soon finds himself on a spectacular odyssey 25,000 feet below the ocean's surface where he confronts a mysterious force that has the power to change the world or destroy it.",
+      "is_weak_match": false,
+      "sources": [
+        "graph",
+        "vector"
+      ],
+      "fit": 0.92
+    }
+  ],
+  "metrics": {
+    "llm_calls": 7,
+    "seconds": 0.08
+  }
+}
