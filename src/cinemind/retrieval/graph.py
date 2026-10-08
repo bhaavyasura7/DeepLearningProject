@@ -96,7 +96,17 @@ class MovieGraph:
         max_edge_prod = -1.0
         target_title = self.g.nodes[target_node].get("title", target_node)
 
+        # A person named in the request, directly linked to the target
         for seed in seed_nodes:
+            if seed.startswith("person:") and self.g.has_edge(seed, target_node):
+                name = self.g.nodes[seed].get("name", seed.split(":", 1)[-1])
+                rel = self.g[seed][target_node].get("relation", "")
+                role = "Director" if rel == "directed_by" else "Cast"
+                return f"Named in request → {role}: {name} → {target_title}"
+
+        for seed in seed_nodes:
+            if not seed.startswith("movie:"):
+                continue
             seed_title = self.g.nodes[seed].get("title", seed)
             # Check 2-hop neighbors (common entity)
             seed_neighbors = set(self.g.neighbors(seed))
@@ -127,18 +137,17 @@ class MovieGraph:
         self,
         seed_movie_ids: List[int],
         k: int = 30,
-        exclude_ids: Optional[Set[int]] = None
+        exclude_ids: Optional[Set[int]] = None,
+        seed_people: Optional[List[str]] = None,
     ) -> List[Tuple[int, float, str]]:
         """
         Executes personalized PageRank restricted to 2-hop neighborhood of seeds.
         Returns list of (movie_id, score, path_description).
         Guarantees seed_movie_ids and exclude_ids are never returned.
         """
-        if not seed_movie_ids:
-            return []
-
         exclude_set = set(exclude_ids or set()).union(set(seed_movie_ids))
         seed_nodes = {f"movie:{mid}" for mid in seed_movie_ids if self.g.has_node(f"movie:{mid}")}
+        seed_nodes |= {f"person:{p}" for p in (seed_people or []) if self.g.has_node(f"person:{p}")}
         if not seed_nodes:
             return []
 
@@ -187,6 +196,9 @@ class MovieGraph:
         return candidate_scores[:k]
 
 if __name__ == "__main__":
-    catalog = load_catalog()
-    mg = MovieGraph.build_from_catalog(catalog)
-    mg.save()
+    from src.cinemind.data.movielens import DataBuildError
+    try:
+        MovieGraph.build_from_catalog(load_catalog()).save()
+    except DataBuildError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        sys.exit(1)

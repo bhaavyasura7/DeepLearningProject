@@ -1,27 +1,27 @@
 [
   {
     "id": "nolan_scifi",
-    "title": "Mind-Bending Sci-Fi & Time",
+    "title": "Typed: smart sci-fi like Inception",
     "mode": "query",
-    "blurb": "Finds cerebral sci-fi thrillers exploring time dilation, memory, and cosmic survival.",
+    "blurb": "Plain text request. The graph starts from the movies named in it (Inception, Interstellar).",
     "cold_start": false,
     "query": "smart sci-fi like Inception and Interstellar with time dilation and deep philosophical themes",
     "history": []
   },
   {
     "id": "animated_family",
-    "title": "Heartwarming Animated Adventures",
+    "title": "Typed: heartwarming animated adventure",
     "mode": "query",
-    "blurb": "Searches for delightful, emotionally resonant family animations with imaginative worlds.",
+    "blurb": "Plain text request with no movie names, so only text similarity can help here.",
     "cold_start": false,
     "query": "heartwarming family friendly animated adventure with friendship and imagination",
     "history": []
   },
   {
     "id": "villeneuve_feed",
-    "title": "Atmospheric Mystery & Speculation",
+    "title": "Real viewer: cerebral sci-fi fan",
     "mode": "feed",
-    "blurb": "Recommends movies strictly from viewing history of atmospheric, cerebral sci-fi dramas.",
+    "blurb": "A real MovieLens viewer who loves cerebral sci-fi; recommendations come from their rating history alone.",
     "cold_start": false,
     "query": null,
     "history": [
@@ -29,27 +29,48 @@
         "movie_id": 541,
         "title": "Blade Runner",
         "rating": 5.0,
-        "genres": ["Science Fiction", "Drama", "Mystery"]
+        "genres": [
+          "Science Fiction",
+          "Drama",
+          "Mystery"
+        ]
       },
       {
         "movie_id": 134130,
         "title": "The Martian",
         "rating": 4.5,
-        "genres": ["Drama", "Adventure", "Science Fiction"]
+        "genres": [
+          "Drama",
+          "Adventure",
+          "Science Fiction"
+        ]
       },
       {
         "movie_id": 79132,
         "title": "Inception",
         "rating": 5.0,
-        "genres": ["Action", "Science Fiction", "Adventure"]
+        "genres": [
+          "Action",
+          "Science Fiction",
+          "Adventure"
+        ]
       }
-    ]
+    ],
+    "select": {
+      "liked": [
+        541,
+        134130,
+        79132,
+        109487,
+        254726
+      ]
+    }
   },
   {
     "id": "crime_noir_feed",
-    "title": "Gritty Crime & Psychological Suspense",
+    "title": "Real viewer: crime-classics fan",
     "mode": "feed",
-    "blurb": "Generates tailored recommendations based solely on high ratings for intense crime thrillers.",
+    "blurb": "A real MovieLens viewer with high ratings for crime classics; no text is typed, only their history is used.",
     "cold_start": false,
     "query": null,
     "history": [
@@ -57,27 +78,47 @@
         "movie_id": 296,
         "title": "Pulp Fiction",
         "rating": 5.0,
-        "genres": ["Crime", "Drama", "Thriller"]
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ]
       },
       {
         "movie_id": 318,
         "title": "The Shawshank Redemption",
         "rating": 5.0,
-        "genres": ["Drama", "Crime"]
+        "genres": [
+          "Drama",
+          "Crime"
+        ]
       },
       {
         "movie_id": 74458,
         "title": "Shutter Island",
         "rating": 4.5,
-        "genres": ["Drama", "Mystery", "Thriller"]
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ]
       }
-    ]
+    ],
+    "select": {
+      "liked": [
+        296,
+        318,
+        74458,
+        1089,
+        1729
+      ]
+    }
   },
   {
     "id": "avatar_coldstart",
-    "title": "Alien Oceans & Marine Warfare (Cold-Start)",
+    "title": "New movie: Cameron fan → Avatar: The Way of Water?",
     "mode": "query",
-    "blurb": "Discovers Avatar: The Way of Water (0 train ratings) through direct directorial graph paths from viewing history.",
+    "blurb": "A real MovieLens viewer of James Cameron films who later loved Avatar: The Way of Water, a film with no ratings yet.",
     "cold_start": true,
     "query": "lush alien moon ocean creatures and high tech marine warfare",
     "history": [
@@ -85,15 +126,29 @@
         "movie_id": 72998,
         "title": "Avatar",
         "rating": 5.0,
-        "genres": ["Action", "Adventure", "Fantasy", "Science Fiction"]
+        "genres": [
+          "Action",
+          "Adventure",
+          "Fantasy",
+          "Science Fiction"
+        ]
       }
-    ]
+    ],
+    "select": {
+      "liked": [
+        72998,
+        1721,
+        1200,
+        589
+      ],
+      "target": 280218
+    }
   },
   {
     "id": "oppenheimer_coldstart",
-    "title": "Nolan Directorial Legacy (Cold-Start)",
+    "title": "New movie: Nolan fan → Oppenheimer?",
     "mode": "feed",
-    "blurb": "Uncovers the brand-new biographical epic Oppenheimer through direct directorial graph paths from viewing history.",
+    "blurb": "A real MovieLens Nolan fan who went on to rate Oppenheimer highly; can the system find it with zero prior ratings?",
     "cold_start": true,
     "query": null,
     "history": [
@@ -101,20 +156,42 @@
         "movie_id": 79132,
         "title": "Inception",
         "rating": 5.0,
-        "genres": ["Action", "Science Fiction", "Adventure"]
+        "genres": [
+          "Action",
+          "Science Fiction",
+          "Adventure"
+        ]
       },
       {
         "movie_id": 109487,
         "title": "Interstellar",
         "rating": 5.0,
-        "genres": ["Adventure", "Drama", "Science Fiction"]
+        "genres": [
+          "Adventure",
+          "Drama",
+          "Science Fiction"
+        ]
       },
       {
         "movie_id": 58559,
         "title": "The Dark Knight",
         "rating": 5.0,
-        "genres": ["Action", "Crime", "Drama"]
+        "genres": [
+          "Action",
+          "Crime",
+          "Drama"
+        ]
       }
-    ]
+    ],
+    "select": {
+      "liked": [
+        79132,
+        109487,
+        58559,
+        48780,
+        4226
+      ],
+      "target": 287699
+    }
   }
 ]

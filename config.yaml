@@ -4,7 +4,7 @@ server:
 
 llm:
   model: "qwen3:8b"
-  fallback_model: "qwen3:8b"
+  fallback_model: "gemma3:12b"  # bake-off challenger (make bakeoff)
   embedding_model: "nomic-embed-text"
   ollama_url: "http://127.0.0.1:11434"
   stub: false

@@ -19,7 +19,8 @@ from src.cinemind.schemas import RecommendRequest, Rated, Trace
 async def run_evaluation(
     num_viewers: int = 200,
     configs: Optional[List[str]] = None,
-    use_live: bool = False
+    llm: Optional[LLMClient] = None,
+    viewers: Optional[List[Dict[str, Any]]] = None,
 ):
     eval_configs = configs or ["vector", "graph", "hybrid"]
     checkpoint_file = settings.eval_checkpoint_path
@@ -40,11 +41,14 @@ async def run_evaluation(
 
     print(f"[Eval] Loaded {len(completed_pairs)} previously completed (user_id, config) evaluation pairs.")
 
-    viewers = load_or_create_eval_split()[:num_viewers]
+    viewers = (viewers if viewers is not None else load_or_create_eval_split())[:num_viewers]
     total_pairs = len(viewers) * len(eval_configs)
     print(f"[Eval] Target: {len(viewers)} viewers × {len(eval_configs)} configs = {total_pairs} pairs.")
 
-    llm = LLMClient(stub=not use_live)
+    llm = llm or LLMClient(stub=False)
+    if not await llm.ping():
+        raise SystemExit(f"ERROR: model server not reachable at {settings.ollama_url} "
+                         f"(need `{settings.llm_model}`); evaluation needs the real model.")
     pipeline = Pipeline(llm=llm)
 
     processed_count = 0
@@ -80,6 +84,8 @@ async def run_evaluation(
                     "recommended_ids": rec_ids,
                     "candidate_ids": cand_ids,
                     "llm_calls": llm_calls,
+                    "model": trace.metrics.get("model", settings.llm_model),
+                    "fallback_stages": [st.name for st in trace.stages if st.fallback_used],
                     "seconds": dur,
                     "timestamp": time.time()
                 }
@@ -97,6 +103,5 @@ async def run_evaluation(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--viewers", type=int, default=200, help="Number of viewers to evaluate")
-    parser.add_argument("--live", action="store_true", help="Use live Ollama server calls")
     args = parser.parse_args()
-    asyncio.run(run_evaluation(num_viewers=args.viewers, use_live=args.live))
+    asyncio.run(run_evaluation(num_viewers=args.viewers))

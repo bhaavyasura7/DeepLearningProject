@@ -55,3 +55,17 @@ def test_hybrid_retrieval_integrity():
             cand = next(c for c in hybrid_res if c.movie_id == mid)
             assert "vector" in cand.sources
             assert "graph" in cand.sources
+
+
+def test_query_entities_seed_the_graph():
+    retriever = HybridRetriever()
+    movies, people = retriever.entities_in_query("smart sci-fi like Inception, ideally by Christopher Nolan")
+    assert 79132 in movies                      # Inception
+    assert "Christopher Nolan" in people
+    assert retriever.entities_in_query("a heartwarming film that will lift me up")[0] == []
+
+    cands = retriever.retrieve(profile_text="cerebral sci-fi", query="something like Inception",
+                               seed_ids=[], history_ids=set(), config="graph")
+    ids = {c.movie_id for c in cands}
+    assert 79132 not in ids                     # the named movie itself is not recommended
+    assert any("Christopher Nolan" in (c.path or "") for c in cands)

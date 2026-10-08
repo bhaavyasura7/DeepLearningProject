@@ -72,6 +72,10 @@ async def test_compare_endpoint():
 
 @pytest.mark.asyncio
 async def test_results_endpoint():
+    import json
+    from src.cinemind.config import settings
+    settings.results_path.parent.mkdir(parents=True, exist_ok=True)
+    settings.results_path.write_text(json.dumps({"metrics": {"vector": {}, "hybrid": {}, "graph": {}}}))
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
         res = await client.get("/api/results")

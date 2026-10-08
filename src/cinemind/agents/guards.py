@@ -2,14 +2,23 @@ import re
 from typing import List, Set, Dict, Optional, Tuple
 from src.cinemind.schemas import Candidate, Verdict, RankedItem, RankedOutputItem
 
+# Tokens ending in "." that do not end a sentence ("J. Robert", "Lt. Gordon", "U.S. Marshal")
+_NON_TERMINAL = re.compile(r'(?:\b[A-Z]|\b(?:Mr|Mrs|Ms|Dr|St|Jr|Sr|Lt|Col|Gen|Capt|Sgt|Prof|vs|etc|No)|(?:[A-Za-z]\.)+[A-Za-z])\.$')
+
 def split_into_sentences(text: str) -> List[str]:
-    """Splits text into sentences while preserving exact substring representations."""
-    if not text:
+    """Splits text into sentences; each sentence is an exact substring of text."""
+    if not text or not text.strip():
         return []
-    # Pattern splitting on sentence terminators (. ! ?)
-    raw_sentences = re.split(r'(?<=[.!?])\s+', text.strip())
-    sentences = [s.strip() for s in raw_sentences if s.strip()]
-    return sentences or [text.strip()]
+    text = text.strip()
+    sentences: List[str] = []
+    start = 0
+    for m in re.finditer(r'(?<=[.!?])\s+', text):
+        if _NON_TERMINAL.search(text[start:m.start()]):
+            continue
+        sentences.append(text[start:m.start()])
+        start = m.end()
+    sentences.append(text[start:])
+    return [s for s in sentences if s.strip()] or [text]
 
 def extract_evidence_quote(overview: str, reason: str) -> str:
     """
@@ -19,9 +28,7 @@ def extract_evidence_quote(overview: str, reason: str) -> str:
     if not overview or not overview.strip():
         return ""
 
-    sentences = split_into_sentences(overview)
-    if not sentences:
-        return overview
+    sentences = split_into_sentences(overview)  # each is an exact substring of overview
 
     # Tokenize reason words for matching
     reason_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', reason.lower()))
@@ -39,14 +46,7 @@ def extract_evidence_quote(overview: str, reason: str) -> str:
             best_score = overlap
             best_sentence = s
 
-    # Ensure exact substring match in overview
-    if best_sentence in overview:
-        return best_sentence
-    # Fallback to whole overview or first sentence if somehow not exact
-    for s in sentences:
-        if s in overview:
-            return s
-    return overview
+    return best_sentence
 
 class Guards:
     @staticmethod

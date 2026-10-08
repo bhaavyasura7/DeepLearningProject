@@ -1,9 +1,11 @@
-"""Comprehensive verification script checking every automatable acceptance criterion for CineMind.
+"""`make verify`: checks the automatable acceptance criteria from spec.md against
+the real built data, the recorded traces and the real model. Exits 0 only if all pass.
 
-Exits 0 if and only if all acceptance criteria pass.
+Needs: `make data index` done, Ollama running with the configured model, `make record` done.
 """
 
 import asyncio
+import json
 import sys
 import time
 from pathlib import Path
@@ -13,123 +15,127 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from httpx import ASGITransport, AsyncClient
+
+from src.cinemind.agents.guards import extract_evidence_quote
 from src.cinemind.config import settings
 from src.cinemind.data.build_catalog import load_catalog
-from src.cinemind.eval.metrics import hit_rate_at_k, ndcg_at_k, recall_at_k
+from src.cinemind.data.movielens import DataBuildError
 from src.cinemind.eval.split import EvalSplitBuilder
 from src.cinemind.llm import LLMClient
 from src.cinemind.pipeline import Pipeline
-from src.cinemind.retrieval.graph import MovieGraph
-from src.cinemind.retrieval.hybrid import HybridRetriever
 from src.cinemind.retrieval.vector import VectorIndex
-from src.cinemind.schemas import RecommendRequest, Rated, RankedOutputItem, Candidate, Verdict
-from src.cinemind.agents.guards import Guards, extract_evidence_quote
+from src.cinemind.schemas import Rated, RecommendRequest, Trace
 from src.cinemind.trace import TraceManager
 
 results: List[Tuple[str, bool, str]] = []
 
-def check(name: str, passed: bool, detail: str = ""):
-    status = "PASS" if passed else "FAIL"
+
+def check(name: str, passed: bool, detail: str = "") -> None:
     color = "\033[92m" if passed else "\033[91m"
-    reset = "\033[0m"
-    print(f"[{color}{status}{reset}] {name} {f'({detail})' if detail else ''}")
+    print(f"[{color}{'PASS' if passed else 'FAIL'}\033[0m] {name}{f' ({detail})' if detail else ''}")
     results.append((name, passed, detail))
 
-async def main():
-    print("=" * 60)
-    print(" CineMind Acceptance Criteria Verification Suite")
-    print("=" * 60)
 
-    # 1. Catalog Integrity
-    catalog = load_catalog()
-    has_meta = all(m.overview and m.director and len(m.cast) >= 1 for m in catalog)
+def check_trace(trace: Trace, catalog_map: dict, history_ids: set) -> Tuple[bool, str]:
+    cand = {c.movie_id for c in trace.candidates}
+    ids = [f.movie_id for f in trace.final]
+    if len(ids) != settings.final_k:
+        return False, f"{len(ids)} results"
+    if not set(ids) <= cand:
+        return False, "result outside candidate set"
+    if set(ids) & history_ids:
+        return False, "result in history"
+    for f in trace.final:
+        if not (f.reason and f.quote and (f.path or f.sources)):
+            return False, f"{f.movie_id} missing reason/quote/discovery"
+        if f.quote not in catalog_map[f.movie_id].overview:
+            return False, f"quote for {f.movie_id} not a substring"
+    return True, ", ".join(catalog_map[i].title for i in ids)
+
+
+async def main() -> int:
+    print("=" * 60 + "\n CineMind acceptance verification\n" + "=" * 60)
+    try:
+        catalog = load_catalog()
+    except DataBuildError as e:
+        print(f"ERROR: {e}")
+        return 1
+    cmap = {m.movie_id: m for m in catalog}
+    scenarios = json.loads(settings.scenarios_path.read_text(encoding="utf-8"))
+
     n_cold = sum(1 for m in catalog if m.n_ratings_train == 0)
-    check("Catalog Integrity", has_meta and n_cold > 0, f"{len(catalog)} movies, {n_cold} cold-start")
+    check("Catalog: overview/director/cast on every movie, cold-start > 0",
+          all(m.overview and m.director and m.cast for m in catalog) and n_cold > 0,
+          f"{len(catalog)} movies, {n_cold} cold-start")
+    check("Vector index count equals catalog", VectorIndex().count() == len(catalog))
+    check("Quotes are exact substrings (all movies)",
+          all(extract_evidence_quote(m.overview, "story about love and war") in m.overview for m in catalog))
 
-    # 2. Vector Index Count & Exclusions
-    v_index = VectorIndex()
-    v_count = v_index.count()
-    v_res = v_index.search("space exploration and time dilation", k=5, exclude_ids={109487})
-    v_no_leak = 109487 not in [mid for mid, _ in v_res]
-    check("Vector Index & Exclusion", (v_count == len(catalog)) and v_no_leak, f"Count {v_count}, exclusion verified")
+    # Split determinism + leakage (real MovieLens split)
+    try:
+        b = EvalSplitBuilder(seed=int(settings._raw.get("eval", {}).get("seed", 42)))
+        tmp = settings.results_path.parent
+        p1, p2 = tmp / ".verify_split1.json", tmp / ".verify_split2.json"
+        v1 = b.build_split(num_viewers=50, output_file=p1)
+        b.build_split(num_viewers=50, output_file=p2)
+        same = p1.read_bytes() == p2.read_bytes()
+        leak = any(set(v["ground_truth_ids"]) & {h["movie_id"] for h in v["train_history"]} for v in v1)
+        p1.unlink(), p2.unlink()
+        check("Split byte-identical across runs and leak-free", same and not leak, f"{len(v1)} viewers")
+    except DataBuildError as e:
+        check("Split byte-identical across runs and leak-free", False, str(e))
 
-    # 3. Graph Walk & Path Construction
-    graph = MovieGraph.load()
-    g_res = graph.walk(seed_movie_ids=[79132], k=5)  # Seed Inception
-    g_no_seeds = 79132 not in [mid for mid, _, _ in g_res]
-    g_has_paths = all(path and len(path) > 0 for _, _, path in g_res)
-    check("Graph Walk & Explanations", g_no_seeds and g_has_paths, f"Seeds excluded, paths present")
-
-    # 4. Hybrid Merge & De-duplication
-    retriever = HybridRetriever(vector_index=v_index, graph=graph, catalog=catalog)
-    h_cands = retriever.retrieve("sci-fi", seed_ids=[79132], history_ids={79132}, config="hybrid")
-    h_unique = len({c.movie_id for c in h_cands}) == len(h_cands)
-    h_cap = len(h_cands) <= settings.hybrid_cap
-    check("Hybrid Interleaving & De-dup", h_unique and h_cap, f"{len(h_cands)} unique candidates <= 50")
-
-    # 5. Quote Substring Guard Across All Catalog Movies
-    quote_checks = []
-    for m in catalog:
-        q = extract_evidence_quote(m.overview, "compelling story with deep themes")
-        quote_checks.append(q in m.overview)
-    check("Extractive Quote Verbatim Guard", all(quote_checks), f"100% exact substring match across {len(catalog)} movies")
-
-    # 6. Guard: Candidate Set Inclusion & Weak Match Filling
-    sample_cands = [Candidate(movie_id=1, overview="test ov 1"), Candidate(movie_id=2, overview="test ov 2")]
-    sample_verdicts = [Verdict(movie_id=1, match=True, fit=0.9, reason="Match"), Verdict(movie_id=2, match=False, fit=0.3, reason="Weak")]
-    ranked = Guards.apply_guards(
-        rankings=[RankedOutputItem(movie_id=999999, reason="Hallucinated"), RankedOutputItem(movie_id=1, reason="Good")],
-        candidates=sample_cands,
-        verdicts=sample_verdicts,
-        k=2
-    )
-    r_ids = [r.movie_id for r in ranked]
-    check("Candidate Set Guard & Weak Fill", (999999 not in r_ids) and (len(ranked) == 2), f"Replaced hallucinated ID: {r_ids}")
-
-    # 7. Replay Mode Verification (<1s, zero model calls)
+    # Replay: every scenario has both traces, renders < 1 s with 0 model calls
     tm = TraceManager()
-    replay_client = LLMClient(stub=True)
-    initial_calls = replay_client.call_count
-    t0 = time.time()
-    nolan_trace = tm.get_scenario_trace("nolan_scifi", "hybrid")
-    replay_dur = time.time() - t0
-    check("Preset Scenario Replay", (nolan_trace is not None) and (replay_dur < 1.0) and (replay_client.call_count == initial_calls), f"{replay_dur:.4f}s, 0 model calls")
+    from src.cinemind.server import app
+    probe = LLMClient(stub=False)
+    calls0 = probe.call_count
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://t") as client:
+        for sc in scenarios:
+            for cfg in ("vector", "hybrid"):
+                tr = tm.get_scenario_trace(sc["id"], cfg)
+                if tr is None:
+                    check(f"Replay {sc['id']}/{cfg}", False, "no trace; run `make record`")
+                    continue
+                t0 = time.time()
+                res = await client.post("/api/recommend", json={"mode": sc["mode"], "query": sc.get("query"),
+                                        "replay": True, "scenario_id": sc["id"], "retrieval": cfg})
+                body = res.text
+                dur = time.time() - t0 - 0.08 * len(tr.stages)  # minus the UI pacing sleeps
+                ok, detail = check_trace(tr, cmap, {h["movie_id"] for h in sc.get("history") or []})
+                check(f"Replay {sc['id']}/{cfg}", res.status_code == 200 and "final" in body and dur < 1.0 and ok,
+                      detail)
+                if sc.get("cold_start") and cfg == "hybrid":
+                    cold = [cmap[f.movie_id].title for f in tr.final if cmap[f.movie_id].n_ratings_train == 0]
+                    check(f"Cold-start movie in {sc['id']} hybrid results", bool(cold), ", ".join(cold) or "none")
+        check("Replay made no model calls", probe.call_count == calls0)
+        res = await client.post("/api/recommend", json={"mode": "query", "query": "", "history": []})
+        check("Empty query + empty history rejected with 400", res.status_code == 400)
 
-    # 8. Evaluation Split Determinism & Zero Leakage
-    builder = EvalSplitBuilder(seed=42)
-    viewers = builder.build_split(num_viewers=20)
-    no_leakage = True
-    for v in viewers:
-        train_ids = {r["movie_id"] for r in v["train_history"]}
-        if set(v["ground_truth_ids"]).intersection(train_ids):
-            no_leakage = False
-            break
-    check("Eval Split Leakage Verification", no_leakage, f"20 sampled viewers, zero ground truth train leakage")
-
-    # 9. Metric Fixtures
-    hr_pass = hit_rate_at_k([1, 2, 3], {2}, k=2) == 1.0
-    ndcg_pass = ndcg_at_k([1, 2], {1}, k=5) == 1.0
-    check("Evaluation Metric Accuracy", hr_pass and ndcg_pass, "HitRate@k and NDCG@k verified")
-
-    # 10. Smoke Run: Hybrid Pipeline
-    llm = LLMClient(stub=True)
-    pipe = Pipeline(llm=llm, retriever=retriever)
-    smoke_trace = await pipe.run(RecommendRequest(
-        mode="query",
-        query="fun sci-fi like Inception but shorter",
-        retrieval="hybrid"
-    ))
-    smoke_pass = len(smoke_trace.final) == 5 and all(f.quote and f.reason for f in smoke_trace.final)
-    check("End-to-End Pipeline Smoke Run", smoke_pass, "5 recommendations, reasons & quotes verified")
-
-    print("=" * 60)
-    failed = [r for r in results if not r[1]]
-    if failed:
-        print(f"FAILED: {len(failed)} acceptance criteria failed.")
-        sys.exit(1)
+    # Live smoke run on 2 scenarios against the real model
+    llm = LLMClient(stub=False)
+    if not await llm.ping():
+        check("Live smoke run", False, f"model server not reachable at {settings.ollama_url}")
     else:
-        print(f"SUCCESS: All {len(results)} acceptance criteria PASSED!")
-        sys.exit(0)
+        pipe = Pipeline(llm=llm)
+        req = RecommendRequest(mode="query", query="fun sci-fi like Inception but shorter", retrieval="hybrid")
+        tr = await pipe.run(req)
+        ok, detail = check_trace(tr, cmap, set())
+        check("Live: 'fun sci-fi like Inception but shorter' → 5 explained results", ok,
+              f"{detail} · {tr.metrics.get('seconds')}s, {tr.metrics.get('llm_calls')} calls")
+        feed = next((s for s in scenarios if s["mode"] == "feed" and s.get("history")), None)
+        if feed:
+            hist = [Rated(**h) for h in feed["history"]]
+            tr = await pipe.run(RecommendRequest(mode="feed", history=hist, retrieval="hybrid"))
+            ok, detail = check_trace(tr, cmap, {h.movie_id for h in hist})
+            check(f"Live feed ({feed['id']}): 5 results, none in history", ok, detail)
+
+    failed = [r for r in results if not r[1]]
+    print("=" * 60)
+    print(f"{'FAILED' if failed else 'PASSED'}: {len(results) - len(failed)}/{len(results)} checks")
+    return 1 if failed else 0
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    sys.exit(asyncio.run(main()))

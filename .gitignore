@@ -16,10 +16,7 @@ build/
 .env.local
 
 # Data (spec: data/ is gitignored, raw/ and processed/)
-data/raw/
-data/processed/
-data/
-!data/.gitkeep
+/data/
 
 # Cache and testing
 .pytest_cache/
