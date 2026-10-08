@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from typing import List, Tuple, Optional, Set
+from typing import Any, List, Tuple, Optional, Set
 import chromadb
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -11,14 +11,14 @@ from src.cinemind.config import settings
 from src.cinemind.retrieval.embed import EmbeddingService
 
 class VectorIndex:
-    def __init__(self, persist_dir: Optional[Path] = None):
+    def __init__(self, persist_dir: Optional[Path] = None, embedder: Optional[Any] = None):
         self.persist_dir = persist_dir or settings.vector_dir
         self.client = chromadb.PersistentClient(path=str(self.persist_dir))
         self.collection = self.client.get_or_create_collection(
             name="cinemind_movies",
             metadata={"hnsw:space": "cosine"}
         )
-        self.embedder = EmbeddingService()
+        self.embedder = embedder or EmbeddingService()
 
     def count(self) -> int:
         return self.collection.count()

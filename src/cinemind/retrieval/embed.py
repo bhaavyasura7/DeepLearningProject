@@ -1,12 +1,9 @@
-import hashlib
 import json
-import math
 import sys
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 import chromadb
 import httpx
-import numpy as np
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(PROJECT_ROOT) not in sys.path:
@@ -21,60 +18,46 @@ def format_movie_for_embedding(movie: Movie) -> str:
     cast_str = ", ".join(movie.cast[:3]) if movie.cast else ""
     return f"{movie.title} ({movie.year}). {movie.overview} Genres: {genres_str}. Director: {movie.director or 'Unknown'}. Cast: {cast_str}."
 
-def deterministic_fallback_embedding(text: str, dim: int = 768) -> List[float]:
-    """Generates a deterministic normalized unit vector for offline/test environments."""
-    words = text.lower().split()
-    vec = np.zeros(dim, dtype=np.float32)
-    for i, w in enumerate(words):
-        h = int(hashlib.md5(w.encode("utf-8")).hexdigest(), 16)
-        idx = h % dim
-        sign = 1.0 if ((h >> 8) % 2 == 0) else -1.0
-        vec[idx] += sign * (1.0 / (1.0 + math.log1p(i + 1)))
-    norm = np.linalg.norm(vec)
-    if norm > 0:
-        vec /= norm
-    return vec.tolist()
+class EmbeddingError(RuntimeError):
+    """The embedding model could not be reached or returned bad output."""
+
 
 class EmbeddingService:
+    """nomic-embed-text through Ollama (spec Plan: Embeddings)."""
+
     def __init__(self, base_url: Optional[str] = None, model: Optional[str] = None):
         self.base_url = (base_url or settings.ollama_url).rstrip("/")
         self.model = model or settings.embedding_model
 
     def embed_text(self, text: str) -> List[float]:
-        res = self.embed_batch([text])
-        if res and len(res) > 0:
-            return res[0]
-        return deterministic_fallback_embedding(text)
+        return self.embed_batch([text])[0]
 
     def embed_batch(self, texts: List[str], batch_size: int = 64) -> List[List[float]]:
-        all_embeddings: List[List[float]] = []
-        try:
-            with httpx.Client(timeout=60.0) as client:
-                for i in range(0, len(texts), batch_size):
-                    chunk = texts[i:i + batch_size]
-                    try:
-                        res = client.post(
-                            f"{self.base_url}/api/embed",
-                            json={"model": self.model, "input": chunk}
-                        )
-                        if res.status_code == 200:
-                            data = res.json()
-                            embs = data.get("embeddings")
-                            if embs and len(embs) == len(chunk):
-                                all_embeddings.extend(embs)
-                                continue
-                    except Exception:
-                        pass
-                    # Fallback to single calls or deterministic
-                    for t in chunk:
-                        all_embeddings.append(deterministic_fallback_embedding(t))
-            return all_embeddings
-        except Exception:
-            return [deterministic_fallback_embedding(t) for t in texts]
+        out: List[List[float]] = []
+        with httpx.Client(timeout=120.0) as client:
+            for i in range(0, len(texts), batch_size):
+                chunk = texts[i:i + batch_size]
+                try:
+                    res = client.post(f"{self.base_url}/api/embed", json={"model": self.model, "input": chunk})
+                except httpx.HTTPError as e:
+                    raise EmbeddingError(
+                        f"Ollama not reachable at {self.base_url} ({type(e).__name__}); "
+                        f"start it and run `ollama pull {self.model}`."
+                    ) from None
+                if res.status_code != 200:
+                    raise EmbeddingError(f"Ollama /api/embed returned {res.status_code}: {res.text[:200]}")
+                embs = res.json().get("embeddings")
+                if not embs or len(embs) != len(chunk):
+                    raise EmbeddingError("Ollama returned a wrong number of embeddings.")
+                out.extend(embs)
+                if len(texts) > batch_size:
+                    print(f"[Vector] embedded {min(i + batch_size, len(texts))}/{len(texts)}", flush=True)
+        return out
 
 def build_vector_index(
     catalog: Optional[List[Movie]] = None,
-    persist_dir: Optional[Path] = None
+    persist_dir: Optional[Path] = None,
+    embedder: Optional[Any] = None,
 ) -> chromadb.Collection:
     """Builds and populates the Chroma vector collection from the catalog."""
     p_dir = persist_dir or settings.vector_dir
@@ -93,7 +76,7 @@ def build_vector_index(
     )
 
     movies = catalog or load_catalog()
-    embedder = EmbeddingService()
+    embedder = embedder or EmbeddingService()
 
     texts: List[str] = []
     ids: List[str] = []
@@ -127,4 +110,9 @@ def build_vector_index(
     return collection
 
 if __name__ == "__main__":
-    build_vector_index()
+    from src.cinemind.data.movielens import DataBuildError
+    try:
+        build_vector_index()
+    except (EmbeddingError, DataBuildError) as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        sys.exit(1)

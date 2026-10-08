@@ -243,7 +243,9 @@ async def test_model(model_name: str) -> Dict[str, Any]:
     }
 
 async def main():
-    models_to_test = [settings.llm_model]
+    # spec Task 2: compare the primary and the fallback model (or pass names: bakeoff.py m1 m2)
+    fallback = settings._raw.get("llm", {}).get("fallback_model")
+    models_to_test = sys.argv[1:] or list(dict.fromkeys(m for m in [settings.llm_model, fallback] if m))
     results = []
 
     for m in models_to_test:

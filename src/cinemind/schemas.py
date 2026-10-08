@@ -26,6 +26,7 @@ class Candidate(BaseModel):
     genres: Optional[List[str]] = None
     director: Optional[str] = None
     cast: Optional[List[str]] = None
+    n_ratings_train: Optional[int] = None
 
 class Verdict(BaseModel):
     movie_id: int
@@ -61,6 +62,7 @@ class RankedItem(BaseModel):
     is_weak_match: bool = False
     sources: List[str] = Field(default_factory=list)
     fit: Optional[float] = None
+    n_ratings_train: Optional[int] = None
 
 class StageRecord(BaseModel):
     name: str

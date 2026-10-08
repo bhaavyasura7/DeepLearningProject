@@ -91,9 +91,23 @@ def generate_report():
                 if len(error_analysis_cases) >= 10:
                     break
 
-    # Construct final results structure
+    # Provenance and all-viewer candidate recall (from `python -m src.cinemind.eval.recall`)
+    all_entries = [e for es in records_by_cfg.values() for e in es]
+    models = sorted({e.get("model", "unknown") for e in all_entries})
+    n_viewers = len({e["user_id"] for e in all_entries})
+    recall_path = settings.results_path.parent / "recall.json"
+    recall_all = json.loads(recall_path.read_text(encoding="utf-8")) if recall_path.exists() else {}
+    fallback_runs = sum(1 for e in all_entries if e.get("fallback_stages"))
+
     final_output = {
+        "provenance": {
+            "data": "MovieLens 32M + TMDB, time-based split",
+            "model": models,
+            "viewers": n_viewers,
+            "runs_with_fallback": fallback_runs,
+        },
         "metrics": metrics_summary,
+        "candidate_recall_all_viewers": recall_all,
         "error_analysis": error_analysis_cases
     }
 
@@ -109,10 +123,10 @@ def generate_report():
     hyb = metrics_summary.get("hybrid", {})
     gr = metrics_summary.get("graph", {})
 
-    hybrid_won = (hyb.get("hit_rate_at_5", 0) > vec.get("hit_rate_at_5", 0)) or (hyb.get("recall_at_50", 0) > vec.get("recall_at_50", 0))
-
     md = "# CineMind Cold-Start Evaluation Report\n\n"
-    md += f"**Evaluation Protocol:** 200 sampled test viewers with >=20 train ratings; ground truth = cold-start movies (0 train ratings) rated >=4.0 in test period.\n\n"
+    md += (f"**Protocol:** {n_viewers} real MovieLens 32M viewers sampled (seed {settings._raw.get('eval', {}).get('seed', 42)}) "
+           "with >=20 train ratings; ground truth = cold-start movies (0 ratings before the cutoff) the viewer rated >=4 after it.\n\n")
+    md += f"**Model:** {', '.join(models)} · **Runs with a fallback stage:** {fallback_runs}\n\n"
     md += "## 1. Metric Summary Table\n\n"
     md += "| Retrieval Configuration | HitRate@5 | HitRate@10 | NDCG@5 | NDCG@10 | Recall@50 | Calls / Rec | Sec / Rec |\n"
     md += "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n"
@@ -121,15 +135,21 @@ def generate_report():
         c = metrics_summary.get(cfg_name, {})
         md += f"| **{label}** | {c.get('hit_rate_at_5', 0):.4f} | {c.get('hit_rate_at_10', 0):.4f} | {c.get('ndcg_at_5', 0):.4f} | {c.get('ndcg_at_10', 0):.4f} | {c.get('recall_at_50', 0):.4f} | {c.get('avg_llm_calls', 0):.1f} | {c.get('avg_seconds', 0):.2f}s |\n"
 
+    if recall_all:
+        md += f"\n**Candidate Recall@50 over all {recall_all.get('vector', {}).get('viewers', 0)} eligible viewers (no model calls):** "
+        md += ", ".join(f"{c} {recall_all[c]['recall_at_50']:.4f}" for c in ["vector", "hybrid", "graph"] if c in recall_all) + "\n"
+
     md += "\n## 2. Hypothesis Verdict\n\n"
-    if hybrid_won:
-        md += "**Verdict: Hybrid Graph Retrieval OUTPERFORMS Similarity-Only.**\n\n"
-        md += f"- **Recall@50 Gain:** Hybrid achieved **{hyb.get('recall_at_50', 0)*100:.1f}%** vs **{vec.get('recall_at_50', 0)*100:.1f}%** for vector retrieval.\n"
-        md += f"- **HitRate@5:** Hybrid reached **{hyb.get('hit_rate_at_5', 0)*100:.1f}%** compared to **{vec.get('hit_rate_at_5', 0)*100:.1f}%**.\n"
-        md += "- **Why it succeeded:** Cold-start movies lack historical interaction density, which starves collaborative signals. Walking explicit entity relationships (shared directors, cast, and nuanced thematic keywords) surfaces relevant new movies into the candidate pool that embedding similarity alone ranks below the threshold.\n"
+    hr_v, hr_h = vec.get("hit_rate_at_5", 0), hyb.get("hit_rate_at_5", 0)
+    r_v, r_h = vec.get("recall_at_50", 0), hyb.get("recall_at_50", 0)
+    if hr_h > hr_v:
+        md += f"**Hybrid beat similarity-only on HitRate@5** ({hr_h:.4f} vs {hr_v:.4f}).\n\n"
+    elif hr_h == hr_v:
+        md += f"**Hybrid tied similarity-only on HitRate@5** ({hr_h:.4f}).\n\n"
     else:
-        md += "**Verdict: Hybrid Graph Retrieval Did Not Exceed Similarity-Only.**\n\n"
-        md += "The content-based description embeddings captured sufficient semantic overlap to discover cold-start candidates directly from profile summaries.\n"
+        md += f"**Hybrid did NOT beat similarity-only on HitRate@5** ({hr_h:.4f} vs {hr_v:.4f}).\n\n"
+    md += f"Candidate Recall@50 on the evaluated viewers: hybrid {r_h:.4f} vs similarity-only {r_v:.4f} "
+    md += f"({'higher' if r_h > r_v else 'not higher'}).\n"
 
     md += "\n## 3. Failure & Error Analysis (10 Exemplar Cases)\n\n"
     for i, c in enumerate(error_analysis_cases, 1):

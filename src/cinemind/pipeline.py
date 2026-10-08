@@ -42,14 +42,20 @@ class Pipeline:
                 else:
                     emit_callback(event_type, data)
 
-        # Extract history IDs and seed IDs
+        # Drop history entries not in the catalog (counted in the trace), then
+        # seed the graph with the 20 most recent movies rated >= 4.
         history_ids: Set[int] = set()
         seed_ids: List[int] = []
+        ignored_history = 0
         if request.history:
-            for item in request.history:
-                history_ids.add(item.movie_id)
-                if item.rating >= 4.0:
-                    seed_ids.append(item.movie_id)
+            known = self.retriever.catalog_map
+            kept = [h for h in request.history if h.movie_id in known]
+            ignored_history = len(request.history) - len(kept)
+            request = request.model_copy(update={"history": kept})
+            history_ids = {h.movie_id for h in kept}
+            liked = [h for h in kept if h.rating >= 4.0]
+            liked.sort(key=lambda h: h.timestamp or 0, reverse=True)
+            seed_ids = [h.movie_id for h in liked[:20]]
 
         # --- Stage 1: Understanding ---
         s1_start = time.time()
@@ -218,6 +224,11 @@ class Pipeline:
 
         total_duration = time.time() - t_start
         llm_calls_made = self.llm.call_count - initial_calls
+        for item in ranked_items:
+            movie = self.retriever.catalog_map.get(item.movie_id)
+            if movie:
+                item.n_ratings_train = movie.n_ratings_train
+                item.poster_path = item.poster_path or movie.poster_path
 
         trace = Trace(
             run_id=run_id,
@@ -229,7 +240,9 @@ class Pipeline:
             final=ranked_items,
             metrics={
                 "llm_calls": llm_calls_made,
-                "seconds": round(total_duration, 2)
+                "seconds": round(total_duration, 2),
+                "model": "stub" if self.llm.stub else settings.llm_model,
+                "ignored_history": ignored_history,
             }
         )
 

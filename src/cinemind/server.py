@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from sse_starlette.sse import EventSourceResponse
 
 from src.cinemind.config import settings, PROJECT_ROOT
-from src.cinemind.data.build_catalog import load_catalog
+from src.cinemind.data.build_catalog import load_catalog, CatalogMissing
 from src.cinemind.llm import LLMClient, default_llm
 from src.cinemind.pipeline import Pipeline
 from src.cinemind.retrieval.graph import MovieGraph
@@ -28,27 +28,68 @@ app.add_middleware(
 )
 
 trace_manager = TraceManager()
-pipeline = Pipeline()
+_pipeline: Optional[Pipeline] = None
+
+
+def get_pipeline() -> Pipeline:
+    """Built on first live request so replay works before `make index`."""
+    global _pipeline
+    if _pipeline is None:
+        _pipeline = Pipeline()
+    return _pipeline
 
 @app.get("/api/health", response_model=HealthResponse)
 async def health_check():
     model_ready = await default_llm.ping()
-    catalog = load_catalog()
+    try:
+        catalog_size = len(load_catalog())
+    except CatalogMissing:
+        catalog_size = 0
     graph_ready = settings.graph_path.exists()
     return HealthResponse(
         model_ready=model_ready,
-        catalog_size=len(catalog),
+        catalog_size=catalog_size,
         graph_ready=graph_ready,
         model_name=settings.llm_model
     )
 
-@app.get("/api/scenarios")
-async def get_scenarios():
+def _load_scenarios() -> list:
     sc_file = settings.scenarios_path
     if not sc_file.exists():
         return []
     with open(sc_file, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+_stats_cache: Dict[str, Any] = {}
+
+
+@app.get("/api/stats")
+async def get_stats():
+    """Catalog and graph sizes measured from the built data (no hardcoded numbers)."""
+    key = f"{settings.catalog_path.stat().st_mtime if settings.catalog_path.exists() else 0}"
+    if _stats_cache.get("key") != key:
+        stats: Dict[str, Any] = {"catalog_size": 0, "cold_start": 0, "graph_nodes": 0, "graph_edges": 0,
+                                 "cutoff_ts": None}
+        try:
+            movies = load_catalog()
+            stats["catalog_size"] = len(movies)
+            stats["cold_start"] = sum(1 for m in movies if m.n_ratings_train == 0)
+        except CatalogMissing:
+            pass
+        if settings.graph_path.exists():
+            g = MovieGraph.load().g
+            stats["graph_nodes"], stats["graph_edges"] = g.number_of_nodes(), g.number_of_edges()
+        meta = settings.catalog_path.parent / "split_meta.json"
+        if meta.exists():
+            stats["cutoff_ts"] = json.loads(meta.read_text(encoding="utf-8")).get("cutoff_ts")
+        _stats_cache.update(key=key, stats=stats)
+    return _stats_cache["stats"]
+
+
+@app.get("/api/scenarios")
+async def get_scenarios():
+    return _load_scenarios()
 
 @app.get("/api/compare/{scenario_id}")
 async def get_compare_scenario(scenario_id: str):
@@ -88,23 +129,18 @@ async def recommend_stream(request: RecommendRequest):
     if request.replay:
         target_id = request.scenario_id
         if not target_id:
-            # Try to match query with known scenarios
-            sc_list = []
-            if settings.scenarios_path.exists():
-                with open(settings.scenarios_path, "r", encoding="utf-8") as f:
-                    sc_list = json.load(f)
-            if request.query:
-                q_words = [w for w in request.query.lower().split() if len(w) > 3]
-                for sc in sc_list:
-                    sc_q = (sc.get("query") or "").lower()
-                    if any(w in sc_q for w in q_words):
-                        target_id = sc["id"]
-                        break
-            if not target_id and sc_list:
-                target_id = sc_list[0]["id"]
-
+            raise HTTPException(
+                status_code=400,
+                detail="Saved runs exist only for the examples. Pick an example, or switch to Live AI."
+            )
         if target_id:
-            trace = trace_manager.get_scenario_trace(target_id, config=request.retrieval)
+            trace = (trace_manager.get_scenario_trace(target_id, config=request.retrieval)
+                     or trace_manager.get_scenario_trace(target_id, config="hybrid"))
+            if not trace:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"No recorded replay for scenario '{target_id}'."
+                )
             if trace:
                 async def replay_generator():
                     for st in trace.stages:
@@ -127,6 +163,12 @@ async def recommend_stream(request: RecommendRequest):
                 return EventSourceResponse(replay_generator())
 
     # 3. Live mode: Check model server availability
+    if request.scenario_id and not any(sc.get("id") == request.scenario_id for sc in _load_scenarios()):
+        raise HTTPException(status_code=404, detail=f"Unknown scenario '{request.scenario_id}'.")
+    if request.mode == "feed" and request.scenario_id and not has_history:
+        sc = next(sc for sc in _load_scenarios() if sc["id"] == request.scenario_id)
+        request = request.model_copy(update={"history": sc.get("history") or []})
+
     model_online = await default_llm.ping()
     if not model_online and not default_llm.stub:
         raise HTTPException(
@@ -143,7 +185,7 @@ async def recommend_stream(request: RecommendRequest):
 
         async def worker():
             try:
-                await pipeline.run(request, emit_callback=sse_callback)
+                await get_pipeline().run(request, emit_callback=sse_callback)
             except Exception as e:
                 import traceback
                 print(f"[Server Error] Pipeline processing failed: {e}", flush=True)

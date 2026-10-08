@@ -1,255 +1,105 @@
-# CineMind: Proactive Movie Recommendation with Dynamic Graph Retrieval
+# CineMind
 
-> **A 30-Second Pitch:**  
-> Standard semantic search suffers from cold-start blindness when newly released movies lack interaction density, while pure collaborative filtering cannot reason about nuanced natural language constraints. **CineMind** combines **vector similarity** with **Personalized PageRank graph traversal** over director, cast, and keyword relationships within an explained, 4-stage agentic reasoning pipeline (extending the ARAG framework). It surfaces relevant cold-start films that vector similarity alone overlooks and backs every recommendation with verbatim evidence quotes and provenance graph paths.
+**Movie recommendations that explain themselves, and can find brand-new films.**
+
+You type what you want (or give a viewer's rating history). A local AI model reads it, looks through real movies, and returns **5 picks**. Each pick says **why** it fits, **how it was found**, and quotes the movie's own description **word for word** as evidence.
+
+The research question: rating-based recommenders can't suggest a film nobody has rated yet. CineMind adds a **movie graph** (shared directors, actors, genres) next to normal **text similarity**. If you loved *Inception*, the graph reaches *Oppenheimer* through "Director: Christopher Nolan" even when it has zero ratings. We measure whether that helps on real MovieLens viewers.
+
+It reproduces the 4-agent design of **ARAG** (Maragheh et al., 2025, *ARAG: Agentic Retrieval Augmented Generation for Personalized Recommendation*) and extends its candidate retrieval with graph search.
 
 ---
 
-## 🏛️ System Architecture
+## How it works
 
-```mermaid
-flowchart TD
-    subgraph Input ["1. User Input"]
-        Q["User Query / Prompt"]
-        H["Viewing & Rating History"]
-    end
-
-    subgraph Stage1 ["Stage 1: Understanding"]
-        U["Profile Extraction Agent (LLM)"]
-        P["Viewer Profile<br/>• Explicit Likes & Dislikes<br/>• Hard Negative Constraints<br/>• Mood & Thematic Summary"]
-    end
-
-    subgraph Discovery ["Candidate Discovery (<= 50 Candidates)"]
-        V["ChromaDB Vector Index<br/>(Cosine Semantic Similarity)"]
-        G["NetworkX Knowledge Graph<br/>(2-Hop Personalized PageRank, α=0.85)"]
-        Hyb["Hybrid Interleaver<br/>(De-duplicate & Rank-Balance)"]
-    end
-
-    subgraph Stage2 ["Stage 2: Judging"]
-        J["Batched Judging Agent<br/>(10 candidates / prompt call)"]
-        Verd["Fit Verdicts<br/>(Score 0.0–1.0, Match Boolean, Rationale)"]
-    end
-
-    subgraph Stage3 ["Stage 3: Summarising"]
-        S["Synthesis Agent"]
-        B["Landscape Brief<br/>(Standout Candidates, Violation Notes, Landscape Summary)"]
-    end
-
-    subgraph Stage4 ["Stage 4: Ranking & Hard Guards"]
-        R["Ranking Agent (LLM)"]
-        Guards["Deterministic Guards<br/>• Candidate Set Membership Guard<br/>• Weak-Match Backfill<br/>• 100% Extractive Substring Quotes"]
-        Final["Top-5 Explained Recommendations<br/>• Grounded Synopsis Quotes<br/>• Graph Provenance Explanations"]
-    end
-
-    Q & H --> U --> P
-    P --> V & G
-    V & G --> Hyb
-    P & Hyb --> J --> Verd
-    P & Verd --> S --> B
-    P & B & Verd --> R --> Guards --> Final
+```
+ request / rating history
+          │
+ 1. Understand ── AI writes likes, dislikes, rules ("no horror")
+          │
+ 2. Find candidates (≤ 50)
+      ├─ text similarity: nomic-embed-text + Chroma, top 30
+      └─ movie graph:     Personalized PageRank (2 hops, α=0.85) from liked / named movies, top 30
+          │
+ 3. Judge ─────── AI scores every candidate 0–1 with a reason (10 per call)
+ 4. Summarise ─── AI writes a short brief
+ 5. Rank ──────── AI picks 5
+          │
+ Checks in code: only real candidates, no already-watched movies, quotes are exact substrings
 ```
 
+About 8 AI calls per request. Every step streams to the UI. If the AI returns bad output twice, a simple backup rule runs and the UI marks the step **backup rule used**.
+
+Three retrieval settings can be compared: **text similarity only** (the ARAG baseline), **movie graph only**, and **both** (ours).
+
 ---
 
-## 🚀 Setup in 5 Commands
+## Setup
 
-CineMind is built for self-contained, reproducible execution on macOS (Apple Silicon) and Linux environments:
+You need Python 3.11 with [uv](https://docs.astral.sh/uv/), [Ollama](https://ollama.com), and a free [TMDB API key](https://www.themoviedb.org/settings/api). It's built for an Apple Silicon Mac with 16 GB of RAM, and Linux works too.
 
 ```bash
-# 1. Clone repository & enter workspace
-git clone <repo-url> && cd DeepLearning_Project
-
-# 2. Initialize Python 3.11 virtual environment & dependencies
-make setup
-
-# 3. Build catalog (12,000 movies), Chroma embeddings, and knowledge graph
-make data && make index
-
-# 4. Generate scenario traces and evaluation benchmark report
-make record && make eval
-
-# 5. Launch interactive dashboard & API server
-make demo
+make setup                         # Python environment
+cp .env.example .env               # then put your TMDB key in .env
+make models                        # ollama pull qwen3:8b + nomic-embed-text
+make data index scenarios          # MovieLens 32M + TMDB catalog, embeddings, graph, real demo viewers
+make record eval                   # saved runs for the demo + evaluation (slow: uses the real model)
+make demo                          # → http://127.0.0.1:8080
 ```
 
-Once running, navigate to **`http://127.0.0.1:8080`** in your browser.
+At any point, **`make doctor`** prints what is ready and what to run next.
+
+| Command | What it does |
+|---|---|
+| `make data` | Downloads MovieLens 32M, fetches TMDB metadata (resumable), builds the catalog. Cut-off = latest rating − 12 months. Catalog = movies with ≥ 50 ratings before the cut-off, plus movies first rated after it with ≥ 3 ratings. Movies with no description, director or cast are dropped. |
+| `make index` | Embeds every movie with `nomic-embed-text` (Chroma) and builds the movie graph (NetworkX). |
+| `make scenarios` | Ties the viewer examples to **real MovieLens users**, using their real ratings from before the cut-off. The new-movie examples use a user who really rated that new film 4★+ after the cut-off. |
+| `make record` | Runs every example with the real AI (text-only and both) and saves the runs for instant replay. |
+| `make eval` | Builds the real-viewer test split, runs 200 viewers × 3 settings, computes candidate recall over **all** eligible viewers, and writes `demo/results/results.{json,md}`. Resumable. |
+| `make bakeoff` | 24 hand-written judge cases on two models: schema validity, accuracy, seconds per call. |
+| `make verify` | Checks the spec's acceptance criteria against the real data, the saved runs and a live run. |
+| `make test` | Unit and integration tests, no Ollama or data needed. |
+
+Once `make data` has run, everything works offline. Posters load from TMDB when online and show initials otherwise.
 
 ---
 
-## ⏱️ Interactive Demo Walkthrough
+## Demo
 
-The web dashboard provides real-time stage inspection, side-by-side retrieval comparison, and benchmark exploration:
-
-1. **Dashboard Health & Diagnostics:**  
-   Open `http://127.0.0.1:8080`. The top status pill confirms server readiness, catalog size (**12,000 movies, 1,112 cold-start**), graph status, and loaded LLM model (`qwen3:8b`).
-2. **Cold-Start Directorial Discovery (Preset 1):**  
-   Click the **"Nolan Directorial Legacy (Cold-Start)"** preset.  
-   - Watch the 4 reasoning stages illuminate sequentially in the pipeline rail.
-   - Notice **Oppenheimer** (0 ratings in the historical training split) discovered at rank #1.
-   - Inspect the **Discovery Path Chip**: `Inception → Director: Christopher Nolan → Oppenheimer`.
-   - Review the verbatim evidence quote extracted directly from the official movie synopsis.
-3. **Natural Language Query with Hard Constraints (Preset 2):**  
-   Click **"Mind-Bending Sci-Fi & Time"** or type a custom prompt such as *"cerebral sci-fi with time loops, but no horror or gratuitous gore"*.  
-   - Open the **Understanding Stage** drawer to view structured JSON containing parsed likes, dislikes, and negative constraints.
-   - Open the **Judging Stage** drawer to view candidate fit scores (0.0–1.0) and rejection rationales.
-4. **Side-by-Side Comparison View:**  
-   Click the **"Comparison View"** tab in the navigation bar.  
-   - Select **"Nolan Directorial Legacy"**.
-   - Compare **Similarity-Only (ARAG Baseline)** against **Hybrid (CineMind)** side-by-side.
-   - Observe the golden **"EXCLUSIVE TO HYBRID"** badge highlighting cold-start movies surfaced through graph connectivity that pure vector search missed.
-5. **Evaluation Benchmark Suite:**  
-   Click the **"Evaluation Results"** tab to inspect the 200-viewer split protocol, metric comparisons, SVG distribution charts, and exemplar error cases.
+See **[DEMO.md](DEMO.md)** for a 3-minute click-by-click script.
 
 ---
 
-## 📊 Benchmark Evaluation & Results
+## Evaluation
 
-Evaluated across a time-based split protocol of **200 sampled test viewers** with $\ge 20$ historical train ratings. Ground truth targets are **cold-start movies (0 ratings in the training split)** rated $\ge 4.0$ during the evaluation period:
+* **Split:** time-based. Ratings before the cut-off are history; ratings after it are the future.
+* **New movie (cold-start):** a film with 0 ratings before the cut-off.
+* **Test viewers:** real MovieLens users with ≥ 20 ratings before the cut-off who rated at least one new movie 4★+ after it. 200 are sampled with a fixed seed. Ground truth is those new movies.
+* **Metrics:** HitRate@5/10 and NDCG@5/10 (end to end, AI returns 10), Recall@50 of the candidate list, plus AI calls and seconds per request.
 
-| Retrieval Configuration | HitRate@5 | HitRate@10 | NDCG@5 | NDCG@10 | Recall@50 | Calls / Rec | Latency / Rec |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Similarity-Only (ARAG Baseline)** | 0.7600 | 0.7600 | 0.3904 | 0.3904 | 1.0000 | 5.0 | 0.02s |
-| **Hybrid (CineMind Extension)** | 0.7400 | 0.7400 | 0.3928 | 0.3928 | 1.0000 | 4.0 | 0.02s |
-| **Graph-Only** | 0.8000 | 0.8000 | 0.4203 | 0.4203 | 1.0000 | 4.0 | 0.00s |
-
-### Model Bake-Off Summary
-
-Evaluated on Apple Silicon using local Ollama structured JSON outputs:
-
-| Model | Schema Valid Rate | Constraint Accuracy (24 Cases) | Avg Latency / 10-Item Call | Memory Footprint |
-| :--- | :---: | :---: | :---: | :---: |
-| **`qwen3:8b` (Selected)** | **100.0%** | **95.8% (23/24)** | **17.27s** | **~5.6 GB RAM** |
-
-*Note: In **Replay Mode**, recorded execution traces render in **< 1ms with 0 model calls**, guaranteeing instantaneous, offline demonstration.*
+Results are written by `make eval` to `demo/results/results.md` and shown in the app's **Results** tab. The report states plainly whether "both" beat "text similarity only", including when it did not. No results are committed until they have been produced on real data.
 
 ---
 
-## 🔬 Four-Stage Reasoning Pipeline Deep Dive
-
-### Stage 1: Understanding Agent
-- Extracts viewer preferences from either a natural language prompt or viewing history.
-- Produces a structured profile: `likes`, `dislikes`, `negative_constraints`, `mood`, and a dense semantic `summary`.
-- Caches profiles via deterministic SHA-256 keys to avoid redundant inference.
-
-### Candidate Discovery: Hybrid Graph & Vector Retrieval
-- **Vector Search (ChromaDB):** Retrieves top-30 candidates by cosine similarity against movie overviews and keywords using `nomic-embed-text`.
-- **Knowledge Graph Traversal (NetworkX):** Executes a 2-hop Personalized PageRank walk ($\alpha = 0.85$) starting from history seed movies across Director, Top-5 Cast, and Keyword edges.
-- **Interleaved Merge:** Interleaves vector and graph candidates, de-duplicates records, and filters previously watched movies to cap the candidate pool at $\le 50$.
-
-### Stage 2: Judging Agent
-- Evaluates candidates in batches of 10 per LLM prompt to minimize context pressure and round trips.
-- Enforces strict JSON schemas: returns a fit score ($0.0 - 1.0$), a boolean match indicator, and a reasoning explanation.
-- Employs automated retry-with-feedback if the model omits candidates from a batch.
-
-### Stage 3: Summarising Agent
-- Synthesizes all candidate verdicts into an overarching decision landscape brief.
-- Identifies strong standouts, notes constraint violations, and highlights trade-offs for the final ranking pass.
-
-### Stage 4: Ranking Agent & Hard Guards
-- Ranks the curated candidates into the top-5 final recommendation set.
-- **Candidate Set Guard:** Drops any hallucinated movie IDs not present in the retrieved candidate pool and backfills from vetted weak matches.
-- **Extractive Quote Guard:** Programmatically enforces that every evidence quote is a **100% exact verbatim substring** of the movie's official synopsis.
-
----
-
-## 📁 Repository Structure
+## Repository
 
 ```
-DeepLearning_Project/
-├── config.yaml               # Central configuration (server, retrieval, LLM, eval)
-├── Makefile                  # Lifecycle commands (setup, data, index, demo, eval, verify)
-├── requirements.txt          # Python runtime dependencies
-├── spec.md                   # Formal technical specification and requirements
-├── DESIGN.md                 # Design system tokens, component architecture, and styling
-├── src/
-│   └── cinemind/
-│       ├── agents/           # 4 reasoning stages + hard guard enforcement
-│       │   ├── understand.py # Stage 1: Profile extraction agent
-│       │   ├── judge.py      # Stage 2: Batched candidate evaluation agent
-│       │   ├── summarise.py  # Stage 3: Synthesis & landscape brief agent
-│       │   ├── rank.py       # Stage 4: Final ranking agent
-│       │   └── guards.py     # Substring quote & candidate set guards
-│       ├── retrieval/        # Discovery layer (vector, graph, hybrid)
-│       │   ├── vector.py     # ChromaDB collection wrapper
-│       │   ├── graph.py      # NetworkX knowledge graph & PPR walk
-│       │   ├── hybrid.py     # Interleaving & de-duplication retriever
-│       │   └── embed.py      # Embedding generation script
-│       ├── data/             # Catalog builder & MovieLens/TMDB ingest
-│       │   ├── build_catalog.py
-│       │   ├── movielens.py
-│       │   └── tmdb.py
-│       ├── eval/             # Evaluation harness, time-split, and metrics
-│       │   ├── split.py      # Deterministic time-based viewer splitter
-│       │   ├── metrics.py    # HitRate@K, NDCG@K, Recall@K calculations
-│       │   ├── run.py        # Offline benchmark executor
-│       │   └── report.py     # Markdown report and chart generator
-│       ├── static/           # Standalone dashboard frontend
-│       │   └── index.html    # Interactive SPA (dark mode, SSE streaming)
-│       ├── config.py         # Pydantic settings loading config.yaml
-│       ├── llm.py            # Async Ollama client with fallback stub
-│       ├── pipeline.py       # Orchestrator coordinating all 4 stages
-│       ├── schemas.py        # Pydantic data schemas
-│       ├── server.py         # FastAPI application with SSE endpoints
-│       └── trace.py          # Trace capture & replay manager
-├── demo/
-│   ├── scenarios.json        # Curated demonstration presets
-│   ├── results/              # Evaluation reports and benchmark JSON
-│   └── traces/               # Recorded execution traces for replay
-├── scripts/
-│   ├── record_traces.py      # Pre-records scenario traces for replay
-│   └── verify.py             # 10-point automated acceptance suite
-└── tests/                    # Pytest unit & integration test suite
+src/cinemind/
+  data/        movielens.py · tmdb.py · build_catalog.py
+  retrieval/   embed.py · vector.py · graph.py · hybrid.py
+  agents/      understand.py · judge.py · summarise.py · rank.py · guards.py
+  eval/        split.py · run.py · recall.py · metrics.py · report.py
+  pipeline.py  server.py  llm.py  schemas.py  trace.py  cache.py  config.py
+  static/      index.html · app.js · style.css   (no build step)
+scripts/       doctor.py · pick_scenario_users.py · record_traces.py · bakeoff.py · verify.py
+demo/          scenarios.json · traces/ (saved runs) · results/
+tests/         pytest suite + tiny fixtures (the only place a stub model is used)
+spec.md        full specification
 ```
 
----
+## Notes and limits
 
-## ⚙️ Configuration Reference
-
-Settings can be customized in `config.yaml` or overridden via environment variables:
-
-| Parameter | Default | Description |
-| :--- | :--- | :--- |
-| `server.host` | `"127.0.0.1"` | Host interface for FastAPI server |
-| `server.port` | `8080` | Port for web dashboard and REST API |
-| `llm.model` | `"qwen3:8b"` | Primary Ollama LLM model |
-| `llm.ollama_url` | `"http://127.0.0.1:11434"` | Base URL for local Ollama instance |
-| `llm.stub` | `false` | Enable deterministic stub responses for testing |
-| `retrieval.vector_top_k` | `30` | Top candidates retrieved via ChromaDB vector index |
-| `retrieval.graph_top_k` | `30` | Top candidates retrieved via Personalized PageRank |
-| `retrieval.hybrid_cap` | `50` | Maximum candidate pool size forwarded to judging |
-| `retrieval.graph_damping` | `0.85` | Damping factor ($\alpha$) for Personalized PageRank |
-| `ranking.final_k` | `5` | Number of recommendations returned to user |
-| `eval.sample_viewers` | `200` | Number of test viewers sampled for benchmark |
-
----
-
-## 🔒 Verification & Quality Assurance
-
-### Automated Acceptance Suite
-Run the 10-point acceptance test verifying data integrity, quote substring constraints, index count, and replay timing:
-```bash
-make verify
-```
-
-### Unit & Integration Tests
-Run pytest with code coverage:
-```bash
-make test
-```
-
----
-
-## ⚠️ Known Limitations & Assumptions
-
-1. **Local Model Hardware:** Evaluated on Apple Silicon M-series hardware. Local execution with `qwen3:8b` requires ~5.6 GB of resident memory, running smoothly on 16 GB machines.
-2. **Deterministic Replay Guarantee:** For zero-latency presentations or environments without local GPUs, CineMind defaults to recorded trace replay (`demo/traces/`), ensuring instant rendering (< 1ms) without network or queuing dependencies.
-3. **Curated Reference Catalog:** Includes 12,000 curated movies enriched with TMDB directors, top-5 cast members, and thematic keywords. The full MovieLens 32M corpus can be connected by adding your `TMDB_API_KEY` to `.env`.
-
----
-
-## 📚 References & Foundations
-
-- **ARAG Paper:** *Agentic Retrieval-Augmented Generation for Explainable Recommendation*
-- **Personalized PageRank:** Page, L., Brin, S., Motwani, R., & Winograd, T. (1999). *The PageRank Citation Ranking: Bringing Order to the Web*.
-# DeepLearningProject
-# DeepLearningProject
+* MovieLens and TMDB data are never committed (license). Only derived demo files are.
+* The stub AI client and the small fixture catalog exist only for the test suite. The app, `make record` and `make eval` always use the real model and refuse to run without it.
+* Graph edge weights (director 3, cast 2, keyword 1.5, genre 1/log(1+frequency)) are initial values, not tuned.
+* Text similarity works from descriptions, so new movies are not invisible to it. The graph's measurable benefit is getting the right new movie into the candidate list; the eval reports whether that happens.
