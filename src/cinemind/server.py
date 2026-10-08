@@ -105,6 +105,8 @@ async def recommend_stream(request: RecommendRequest):
 
         if target_id:
             trace = trace_manager.get_scenario_trace(target_id, config=request.retrieval)
+            if not trace and request.scenario_id:
+                raise HTTPException(status_code=404, detail=f"Recorded replay trace for scenario '{request.scenario_id}' with config '{request.retrieval}' not found.")
             if trace:
                 async def replay_generator():
                     for st in trace.stages:

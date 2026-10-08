@@ -303,15 +303,27 @@ async function executeRecommendation() {
     return;
   }
 
-  const effectiveReplay = Boolean(activeScenarioId && isReplay);
+  const effectiveReplay = isReplay;
   resetStages();
 
   const btn = document.getElementById("run-btn");
   const btnText = document.getElementById("run-btn-text");
   const spinner = document.getElementById("run-spinner");
   if (btn) btn.disabled = true;
-  if (btnText) btnText.textContent = effectiveReplay ? "Retrieving..." : "Reasoning...";
+  if (btnText) btnText.textContent = effectiveReplay ? "Retrieving..." : "Reasoning (0.0s)...";
   if (spinner) spinner.style.display = "inline-block";
+
+  const startTime = Date.now();
+  const timerInterval = setInterval(() => {
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    if (btnText) {
+      btnText.textContent = effectiveReplay ? `Retrieving (${elapsed}s)...` : `Reasoning (${elapsed}s)...`;
+    }
+    const statusLbl = document.getElementById("pipeline-status-label");
+    if (statusLbl && !effectiveReplay && !statusLbl.textContent.includes("Judging batch")) {
+      statusLbl.textContent = `Evaluating on device (${elapsed}s elapsed)...`;
+    }
+  }, 200);
 
   const payload = {
     mode: currentMode,
@@ -319,7 +331,7 @@ async function executeRecommendation() {
     history: activeSc ? activeSc.history : [],
     retrieval: currentRetrieval,
     replay: effectiveReplay,
-    scenario_id: effectiveReplay ? activeScenarioId : null,
+    scenario_id: activeScenarioId || null,
     allow_fallback: allowFallback
   };
 
@@ -375,6 +387,7 @@ async function executeRecommendation() {
   } catch (err) {
     showError(err.message || "Failed to generate recommendations");
   } finally {
+    clearInterval(timerInterval);
     if (btn) btn.disabled = false;
     if (btnText) btnText.textContent = "Discover";
     if (spinner) spinner.style.display = "none";
@@ -386,6 +399,16 @@ async function executeRecommendation() {
 function handlePipelineEvent(eventType, data) {
   if (eventType === "stage_start") {
     updateStage(data.stage, "running");
+  } else if (eventType === "stage_progress") {
+    const badge = document.getElementById(`badge-${data.stage}`);
+    if (badge) {
+      badge.textContent = `Batch ${data.batch}/${data.total_batches}`;
+      badge.className = "step-badge running";
+    }
+    const statusLbl = document.getElementById("pipeline-status-label");
+    if (statusLbl) {
+      statusLbl.textContent = data.message || `Evaluating candidates...`;
+    }
   } else if (eventType === "stage_end") {
     const isFailed = data.record && (data.record.status === "failed" || Boolean(data.record.error));
     const isFb = data.record && data.record.fallback_used;
