@@ -1,32 +1,18 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
-.venv/
-env/
-venv/
-*.egg-info/
-dist/
-build/
-
-# Environment and secrets
-.env
-.env.local
-
-# Data (spec: data/ is gitignored, raw/ and processed/)
-data/raw/
-data/processed/
-data/
-!data/.gitkeep
-
-# Cache and testing
+/.venv/
 .pytest_cache/
-.coverage
-htmlcov/
-.chroma/
 
-# OS
+# Secrets
+.env
+
+# Data and artifacts (root-anchored so source folders are never ignored)
+/data/
+/artifacts/
+
+# Frontend
+node_modules/
+/frontend/dist/
+
 .DS_Store
-Thumbs.db
