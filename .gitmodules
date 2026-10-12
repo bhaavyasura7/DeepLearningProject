@@ -1,0 +1,6 @@
+[submodule "references/agentic-recommenders"]
+	path = references/agentic-recommenders
+	url = https://github.com/yxtay/agentic-recommenders.git
+[submodule "references/HippoRAG"]
+	path = references/HippoRAG
+	url = https://github.com/OSU-NLP-Group/HippoRAG.git

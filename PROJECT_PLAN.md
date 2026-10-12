@@ -141,7 +141,16 @@ All have public code unless marked.
 
 ---
 
-## 6. Rules for anyone continuing this work
+## 6. Reference code in this repo
+
+Both reference implementations are included as git submodules under `references/`
+(run `git submodule update --init --recursive` to download them).
+See `references/README.md` for which files matter and how they compare to CineMind.
+
+- `references/agentic-recommenders/` — unofficial ARAG (base paper).
+- `references/HippoRAG/` — official HippoRAG 2 (Personalized PageRank idea).
+
+## 7. Rules for anyone continuing this work
 
 - Keep ARAG as the base paper; do not switch to another paper.
 - Never report metrics produced with the stub LLM or fallback embeddings.
